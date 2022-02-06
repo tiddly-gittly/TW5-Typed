@@ -1,0 +1,16 @@
+{
+  "description": "Types for tiddlywiki",
+  "license": "MIT",
+  "name": "tw5-typed",
+  "version": "0.0.1",
+  "url": "https://github.com/tiddly-gittly/tw5-typed",
+  "types": "src/index.d.ts",
+  "author": "",
+  "scripts": {
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+  }
+}
