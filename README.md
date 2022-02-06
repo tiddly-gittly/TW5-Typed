@@ -26,6 +26,16 @@ Then you will have global types like `$tw` automatically. You can import the res
 import type { ISearchOptions, SourceIterator, IFilterOperatorParamOperator } from 'tiddlywiki';
 ```
 
+### Alias
+
+Sometimes you may want to use a modified version of tw, you can re-export types like this in your `src/type.d.ts`:
+
+```typescript
+declare module '@tiddlygit/tiddlywiki' {
+  export * from 'tiddlywiki';
+}
+```
+
 ## Development
 
 You can add new `*.d.ts` file to contain your types:
@@ -35,3 +45,5 @@ You can add new `*.d.ts` file to contain your types:
 1. to add type for global variable, add `global { }` inside that `declare module 'tiddlywiki' { }`, like `global { var $tw: I$TW; }`
 
 And add `import './xxx';` in the `index.d.ts` file.
+
+To rapid prototype the type, just right click a type to open `.d.ts` file in the `node_modules`, and try create new file there, and copy to this repo after a success.
