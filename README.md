@@ -23,7 +23,7 @@ Add `tw5-typed` to your `tsconfig.json`'s `compilerOptions`
 Then you will have global types like `$tw` automatically. You can import the rest of the types using `import type` statement:
 
 ```typescript
-import type { ISearchOptions, SourceIterator, IFilterOperatorParamOperator } from 'tw5-typed';
+import type { ISearchOptions, SourceIterator, IFilterOperatorParamOperator } from 'tiddlywiki';
 ```
 
 ## Development
