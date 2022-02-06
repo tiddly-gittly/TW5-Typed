@@ -6,9 +6,10 @@ declare module 'tiddlywiki' {
   export * from './filter-operator';
 }
 
-declare module '@tiddlygit/tiddlywiki' {
-  export * from 'tiddlywiki';
-}
+// this only work when there is no import statement...
+// declare module '@tiddlygit/tiddlywiki' {
+//   export * from 'tiddlywiki';
+// }
 
 declare global {
   var $tw: I$TW;
