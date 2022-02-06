@@ -1,15 +1,10 @@
 import { I$TW } from './tw';
-import './filter-operator';
+export * from './tw';
+export * from './filter-operator';
 
-declare module 'tiddlywiki' {
-  export * from './tw';
-  export * from './filter-operator';
-}
+declare module 'tiddlywiki' {}
 
-// this only work when there is no import statement...
-// declare module '@tiddlygit/tiddlywiki' {
-//   export * from 'tiddlywiki';
-// }
+declare module '@tiddlygit/tiddlywiki' {}
 
 declare global {
   var $tw: I$TW;
