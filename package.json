@@ -11,7 +11,7 @@
   "author": "",
   "scripts": {},
   "devDependencies": {
-    "typescript": "^4.5.5"
+    "typescript": "4.5.5"
   },
   "dependencies": {}
 }
