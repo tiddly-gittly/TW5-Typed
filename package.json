@@ -2,9 +2,9 @@
   "description": "Types for tiddlywiki",
   "license": "MIT",
   "name": "tw5-typed",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
-  "types": "index.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "src/"
   ],
