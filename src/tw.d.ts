@@ -11,6 +11,7 @@ export interface ITiddlerFields {
   text: string;
   title: string;
   type: string;
+  [anyKey: string]: unknown;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -38,7 +39,10 @@ export interface I$TW {
   hooks: { addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void };
   wiki: {
     getTiddler: (title: string) => ITiddler | undefined;
-    getTiddlers: () => ITiddler[];
+    /**
+     * Get full list of tiddler titles in the wiki
+     */
+    getTiddlers: () => string[];
   };
   utils: Record<string, any>;
 }
