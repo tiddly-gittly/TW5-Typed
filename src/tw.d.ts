@@ -38,6 +38,8 @@ export interface I$TW {
   hooks: { addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void };
   wiki: {
     getTiddler: (title: string) => ITiddler | undefined;
+    getTiddlers: () => ITiddler[];
   };
+  utils: Record<string, any>;
 }
 export function TiddlyWiki(): I$TW;
