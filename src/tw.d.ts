@@ -1,4 +1,4 @@
-declare module "tiddlywiki" {
+declare module 'tiddlywiki' {
   export interface ITiddler {
     constructor(...fields: (Record<string, unknown> | ITiddler)[]);
     readonly cache: ITiddlerCache;
@@ -103,10 +103,7 @@ declare module "tiddlywiki" {
     preloadTiddlerArray(fieldsArray: Record<string, unknown>[]): void;
 
     hooks: {
-      addHook: (
-        hookName: string,
-        callback: (...arguments_: any[]) => unknown
-      ) => void;
+      addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void;
     };
     wiki: {
       getTiddler: (title: string) => ITiddler | undefined;
@@ -136,14 +133,7 @@ declare module "tiddlywiki" {
        *
        * Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated.
        * */
-      each<T = object | unknown[]>(
-        object: T,
-        callback: (
-          element?: unknown,
-          index?: string | number,
-          object?: T
-        ) => boolean | void
-      );
+      each<T = object | unknown[]>(object: T, callback: (element?: unknown, index?: string | number, object?: T) => boolean | void);
       /**
        * Helper for making DOM elements
        * Options include:
@@ -183,7 +173,7 @@ declare module "tiddlywiki" {
           class?: string;
           document?: Document;
           eventListeners?: EventListener[];
-        }
+        },
       ): Element;
     };
   }
