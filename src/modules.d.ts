@@ -1,12 +1,17 @@
-declare module "tiddlywiki" {
+declare module 'tiddlywiki' {
+  export interface ITWModuleExports {
+    name?: string;
+    type?: string;
+    [exportName: unknown]: unknown;
+  }
   export interface IModuleInfo {
     moduleType: string;
-    definition: string | TWModuleDefinitionFucntion | Record<unknown, unknown>;
-    exports: Record<unknown, unknown> | null;
+    definition: string | TWModuleDefinitionFucntion | ITWModuleExports;
+    exports: ITWModuleExports | null;
   }
   export interface IModuleSandbox {
-    module: { exports: Record<unknown, unknown> };
-    exports: Record<unknown, unknown>;
+    module: { exports: ITWModuleExports };
+    exports: ITWModuleExports;
     console: Console;
     setInterval: typeof setInterval;
     clearInterval: typeof clearInterval;
@@ -14,13 +19,9 @@ declare module "tiddlywiki" {
     clearTimeout: typeof clearTimeout;
     Buffer?: Buffer;
     $tw: TiddlyWiki;
-    require: (title: string) => Record<unknown, unknown>;
+    require: (title: string) => ITWModuleExports;
   }
-  export type TWModuleDefinitionFucntion = (
-    moduleInfo: IModuleInfo,
-    exports: Record<unknown, unknown>,
-    requireFunction: (title: string) => void
-  ) => void;
+  export type TWModuleDefinitionFucntion = (moduleInfo: IModuleInfo, exports: ITWModuleExports, requireFunction: (title: string) => void) => void;
   /**
    * Information about each module is kept in an object with these members:
    *
@@ -45,19 +46,15 @@ declare module "tiddlywiki" {
      * Define a JavaScript tiddler module for later execution
      * @param {string} moduleName name of module being defined
      * @param {string} moduleType type of module
-     * @param {(string | TWModuleDefinitionFucntion | Record<unknown, unknown>)} definition module definition; see discussion above
+     * @param {(string | TWModuleDefinitionFucntion | ITWModuleExports)} definition module definition; see discussion above
      * @memberof ITWModules
      */
-    define(
-      moduleName: string,
-      moduleType: string,
-      definition: string | TWModuleDefinitionFucntion | Record<unknown, unknown>
-    ): void;
+    define(moduleName: string, moduleType: string, definition: string | TWModuleDefinitionFucntion | ITWModuleExports): void;
     /**
      * Execute the module named 'moduleName'. The name can optionally be relative to the module named 'moduleRoot'
      * @memberof ITWModules
      */
-    execute(moduleName: string, moduleRoot: string): Record<unknown, unknown>;
+    execute(moduleName: string, moduleRoot: string): ITWModuleExports;
     /**
      * Apply a callback to each module of a particular type
      *
@@ -65,21 +62,14 @@ declare module "tiddlywiki" {
      * @param {(title, moduleExports) => void} callback function called as callback(title,moduleExports) for each module
      * @memberof ITWModules
      */
-    forEachModuleOfType(
-      moduleType: string,
-      callback: (title, moduleExports) => void
-    ): void;
+    forEachModuleOfType(moduleType: string, callback: (title, moduleExports) => void): void;
     /** Get all the modules of a particular type in a hashmap by their `name` field */
-    getModulesByTypeAsHashmap(
-      moduleType: string,
-      nameField: string
-    ): Record<string, IModuleInfo>;
+    getModulesByTypeAsHashmap(moduleType: string, nameField: string): Record<string, IModuleInfo>;
     /** Apply the exports of the modules of a particular type to a target object */
-    applyMethods(
-      moduleType: string,
-      targetObject?: Record<unknown, unknown>
-    ): Record<unknown, unknown>;
+    applyMethods(moduleType: string, targetObject?: ITWModuleExports): ITWModuleExports;
     /** Return a class created from a modules. The module should export the properties to be added to those of the optional base class */
-    // createClassFromModule<T>(moduleExports, baseClass: Construc);
+    createClassFromModule(moduleExports: ITWModuleExports, baseClass: new () => unknown): ITWModuleExports;
+    /** Return an array of classes created from the modules of a specified type. Each module should export the properties to be added to those of the optional base class */
+    createClassesFromModules(moduleType: string, subType: string | void, baseClass: new () => unknown): Record<string, ITWModuleExports>;
   }
 }
