@@ -38,6 +38,12 @@ declare module '@tiddlygit/tiddlywiki' {
 
 ## Development
 
+Firstly, Install eslint using npm:
+
+```sh
+npm i
+```
+
 You can add new `*.d.ts` file to contain your types:
 
 1. use `declare module 'tiddlywiki' { }` to wrap all your types.
