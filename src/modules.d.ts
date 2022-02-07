@@ -9,19 +9,24 @@ declare module 'tiddlywiki' {
     exports: ITWModuleExports | null;
     moduleType: string;
   }
+  export interface ITWRequire {
+    (title: string): ITWModuleExports;
+    readonly main: NodeJS.Module | { TiddlyWiki: typeof TiddlyWiki };
+  }
   export interface IModuleSandbox {
-    $tw: TiddlyWiki;
+    $tw: ITiddlyWiki;
     Buffer?: Buffer;
     clearInterval: typeof clearInterval;
     clearTimeout: typeof clearTimeout;
     console: Console;
     exports: ITWModuleExports;
-    module: { exports: ITWModuleExports };
-    require: (title: string) => ITWModuleExports;
+    module: { exports: ITWModuleExports; readonly id: string };
+    process?: NodeJS.Process;
+    require: ITWRequire;
     setInterval: typeof setInterval;
     setTimeout: typeof setTimeout;
   }
-  export type TWModuleDefinitionFucntion = (moduleInfo: IModuleInfo, exports: ITWModuleExports, requireFunction: (title: string) => void) => void;
+  export type TWModuleDefinitionFucntion = (moduleInfo: IModuleInfo, exports: ITWModuleExports, requireFunction: ITWRequire) => void;
   /**
    * Information about each module is kept in an object with these members:
    *
