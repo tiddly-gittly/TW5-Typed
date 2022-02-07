@@ -1,10 +1,4 @@
-declare module "tiddlywiki" {
-  /**
-   * filepath: '/Users/linonetwo/xxxx/wiki/Meme-of-LinOnetwo/tiddlers/tiddlerTitle.tid',
-   * hasMetaFile: false
-   * tiddlerTitle: string,
-   * type: 'application/x-tiddler',
-   */
+declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
     filepath: string;
     hasMetaFile: boolean;
@@ -61,10 +55,7 @@ declare module "tiddlywiki" {
     preloadTiddlerArray(fieldsArray: Record<string, unknown>[]): void;
 
     hooks: {
-      addHook: (
-        hookName: string,
-        callback: (...arguments_: any[]) => unknown
-      ) => void;
+      addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void;
     };
     wiki: {
       getTiddler: (title: string) => Tiddler | undefined;
