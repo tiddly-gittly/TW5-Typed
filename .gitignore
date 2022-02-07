@@ -1,6 +1,6 @@
 # module lock files
 package-lock.json
-pnpm-lock-yaml
+pnpm-lock.yaml
 
 # Logs
 logs
