@@ -1,13 +1,12 @@
-declare class variablesConstructor {
-
-}
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+declare class variablesConstructor {}
 
 export class Widget {
-  constructor(parseTreeNode: any, options: any);
-  initialize: (parseTreeNode: any, options: any) => void;
-  parseTreeNode: any;
-  wiki: any;
+  constructor(parseTreeNode: unknown, options: unknown);
+  initialize: (parseTreeNode: unknown, options: unknown) => void;
+  parseTreeNode: unknown;
+  wiki: unknown;
   parentWidget?: Widget;
   variablesConstructor: variablesConstructor;
-  variables: any;
+  variables: unknown;
 }

@@ -1,17 +1,17 @@
-declare module "tiddlywiki" {
+declare module 'tiddlywiki' {
   export interface PasswordPromptInfo {
-    serviceName: string;
     callback: PasswordPromptInfoCallback;
     form: TWDOMElement;
     owner: PasswordPrompt;
+    serviceName: string;
   }
 
   export type PasswordPromptInfoCallback = (
     data: {
-      username: string;
       password: string;
       password2?: string;
-    } | null
+      username: string;
+    } | null,
   ) => boolean;
 
   export class PasswordPrompt {
@@ -42,12 +42,12 @@ declare module "tiddlywiki" {
      * @memberof PasswordPrompt
      */
     createPrompt(options: {
-      submitText: string;
-      serviceName: string;
-      noUserName: boolean;
-      canCancel: boolean;
-      repeatPassword: boolean;
       callback: PasswordPromptInfoCallback;
+      canCancel: boolean;
+      noUserName: boolean;
+      repeatPassword: boolean;
+      serviceName: string;
+      submitText: string;
     }): PasswordPromptInfo;
     removePrompt(promptInfo: PasswordPromptInfo): void;
   }

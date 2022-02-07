@@ -19,49 +19,55 @@ declare module 'tiddlywiki' {
   }
 
   export interface IContentTypeInfo {
+    deserializerType: string;
     encoding: string;
     extension: string;
     flags: string[];
-    deserializerType: string;
   }
 
   export interface TiddlyWiki {
+    Tiddler: typeof Tiddler;
+    Wiki: typeof Wiki;
+
     boot: {
       argv: string[];
       files: IBootFilesIndex;
+      log(logString: string): void;
+      logMessages: string[];
       startup(options: { callback?: () => unknown }): void;
       /** Default boot tasks */
       tasks: {
-        trapErrors: boolean;
         readBrowserTiddlers: boolean;
+        trapErrors: boolean;
       };
-      logMessages: string[];
-      log(str: string): void;
     };
 
-    version: string;
-    /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     browser: null | object;
+
+    config: ITWConfig;
+
+    hooks: {
+      addHook: (hookName: string, callback: (...arguments_: unknown[]) => unknown) => void;
+    };
+
+    modules: ITWModules;
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
     node: null | object;
+    /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | object;
-    modules: ITWModules;
 
-    /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
-    preloadTiddlers: Record<string, Record<string, unknown>>;
     /** Convenience function for pushing a tiddler onto the preloading array */
     preloadTiddler(fields: Record<string, unknown>): void;
     /** Convenience function for pushing an array of tiddlers onto the preloading array */
-    preloadTiddlerArray(fieldsArray: Record<string, unknown>[]): void;
+    preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
+    /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
+    preloadTiddlers: Record<string, Record<string, unknown>>;
 
-    hooks: {
-      addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void;
-    };
-    wiki: Wiki;
     utils: ITWUtils;
-    config: ITWConfig;
-    Tiddler: typeof Tiddler;
-    Wiki: typeof Wiki;
+
+    version: string;
+
+    wiki: Wiki;
   }
 
   export function TiddlyWiki(): TiddlyWiki;
