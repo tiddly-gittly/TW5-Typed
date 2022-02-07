@@ -2,7 +2,7 @@
   "description": "Types for tiddlywiki",
   "license": "MIT",
   "name": "tw5-typed",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
   "homepage": "https://github.com/tiddly-gittly/tw5-typed",
   "bugs": {
@@ -16,7 +16,9 @@
   "files": [
     "src/"
   ],
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "npx tsc --noEmit"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.10.2",
     "@typescript-eslint/parser": "5.10.2",
