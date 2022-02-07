@@ -57,16 +57,11 @@ declare module 'tiddlywiki' {
     hooks: {
       addHook: (hookName: string, callback: (...arguments_: any[]) => unknown) => void;
     };
-    wiki: {
-      getTiddler: (title: string) => Tiddler | undefined;
-      /**
-       * Get full list of tiddler titles in the wiki
-       */
-      getTiddlers: () => string[];
-    };
+    wiki: Wiki;
     utils: ITWUtils;
     config: ITWConfig;
     Tiddler: typeof Tiddler;
+    Wiki: typeof Wiki;
   }
 
   export function TiddlyWiki(): TiddlyWiki;
