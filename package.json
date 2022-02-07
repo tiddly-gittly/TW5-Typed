@@ -4,11 +4,18 @@
   "name": "tw5-typed",
   "version": "0.0.6",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
+  "homepage": "https://github.com/tiddly-gittly/tw5-typed",
+  "bugs": {
+    "url": "https://github.com/tiddly-gittly/tw5-typed/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiddly-gittly/tw5-typed.git"
+  },
   "types": "src/index.d.ts",
   "files": [
     "src/"
   ],
-  "author": "",
   "scripts": {},
   "devDependencies": {
     "typescript": "4.5.5"
