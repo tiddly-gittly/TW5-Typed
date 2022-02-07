@@ -25,7 +25,7 @@ declare module 'tiddlywiki' {
     flags: string[];
   }
 
-  export interface TiddlyWiki {
+  export interface ITiddlyWiki {
     Tiddler: typeof Tiddler;
     Wiki: typeof Wiki;
 
@@ -70,9 +70,9 @@ declare module 'tiddlywiki' {
     wiki: Wiki;
   }
 
-  export function TiddlyWiki(): TiddlyWiki;
+  export declare function TiddlyWiki($tw: object): ITiddlyWiki;
 
   global {
-    const $tw: TiddlyWiki;
+    const $tw: ITiddlyWiki;
   }
 }
