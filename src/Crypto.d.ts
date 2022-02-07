@@ -1,4 +1,4 @@
-declare module "tiddlywiki" {
+declare module 'tiddlywiki' {
   export class Crypto {
     setPassword(newPassword: string): void;
     updateCryptoStateTiddler(): void;
