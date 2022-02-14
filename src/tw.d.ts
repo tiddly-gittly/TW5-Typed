@@ -1,4 +1,4 @@
-import { Widget } from './widget'
+import { Widget } from './widget';
 
 declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
@@ -65,19 +65,17 @@ declare module 'tiddlywiki' {
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
     preloadTiddlers: Record<string, Record<string, unknown>>;
 
+    rootWidget: Widget;
+
     utils: ITWUtils;
 
     version: string;
-
     wiki: Wiki;
-    rootWidget: Widget;
   }
 
   export function TiddlyWiki($tw: object): ITiddlyWiki;
 }
-
-import { ITiddlyWiki } from 'tiddlywiki';
 declare global {
   const $tw: ITiddlyWiki;
 }
-export {}
+export {};
