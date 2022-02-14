@@ -68,9 +68,10 @@ declare module 'tiddlywiki' {
     version: string;
 
     wiki: Wiki;
+    rootWidget: Widget;
   }
 
-  export declare function TiddlyWiki($tw: object): ITiddlyWiki;
+  export function TiddlyWiki($tw: object): ITiddlyWiki;
 
   global {
     const $tw: ITiddlyWiki;
