@@ -1,3 +1,5 @@
+import { Widget } from './widget'
+
 declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
     filepath: string;
@@ -72,8 +74,10 @@ declare module 'tiddlywiki' {
   }
 
   export function TiddlyWiki($tw: object): ITiddlyWiki;
-
-  global {
-    const $tw: ITiddlyWiki;
-  }
 }
+
+import { ITiddlyWiki } from 'tiddlywiki';
+declare global {
+  const $tw: ITiddlyWiki;
+}
+export {}
