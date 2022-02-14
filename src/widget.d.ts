@@ -13,7 +13,7 @@ export declare class Widget {
   /**
     Add an event listener
   */
-  addEventListener(type: string, handler: (args: any[]) => void): void;
+  addEventListener(type: string, handler: (arguments_: unknown[]) => void): void;
   /**
     Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
   */
@@ -21,7 +21,7 @@ export declare class Widget {
   /**
     Add a list of event listeners from an array [{type:,handler:},...]
   */
-  addEventListeners(listeners: { type: string; handler: (args: any[]) => void }[]): void;
+  addEventListeners(listeners: Array<{ handler: (arguments_: unknown[]) => void; type: string }>): void;
 
   parentDomNode: Node;
   execute: () => void;
@@ -31,6 +31,11 @@ export declare class Widget {
    */
   render(parent: Node, nextSibling: Node): void;
   computeAttributes(): void;
+  /**
+   * Get parameters that user set in the widget
+   * @param name attribute name, for example, `actions` in the button widget
+   */
+  getAttribute(name: string): string;
 }
 declare module 'tiddlywiki' {
   export type Widget = typeof Widget;

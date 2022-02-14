@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-useless-constructor */
 import { Widget as IWidget } from 'tiddlywiki'
 
 const Widget = {} as unknown as IWidget;
@@ -6,7 +7,7 @@ export class ReactWidget extends Widget {
     super(parseTreeNode, options);
   }
 
-  render(parent: Node, nextSibling: Node) {
+  render(parent: Node, nextSibling: Node): void {
     this.parentDomNode = parent;
     this.execute();
     this.computeAttributes();
