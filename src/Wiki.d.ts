@@ -18,6 +18,14 @@ declare module 'tiddlywiki' {
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.
      */
     compileFilter: (filterString: string) => (iterator?: SourceIterator) => string[];
-    setTiddlerData: (title: string, data?: any, fields?: ITiddlerFields, options?: any) => void;
+    /**
+     * Set JSON tiddler, Object in data field will be JSON.stringify and put into the text.
+     */
+    setTiddlerData: (title: string, data?: object, fields?: ITiddlerFields, options?: any) => void;
+    /**
+     * Create or update tiddler.
+     * Update existed tiddler based on the title field.
+     */
+    addTiddler: (tiddler: Tiddler | ITiddlerFields) => void;
   }
 }
