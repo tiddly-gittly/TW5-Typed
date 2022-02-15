@@ -1,6 +1,6 @@
 {
   "exclude": [],
-  "include": ["src"],
+  "include": ["src", "test/tiddlywiki-test.ts"],
   "ts-node": {
     "files": true,
     "compilerOptions": {

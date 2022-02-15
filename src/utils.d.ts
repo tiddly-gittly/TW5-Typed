@@ -1,8 +1,11 @@
+/// <reference path="Crypto.d.ts" />
+/// <reference path="PasswordPrompt.d.ts" />
+
 declare module 'tiddlywiki' {
   export type TWDocument = Document;
   export type TWDOMElement = Element;
   export type TWEachCallback<T> = (element?: unknown, index?: string | number, object?: T) => boolean | undefined;
-  interface ITWUtils {
+  export interface ITWUtils {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
     /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */

@@ -3,7 +3,7 @@ declare module 'tiddlywiki' {
     constructor(...fields: Array<Record<string, unknown> | Tiddler>);
     readonly cache: ITiddlerCache;
     readonly fields: ITiddlerFields;
-    static fieldModules: IModule;
+    static fieldModules: Record<string, IModuleInfo>;
     hasField(field: string): boolean;
     isEqual(tiddler: Tiddler, excludeFields: string[]): boolean;
   }

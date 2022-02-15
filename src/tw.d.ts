@@ -1,4 +1,10 @@
-import { Widget } from './widget';
+/// <reference path="filter-operator.d.ts" />
+/// <reference path="modules.d.ts" />
+/// <reference path="Tiddler.d.ts" />
+/// <reference path="twconfig.d.ts" />
+/// <reference path="utils.d.ts" />
+/// <reference path="Widget.d.ts" />
+/// <reference path="Wiki.d.ts" />
 
 declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
@@ -73,9 +79,5 @@ declare module 'tiddlywiki' {
     wiki: Wiki;
   }
 
-  export function TiddlyWiki($tw: object): ITiddlyWiki;
+  export type TW5InitFunction = ($tw?: ITiddlyWiki) => ITiddlyWiki;
 }
-declare global {
-  const $tw: ITiddlyWiki;
-}
-export {};

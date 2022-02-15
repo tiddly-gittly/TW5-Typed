@@ -49,6 +49,7 @@ module.exports = {
       },
     ],
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/triple-slash-reference': { "path": "never", "types": "never", "lib": "always" },
     'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-module': 'off',
     '@typescript-eslint/no-empty-function': 'off',
