@@ -1,6 +1,6 @@
 declare module 'tiddlywiki' {
   export interface ITWModuleExports {
-    [exportName: unknown]: unknown;
+    [exportName: string]: unknown;
     name?: string;
     type?: string;
   }
@@ -11,7 +11,7 @@ declare module 'tiddlywiki' {
   }
   export interface ITWRequire {
     (title: string): ITWModuleExports;
-    readonly main: NodeJS.Module | { TiddlyWiki: typeof TiddlyWiki };
+    readonly main: NodeJS.Module | { TiddlyWiki: TW5InitFunction };
   }
   export interface IModuleSandbox {
     $tw: ITiddlyWiki;

@@ -1,5 +1,5 @@
 declare module 'tiddlywiki' {
-  declare interface ITWConfig {
+  interface ITWConfig {
     [configName: string]: unknown;
     /** Map type to file content type */
     contentTypeInfo: Record<string, IContentTypeInfo>;
