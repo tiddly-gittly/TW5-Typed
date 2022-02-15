@@ -17,6 +17,7 @@ declare module 'tiddlywiki' {
      * Compile filter string to be a function that execute the filter in the wiki.
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.
      */
-    compileFilter: (filterString: string) => (iterator?: SourceIterator) => string[]
+    compileFilter: (filterString: string) => (iterator?: SourceIterator) => string[];
+    setTiddlerData: (title: string, data?: any, fields?: ITiddlerFields, options?: any) => void;
   }
 }
