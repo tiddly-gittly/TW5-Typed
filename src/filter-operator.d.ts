@@ -93,13 +93,13 @@ Either way, we could interpret the `!` flag on the filter, if present, to mean t
 As with [JavaScript Macros](#JavaScript%20Macros), filter operators should not make modifications to tiddlers, but only return a list of tiddlers or a tiddler iterator.
 
    */
-  export type IFilterOperator = (source: (iter: SourceIterator) => void, operator: IFilterOperatorParamOperator) => string[] | ((iter: SourceIterator) => void);
+  export type IFilterOperator = (source: (iter: SourceIterator) => void, operator: IFilterOperatorParameterOperator) => string[] | ((iter: SourceIterator) => void);
 
   /**
    * A [tiddler iterator](#Tiddler%20Iterators) representing the results of the previous filter step (or all tiddlers, if this filter appears first in an expression), conventionally named `source`.
-   * 
+   *
    * For Example, with an iterator over all the tiddlers tagged as `interesting`, use it like this:
-   * 
+   *
    * ```js
    * var result = [];
       var include = true;

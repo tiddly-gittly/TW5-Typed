@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-useless-constructor */
-import { Widget as IWidget } from 'tiddlywiki'
+import { Widget } from 'tiddlywiki'
 
-const Widget = {} as unknown as IWidget;
 export class ReactWidget extends Widget {
   constructor(parseTreeNode: any, options: any) {
     super(parseTreeNode, options);
