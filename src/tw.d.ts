@@ -79,5 +79,5 @@ declare module 'tiddlywiki' {
     wiki: Wiki;
   }
 
-    export type TW5InitFunction = ($tw?: object) => ITiddlyWiki;
+  export type TW5InitFunction = ($tw?: object) => ITiddlyWiki;
 }

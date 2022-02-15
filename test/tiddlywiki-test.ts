@@ -1,4 +1,4 @@
-import { Widget } from 'tiddlywiki'
+import { Tiddler, Widget } from 'tiddlywiki';
 
 export class ReactWidget extends Widget {
   constructor(parseTreeNode: any, options: any) {
@@ -14,3 +14,5 @@ export class ReactWidget extends Widget {
     parent.appendChild(containerElement);
   }
 }
+
+$tw.wiki.addIndexer('$:/core/tiddler', function (tiddler: Tiddler) {});
