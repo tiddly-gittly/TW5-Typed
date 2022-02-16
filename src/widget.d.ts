@@ -35,7 +35,8 @@ declare module 'tiddlywiki' {
     /**
      * Get parameters that user set in the widget
      * @param name attribute name, for example, `actions` in the button widget
+     * @param fallbackText default value if the attribute is not set
      */
-    getAttribute(name: string): string;
+    getAttribute(name: string, fallbackText?: string): string;
   }
 }
