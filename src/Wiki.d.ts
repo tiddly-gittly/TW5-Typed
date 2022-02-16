@@ -27,7 +27,15 @@ declare module 'tiddlywiki' {
      * Update existed tiddler based on the title field.
      */
     addTiddler: (tiddler: Tiddler | ITiddlerFields) => void;
-    getTiddlerText: (title: string, fallbackText?: string) => string | undefined;
+    /**
+     * Get tiddler's text field, with an optional default text.
+     * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
+     * 
+     * @param title will return undefined (or fallback) if the tiddler isn't found
+     * @param fallbackText default text when text field is empty or undefined
+     */
+    getTiddlerText(title: string, fallbackText: string): string;
+    getTiddlerText(title: string, fallbackText?: string): string | undefined;
     /**
      * Set tiddler text of any field.
      *
