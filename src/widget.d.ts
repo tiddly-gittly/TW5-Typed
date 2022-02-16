@@ -38,5 +38,21 @@ declare module 'tiddlywiki' {
      * @param fallbackText default value if the attribute is not set
      */
     getAttribute(name: string, fallbackText?: string): string;
+    /**
+     * Get variable in the context of the widget.
+     * Simplified version of getVariableInfo() that just returns the text.
+     * @param name variable name, for example, `currentTiddler` in the widget context
+     * @param options options for getVariableInfo()
+     * 
+     * Options include
+        params: array of {name:, value:} for each parameter
+        defaultValue: default value if the variable is not defined
+
+        Returns an object with the following fields:
+
+        params: array of {name:,value:} of parameters passed to wikitext variables
+        text: text of variable, with parameters properly substituted
+     */
+    getVariable(name: string, options?: object): string;
   }
 }
