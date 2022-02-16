@@ -27,5 +27,16 @@ declare module 'tiddlywiki' {
      * Update existed tiddler based on the title field.
      */
     addTiddler: (tiddler: Tiddler | ITiddlerFields) => void;
+    getTiddlerText: (title: string, fallbackText?: string) => string | undefined;
+    /**
+     * Set tiddler text of any field.
+     *
+     * @param {string} title title of tiddler
+     * @param {string} field field name to set
+     * @param {string | undefined} index data index(key) to set, if you are setting a JSON data tiddler. Be `undefined` if you are just setting a normal tiddler's field, this will be most of the case.
+     * @param {string} value text content to set
+     * @param {object} options options, see tiddlywiki dev doc for details
+     */
+    setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: any) => void;
   }
 }
