@@ -55,7 +55,8 @@ declare module 'tiddlywiki' {
     config: ITWConfig;
 
     hooks: {
-      addHook: (hookName: string, callback: (...arguments_: unknown[]) => unknown) => void;
+      addHook(hookName: 'th-server-command-post-start', callback: (listenCommand: unknown, server: Server) => void): void;
+      addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown): void;
     };
 
     modules: ITWModules;
@@ -80,4 +81,5 @@ declare module 'tiddlywiki' {
   }
 
   export type TW5InitFunction = ($tw?: ITiddlyWiki) => ITiddlyWiki;
+  export const TiddlyWiki: TW5InitFunction;
 }
