@@ -30,7 +30,7 @@ declare module 'tiddlywiki' {
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
-     * 
+     *
      * @param title will return undefined (or fallback) if the tiddler isn't found
      * @param fallbackText default text when text field is empty or undefined
      */
@@ -46,5 +46,7 @@ declare module 'tiddlywiki' {
      * @param {object} options options, see tiddlywiki dev doc for details
      */
     setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: any) => void;
+    parseTiddler(title: string, options?: IParserOptions): WikiParser;
+    parseText(type: string, text: string, options?: IParserOptions): WikiParser;
   }
 }
