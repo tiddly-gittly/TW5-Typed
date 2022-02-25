@@ -20,7 +20,7 @@
     "prepublishOnly": "npx tsc --noEmit"
   },
   "devDependencies": {
-    "@types/node": "^17.0.18",
+    "@types/node": "17.0.18",
     "@typescript-eslint/eslint-plugin": "5.11.0",
     "@typescript-eslint/parser": "5.11.0",
     "eslint": "8.8.0",
