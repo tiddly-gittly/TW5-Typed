@@ -47,6 +47,7 @@ declare module 'tiddlywiki' {
       log(logString: string): void;
       logMessages: string[];
       startup(options: { callback?: () => unknown }): void;
+      boot(callback?: () => unknown): void;
       /** Default boot tasks */
       tasks: {
         readBrowserTiddlers: boolean;
