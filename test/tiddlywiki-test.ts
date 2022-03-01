@@ -15,4 +15,4 @@ export class ReactWidget extends Widget {
   }
 }
 
-$tw.wiki.addIndexer('$:/core/tiddler', function (tiddler: Tiddler) {});
+$tw.wiki.addIndexer(function (tiddler: Tiddler) {}, '$:/core/tiddler');
