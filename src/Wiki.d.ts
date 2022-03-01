@@ -1,3 +1,5 @@
+/// <reference path="parser.d.ts" />
+
 declare module 'tiddlywiki' {
   export class Wiki {
     /**
@@ -7,7 +9,7 @@ declare module 'tiddlywiki' {
      * @memberof Wiki
      */
     constructor(options: { enableIndexers: unknown[] });
-    addIndexer(indexer, name): void;
+    addIndexer(indexer: unknown, name: string): void;
     getTiddler: (title: string) => Tiddler | undefined;
     /**
      * Get full list of tiddler titles in the wiki

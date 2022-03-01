@@ -5,6 +5,7 @@
 /// <reference path="utils.d.ts" />
 /// <reference path="Widget.d.ts" />
 /// <reference path="Wiki.d.ts" />
+/// <reference path="parser.d.ts" />
 /// <reference path="ast.d.ts" />
 
 declare module 'tiddlywiki' {
@@ -22,6 +23,8 @@ declare module 'tiddlywiki' {
   export interface IPluginInfo {
     tiddlers: ITiddlerFields[];
   }
+
+  export class Server {}
 
   export interface IFileExtensionInfo {
     type: string;

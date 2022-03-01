@@ -51,4 +51,11 @@ You can add new `*.d.ts` file to contain your types:
 1. to add type for global variable, add `global { }` inside that `declare module 'tiddlywiki' { }`, like `global { var $tw: I$TW; }`
 1. add type import like `/// <reference path="ast.d.ts" />` in the `tw.d.ts`
 
+### Importing type from other files
+
+- add type import like `/// <reference path="parser.d.ts" />`
+- using normal import, like `import { parse } from './parser';` will not work
+
+### Test in your node_modules
+
 To rapid prototype the type, just right click a type to open `.d.ts` file in the `node_modules`, and try create new file there, and copy to this repo after a success.
