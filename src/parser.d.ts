@@ -33,36 +33,6 @@ declare module 'tiddlywiki' {
     value: string;
     end: number;
   }
-  export interface IParseTreeNodeBase {
-    type: string;
-    children: IParseTreeNode[];
-    start: number;
-    end: number;
-    isBlock?: boolean;
-    isSelfClosing?: boolean;
-    attributes?: Record<string, IParseTreeAttribute>;
-    orderedAttributes?: IParseTreeAttribute[];
-  }
-  export interface IDomParseTreeNode extends IParseTreeNodeBase {
-    type: 'element';
-    tag: string;
-  }
-  export interface IMacroParamCallParseTreeNode extends IParseTreeNodeBase {
-    type: 'macro-parameter';
-    value: string;
-    name?: string;
-  }
-  export interface IMacroCallParseTreeNode extends IParseTreeNodeBase {
-    type: 'macrocall';
-    name: string;
-    params: IMacroParamCallParseTreeNode[];
-  }
-  export interface ICustomParseTreeNode extends IParseTreeNodeBase {
-    type: string;
-    tag?: string;
-    params: IMacroParamCallParseTreeNode[];
-  }
-  export type IParseTreeNode = IDomParseTreeNode;
   export declare class WikiParser {
     blockRules: { rule: WikiParseRule; matchIndex?: number }[];
     inlineRules: { rule: WikiParseRule; matchIndex?: number }[];
