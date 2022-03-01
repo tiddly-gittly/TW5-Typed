@@ -8,13 +8,21 @@ declare module 'tiddlywiki' {
   }
   export interface IWikiASTNode {
     type: string;
-    children: IParseTreeNode[];
-    start: number;
-    end: number;
+    children?: IParseTreeNode[];
+    start?: number;
+    end?: number;
     isBlock?: boolean;
     isSelfClosing?: boolean;
     attributes?: Record<string, IParseTreeAttribute>;
     orderedAttributes?: IParseTreeAttribute[];
+  }
+  export interface ITextParseTreeNode extends IWikiASTNode {
+    type: 'text';
+    text: string;
+  }
+  export interface ILinkParseTreeNode extends IWikiASTNode {
+    type: 'link';
+    text: string;
   }
   export interface IDomParseTreeNode extends IWikiASTNode {
     type: 'element';
@@ -34,6 +42,7 @@ declare module 'tiddlywiki' {
     type: string;
     tag?: string;
     params: IMacroParamCallParseTreeNode[];
+    text?: string;
   }
   export type IParseTreeNode = IDomParseTreeNode | IMacroParamCallParseTreeNode | IMacroCallParseTreeNode | ICustomParseTreeNode;
 }
