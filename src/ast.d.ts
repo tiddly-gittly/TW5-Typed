@@ -44,5 +44,5 @@ declare module 'tiddlywiki' {
     params: IMacroParamCallParseTreeNode[];
     text?: string;
   }
-  export type IParseTreeNode = IDomParseTreeNode | IMacroParamCallParseTreeNode | IMacroCallParseTreeNode | ICustomParseTreeNode;
+  export type IParseTreeNode = IDomParseTreeNode | IMacroParamCallParseTreeNode | IMacroCallParseTreeNode | ITextParseTreeNode | ICustomParseTreeNode;
 }
