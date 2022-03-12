@@ -24,9 +24,10 @@ declare module 'tiddlywiki' {
     type: 'link';
     text: string;
   }
+  export type HTMLTags = keyof HTMLElementTagNameMap
   export interface IDomParseTreeNode extends IWikiASTNode {
     type: 'element';
-    tag: string;
+    tag: HTMLTags;
   }
   export interface IMacroParamCallParseTreeNode extends IWikiASTNode {
     type: 'macro-parameter';
