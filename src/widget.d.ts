@@ -2,6 +2,9 @@ declare module 'tiddlywiki' {
   // eslint-disable-next-line @typescript-eslint/no-extraneous-class
   class variablesConstructor {}
 
+  /**
+   * @link https://tiddlywiki.com/dev/#Widgets
+   */
   export class Widget {
     constructor(parseTreeNode: unknown, options: unknown);
     initialize: (parseTreeNode: unknown, options: unknown) => void;
@@ -31,6 +34,15 @@ declare module 'tiddlywiki' {
      * Lifecycle method: Render this widget into the DOM
      */
     render(parent: Node, nextSibling: Node): void;
+    /**
+     * Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering.
+     * You can do some cleanup or buildup before return true.
+     * @param changedTiddlers Object key is tiddler title, value is metadata about the change
+     * @link https://tiddlywiki.com/dev/#Selective%20Update
+     */
+    refresh(changedTiddlers: Record<string, {
+      modified: boolean
+    }>): boolean;
     computeAttributes(): void;
     /**
      * Get parameters that user set in the widget
