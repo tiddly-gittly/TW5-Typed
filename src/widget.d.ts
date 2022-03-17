@@ -1,4 +1,13 @@
 declare module 'tiddlywiki' {
+  /**
+   * Parameter of Widget.refresh
+   * Key is tiddler title
+   */
+  export type IChangedTiddlers = Record<string, IChangedTiddlersMeta>;
+  export interface IChangedTiddlersMeta {
+    modified: boolean;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-extraneous-class
   class variablesConstructor {}
 
@@ -40,9 +49,7 @@ declare module 'tiddlywiki' {
      * @param changedTiddlers Object key is tiddler title, value is metadata about the change
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
-    refresh(changedTiddlers: Record<string, {
-      modified: boolean
-    }>): boolean;
+    refresh(changedTiddlers: IChangedTiddlers): boolean;
     computeAttributes(): void;
     /**
      * Get parameters that user set in the widget
