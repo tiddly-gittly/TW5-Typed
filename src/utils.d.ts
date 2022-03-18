@@ -6,6 +6,13 @@ declare module 'tiddlywiki' {
   export type TWDOMElement = Element;
   export type TWEachCallback<T> = (element?: unknown, index?: string | number, object?: T) => boolean | undefined;
   export interface ITWUtils {
+    /**
+     * Alternative to `element.classList.add`, add a css class name to an element, see issue for detail.
+     * @link https://github.com/Jermolene/TiddlyWiki5/issues/6475
+     * @param element 
+     * @param className 
+     */
+    addClass(element: Element, className: string): void;
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
     /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */
