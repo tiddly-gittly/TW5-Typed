@@ -1,11 +1,12 @@
 declare module 'tiddlywiki' {
   export interface IParseTreeAttribute {
-    start: number;
-    name: string;
+    start?: number;
+    name?: string;
     type: 'string' | 'number';
     value: string;
-    end: number;
+    end?: number;
   }
+
   export interface IWikiASTNode {
     type: string;
     children?: IParseTreeNode[];
@@ -24,10 +25,28 @@ declare module 'tiddlywiki' {
     type: 'link';
     text: string;
   }
-  export type HTMLTags = keyof HTMLElementTagNameMap
+  export type HTMLTags = keyof HTMLElementTagNameMap | 'strike';
+
   export interface IDomParseTreeNode extends IWikiASTNode {
     type: 'element';
     tag: HTMLTags;
+  }
+  export interface ICodeBlockParseTreeNode extends IWikiASTNode {
+    type: 'codeblock';
+    attributes: {
+      code?:
+        | {
+            type: 'string';
+            value: string;
+          }
+        | undefined;
+      language?:
+        | {
+            type: 'string';
+            value: string;
+          }
+        | undefined;
+    };
   }
   export interface IMacroParamCallParseTreeNode extends IWikiASTNode {
     type: 'macro-parameter';

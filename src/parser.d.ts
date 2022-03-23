@@ -1,3 +1,5 @@
+/// <reference path="ast.d.ts" />
+
 declare module 'tiddlywiki' {
   export interface IParserOptions {
     /**
@@ -10,7 +12,7 @@ declare module 'tiddlywiki' {
     _canonical_uri?: string;
   }
 
-  export declare class WikiParseRule {
+  export class WikiParseRule {
     is: { block?: boolean; inline?: boolean };
     match?: null;
     matchRegExp?: RegExp;
@@ -26,14 +28,7 @@ declare module 'tiddlywiki' {
       name: string;
     };
   }
-  export interface IParseTreeAttribute {
-    start: number;
-    name: string;
-    type: 'string' | 'number';
-    value: string;
-    end: number;
-  }
-  export declare class WikiParser {
+  export class WikiParser {
     blockRules: { rule: WikiParseRule; matchIndex?: number }[];
     inlineRules: { rule: WikiParseRule; matchIndex?: number }[];
     pragmaRules: { rule: WikiParseRule; matchIndex?: number }[];
