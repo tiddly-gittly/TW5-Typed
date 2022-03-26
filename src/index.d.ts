@@ -1,4 +1,5 @@
 /// <reference path="tw.d.ts" />
+/// <reference path="server.d.ts" />
 
 export * from 'tiddlywiki';
 
