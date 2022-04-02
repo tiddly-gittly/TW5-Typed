@@ -8,6 +8,20 @@ declare module 'tiddlywiki' {
     modified: boolean;
   }
 
+  export interface IWidgetEvent {
+    /** widget event can carry any other parameters
+     *
+     * For example, `param` and `paramObject`
+     */
+    [othersParamKeys: string]: unknown;
+    /** the first parameter of addEventListener
+     *
+     * For example, the `'open-command-palette'` in `$tw.rootWidget.addEventListener('open-command-palette', (e: IWidgetEvent) => this.openPalette(e));`
+     */
+    type: string;
+    widget: Widget;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-extraneous-class
   class variablesConstructor {}
 
@@ -24,17 +38,17 @@ declare module 'tiddlywiki' {
     variables: unknown;
     domNodes: Node[];
     /**
-    Add an event listener
-  */
-    addEventListener(type: string, handler: (arguments_: unknown[]) => void): void;
+      Add an event listener
+    */
+    addEventListener(type: string, handler: (event: IWidgetEvent) => void): void;
     /**
-    Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
-  */
-    dispatchEvent(type: string): void;
+      Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
+    */
+    dispatchEvent(typeOrEvent: string | Omit<IWidgetEvent, 'widget'>): void;
     /**
-    Add a list of event listeners from an array [{type:,handler:},...]
-  */
-    addEventListeners(listeners: Array<{ handler: (arguments_: unknown[]) => void; type: string }>): void;
+      Add a list of event listeners from an array [{type:,handler:},...]
+    */
+    addEventListeners(listeners: Array<{ handler: (event: IWidgetEvent) => void; type: string }>): void;
 
     parentDomNode: Node;
     execute: () => void;
