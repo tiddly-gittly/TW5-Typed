@@ -11,26 +11,7 @@ module.exports = {
       jsx: true,
     },
   },
-  settings: {
-    react: {
-      version: '17.0.2',
-    },
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-      typescript: {
-        alwaysTryTypes: true,
-      },
-      alias: {
-        map: [
-          ['@', './src'],
-          ['@services', './src/services'],
-        ],
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
-  },
+  settings: {},
   rules: {
     'no-use-before-define': ['error', { ignoreTypeReferences: true, functions: false }],
     'unicorn/prevent-abbreviations': [
@@ -49,7 +30,11 @@ module.exports = {
       },
     ],
     'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/triple-slash-reference': { "path": "never", "types": "never", "lib": "always" },
+    /**
+     * Configuration for rule "@typescript-eslint/triple-slash-reference" is invalid:
+	Severity should be one of the following: 0 = off, 1 = warn, 2 = error (you passed '{ path: "never", types: "never", lib: "always" }').
+     */
+    '@typescript-eslint/triple-slash-reference': 0,
     'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-module': 'off',
     '@typescript-eslint/no-empty-function': 'off',
@@ -76,6 +61,7 @@ module.exports = {
     'multiline-ternary': 'off',
     'security/detect-object-injection': 'off',
     'security/detect-non-literal-fs-filename': 'off',
+    'import/no-unresolved': 'off',
     'unicorn/filename-case': [
       0,
       {
