@@ -40,7 +40,7 @@ declare module 'tiddlywiki' {
     /**
       Add an event listener
     */
-    addEventListener(type: string, handler: (event: IWidgetEvent) => void): void;
+    addEventListener(type: string, handler: (event: IWidgetEvent) => void | Promise<void>): void;
     /**
       Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
     */
@@ -48,7 +48,7 @@ declare module 'tiddlywiki' {
     /**
       Add a list of event listeners from an array [{type:,handler:},...]
     */
-    addEventListeners(listeners: Array<{ handler: (event: IWidgetEvent) => void; type: string }>): void;
+    addEventListeners(listeners: Array<{ handler: (event: IWidgetEvent) => void | Promise<void>; type: string }>): void;
 
     parentDomNode: Node;
     execute: () => void;
