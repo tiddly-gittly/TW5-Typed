@@ -1,38 +1,37 @@
 declare module 'tiddlywiki' {
   export interface IParseTreeAttribute {
-    start?: number;
+    end?: number;
     name?: string;
+    start?: number;
     type: 'string' | 'number';
     value: string;
-    end?: number;
   }
 
   export interface IWikiASTNode {
-    type: string;
+    attributes?: Record<string, IParseTreeAttribute>;
     children?: IParseTreeNode[];
-    start?: number;
     end?: number;
     isBlock?: boolean;
     isSelfClosing?: boolean;
-    attributes?: Record<string, IParseTreeAttribute>;
     orderedAttributes?: IParseTreeAttribute[];
+    start?: number;
+    type: string;
   }
   export interface ITextParseTreeNode extends IWikiASTNode {
-    type: 'text';
     text: string;
+    type: 'text';
   }
   export interface ILinkParseTreeNode extends IWikiASTNode {
-    type: 'link';
     text: string;
+    type: 'link';
   }
   export type HTMLTags = keyof HTMLElementTagNameMap | 'strike';
 
   export interface IDomParseTreeNode extends IWikiASTNode {
-    type: 'element';
     tag: HTMLTags;
+    type: 'element';
   }
   export interface ICodeBlockParseTreeNode extends IWikiASTNode {
-    type: 'codeblock';
     attributes: {
       code?:
         | {
@@ -47,22 +46,23 @@ declare module 'tiddlywiki' {
           }
         | undefined;
     };
+    type: 'codeblock';
   }
-  export interface IMacroParamCallParseTreeNode extends IWikiASTNode {
+  export interface IMacroParameterCallParseTreeNode extends IWikiASTNode {
+    name?: string;
     type: 'macro-parameter';
     value: string;
-    name?: string;
   }
   export interface IMacroCallParseTreeNode extends IWikiASTNode {
-    type: 'macrocall';
     name: string;
-    params: IMacroParamCallParseTreeNode[];
+    params: IMacroParameterCallParseTreeNode[];
+    type: 'macrocall';
   }
   export interface ICustomParseTreeNode extends IWikiASTNode {
-    type: string;
+    params: IMacroParameterCallParseTreeNode[];
     tag?: string;
-    params: IMacroParamCallParseTreeNode[];
     text?: string;
+    type: string;
   }
-  export type IParseTreeNode = IDomParseTreeNode | IMacroParamCallParseTreeNode | IMacroCallParseTreeNode | ITextParseTreeNode | ICustomParseTreeNode;
+  export type IParseTreeNode = IDomParseTreeNode | IMacroParameterCallParseTreeNode | IMacroCallParseTreeNode | ITextParseTreeNode | ICustomParseTreeNode;
 }

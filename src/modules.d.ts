@@ -69,7 +69,7 @@ declare module 'tiddlywiki' {
      * @param {(title, moduleExports) => void} callback function called as callback(title,moduleExports) for each module
      * @memberof ITWModules
      */
-    forEachModuleOfType(moduleType: string, callback: (title, moduleExports) => void): void;
+    forEachModuleOfType(moduleType: string, callback: (title: string, moduleExports: unknown) => void): void;
     /** Get all the modules of a particular type in a hashmap by their `name` field */
     getModulesByTypeAsHashmap(moduleType: string, nameField: string): Record<string, IModuleInfo>;
     /** hashmap by module name of moduleInfo */

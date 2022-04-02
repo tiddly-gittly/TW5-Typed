@@ -30,6 +30,10 @@ declare module 'tiddlywiki' {
      */
     addTiddler: (tiddler: Tiddler | ITiddlerFields) => void;
     /**
+     * Call `addTiddler` for each iton of the list
+     */
+    addTiddlers: (tiddler: Array<Tiddler | ITiddlerFields>) => void;
+    /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
      *

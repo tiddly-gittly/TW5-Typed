@@ -6,15 +6,15 @@ declare module 'tiddlywiki' {
   export type TWDOMElement = Element;
   export type TWEachCallback<T> = (element?: unknown, index?: string | number, object?: T) => boolean | undefined;
   export interface ITWUtils {
+    Crypto: typeof Crypto;
+    PasswordPrompt: typeof PasswordPrompt;
     /**
      * Alternative to `element.classList.add`, add a css class name to an element, see issue for detail.
      * @link https://github.com/Jermolene/TiddlyWiki5/issues/6475
-     * @param element 
-     * @param className 
+     * @param element
+     * @param className
      */
     addClass(element: Element, className: string): void;
-    Crypto: typeof Crypto;
-    PasswordPrompt: typeof PasswordPrompt;
     /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */
     checkVersions(versionStringA: string, versionStringB: string): boolean;
     /**
@@ -102,6 +102,7 @@ declare module 'tiddlywiki' {
     parseDate(value: string | Date): Date;
     /** Parse a block of name:value fields. The `fields` object is used as the basis for the return value */
     parseFields(text: string, fields?: object): object;
+    parseJSONSafe(input: string): any;
     /** Parse a string array from a bracketted list. For example "OneTiddler [[Another Tiddler]] LastOne" */
     parseStringArray(value: string | string[], allowDuplicate?: boolean): string[];
     /** Parse a semantic version string into its constituent parts -- see https://semver.org */

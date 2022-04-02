@@ -8,6 +8,8 @@
 /// <reference path="parser.d.ts" />
 /// <reference path="ast.d.ts" />
 
+import { Server } from 'http';
+
 declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
     filepath: string;
@@ -23,8 +25,6 @@ declare module 'tiddlywiki' {
   export interface IPluginInfo {
     tiddlers: ITiddlerFields[];
   }
-
-  export class Server {}
 
   export interface IFileExtensionInfo {
     type: string;
@@ -43,11 +43,11 @@ declare module 'tiddlywiki' {
 
     boot: {
       argv: string[];
+      boot(callback?: () => unknown): void;
       files: IBootFilesIndex;
       log(logString: string): void;
       logMessages: string[];
       startup(options: { callback?: () => unknown }): void;
-      boot(callback?: () => unknown): void;
       /** Default boot tasks */
       tasks: {
         readBrowserTiddlers: boolean;
