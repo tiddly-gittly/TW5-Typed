@@ -26,6 +26,8 @@ declare module 'tiddlywiki' {
     decodeURIComponentSafe(uri: string): string;
     /** Convert a URI encoded string to a string safely */
     decodeURISafe(uri: string): string;
+    /** the function behind `<<now "format">> */
+    formatDateString(date: Date, format: string): string;
     /** Fill in any null or undefined properties of an object with the properties from a list of source objects. Each property that is an object is called recursively */
     deepDefaults(object: object, ...sourceObjectList: object[]): object;
     /**
