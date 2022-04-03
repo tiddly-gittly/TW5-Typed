@@ -11,15 +11,24 @@ declare module 'tiddlywiki' {
   export interface IWidgetEvent {
     /** widget event can carry any other parameters
      *
-     * For example, `param` and `paramObject`
+     * For example, `<$action-sendmessage $message="tw-mobile-sync-set-active-server-and-sync" title={{!!title}} />` will produce `paramObject: { title: "xxxx" }`
      */
-    [othersParamKeys: string]: unknown;
+    paramObject?: {
+      [othersParamKeys: string]: unknown;
+    };
+    /**
+     * Get `$param`
+     */
+    param?: string | undefined;
     /** the first parameter of addEventListener
      *
      * For example, the `'open-command-palette'` in `$tw.rootWidget.addEventListener('open-command-palette', (e: IWidgetEvent) => this.openPalette(e));`
      */
     type: string;
     widget: Widget;
+    /** maybe a DOM click event, if trigger by button click */
+    event: Event;
+    navigateFromTitle?: string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-extraneous-class
