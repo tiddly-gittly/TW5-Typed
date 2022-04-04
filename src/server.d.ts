@@ -84,7 +84,7 @@ declare module 'tiddlywiki' {
     /*
       Check whether a given user is authorized for the specified authorizationType ("readers" or "writers"). Pass null or undefined as the username to check for anonymous access
     */
-    isAuthorized(authorizationType: 'readers' | 'writers', username: string): boolean;
+    isAuthorized(authorizationType: 'readers' | 'writers', username?: string | undefined): boolean;
     close(): void;
   }
 
