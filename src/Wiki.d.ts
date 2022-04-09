@@ -10,7 +10,7 @@ declare module 'tiddlywiki' {
      */
     constructor(options: { enableIndexers: unknown[] });
     addIndexer(indexer: unknown, name: string): void;
-    getTiddler: (title: string) => Tiddler | undefined;
+    getTiddler: <T extends Tiddler>(title: string) => T | undefined;
     /**
      * Get full list of tiddler titles in the wiki
      */
@@ -22,17 +22,18 @@ declare module 'tiddlywiki' {
     compileFilter: (filterString: string) => (iterator?: SourceIterator) => string[];
     /**
      * Set JSON tiddler, Object in data field will be JSON.stringify and put into the text.
+     * This will make tiddler to be JSON data tiddler `"type":"application/json"`, so if you just want to modify existed tiddler's data, use `addTiddler` instead.
      */
     setTiddlerData: (title: string, data?: object, fields?: ITiddlerFields, options?: any) => void;
     /**
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
-    addTiddler: (tiddler: Tiddler | ITiddlerFields) => void;
+    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFields>) => void;
     /**
      * Call `addTiddler` for each iton of the list
      */
-    addTiddlers: (tiddler: Array<Tiddler | ITiddlerFields>) => void;
+    addTiddlers: (tiddler: Array<Tiddler | Partial<ITiddlerFields>>) => void;
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).

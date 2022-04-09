@@ -1,6 +1,10 @@
 declare module 'tiddlywiki' {
   export class Tiddler {
-    constructor(...fields: Array<Record<string, unknown> | Tiddler>);
+    /**
+     *
+     * @param tiddlers multiple tiddler fields or instances, will merge them to create a new one
+     */
+    constructor(...tiddlers: Array<Record<string, unknown> | Tiddler>);
     readonly cache: ITiddlerCache;
     readonly fields: ITiddlerFields;
     static fieldModules: Record<string, IModuleInfo>;
@@ -10,9 +14,9 @@ declare module 'tiddlywiki' {
 
   export interface ITiddlerFields {
     readonly [anyKey: string]: unknown;
-    readonly color: string;
+    readonly color?: string;
     readonly created: Date;
-    readonly list: string[];
+    readonly list?: string[];
     readonly modified: Date;
     readonly tags: string[];
     readonly text: string;
