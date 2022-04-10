@@ -55,5 +55,19 @@ declare module 'tiddlywiki' {
     setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: any) => void;
     parseTiddler(title: string, options?: IParserOptions): WikiParser;
     parseText(type: string, text: string, options?: IParserOptions): WikiParser;
+    /*
+      Parse text from a tiddler and render it into another format
+        outputType: content type for the output
+        title: title of the tiddler to be rendered
+        options: see below
+      Options include:
+      variables: hashmap of variables to set
+      parentWidget: optional parent widget for the root node
+      */
+    renderTiddler(
+      outputType: 'text/html' | 'text/plain-formatted' | 'text/plain',
+      title: string,
+      options?: { parentWidget?: Widget; variables?: Record<string, any> },
+    ): string;
   }
 }
