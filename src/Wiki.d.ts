@@ -85,7 +85,7 @@ declare module 'tiddlywiki' {
     setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: any) => void;
     parseTiddler(title: string, options?: IParserOptions): WikiParser;
     parseText(type: string, text: string, options?: IParserOptions): WikiParser;
-    /*
+    /**
       Parse text from a tiddler and render it into another format
         outputType: content type for the output
         title: title of the tiddler to be rendered
@@ -99,5 +99,15 @@ declare module 'tiddlywiki' {
       title: string,
       options?: { parentWidget?: Widget; variables?: Record<string, any> },
     ): string;
+    /**
+      Make a widget tree for a parse tree
+      @params parser: parser object
+      @params options: see below
+      Options include:
+      document: optional document to use
+      variables: hashmap of variables to set
+      parentWidget: optional parent widget for the root node
+    */
+    makeWidget(parser: WikiParser, options?: { document: any; parentWidget?: Widget; variables?: Record<string, any> }): Widget;
   }
 }

@@ -74,14 +74,14 @@ declare module 'tiddlywiki' {
     variables: Record<string, any>;
     get(variableName: string): any;
     requestHandler: ServerEndpointHandler;
-    /*
+    /**
       Listen for requests
       port: optional port number (falls back to value of "port" variable)
       host: optional host address (falls back to value of "host" variable)
       prefix: optional prefix (falls back to value of "path-prefix" variable)
       */
     listen(port?: string, host?: string, prefix?: string): void;
-    /*
+    /**
       Check whether a given user is authorized for the specified authorizationType ("readers" or "writers"). Pass null or undefined as the username to check for anonymous access
     */
     isAuthorized(authorizationType: 'readers' | 'writers', username?: string | undefined): boolean;
