@@ -31,9 +31,9 @@ declare module 'tiddlywiki' {
      */
     addTiddler: (tiddler: Tiddler | Partial<ITiddlerFields>) => void;
     /**
-     * Call `addTiddler` for each iton of the list
+     * Call `addTiddler` for each iton of the list, but should passing `tiddler.fields`, directly passing tiddler object may failed to add in some cases.
      */
-    addTiddlers: (tiddler: Array<Tiddler | Partial<ITiddlerFields>>) => void;
+    addTiddlers: (tiddler: Array<Partial<ITiddlerFields>>) => void;
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
@@ -43,6 +43,36 @@ declare module 'tiddlywiki' {
      */
     getTiddlerText(title: string, fallbackText: string): string;
     getTiddlerText(title: string, fallbackText?: string): string | undefined;
+    /**
+      Get the content of a tiddler as a JavaScript object. How this is done depends on the type of the tiddler:
+
+      application/json: the tiddler JSON is parsed into an object
+      application/x-tiddler-dictionary: the tiddler is parsed as sequence of name:value pairs
+
+      Other types currently just return undefined or as same as fallbackData.
+
+      titleOrTiddler: string tiddler title or a tiddler object
+      defaultData: default data to be returned if the tiddler is missing or doesn't contain data
+
+      Alternative, uncached version of getTiddlerDataCached(). The return value can be mutated freely and reused
+    */
+    getTiddlerData<D extends Record<string, unknown> | undefined>(titleOrTiddler: string, fallbackData?: D): D;
+    getTiddlerData<D extends Record<string, unknown> | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
+    /**
+      Get the content of a tiddler as a JavaScript object. How this is done depends on the type of the tiddler:
+
+      application/json: the tiddler JSON is parsed into an object
+      application/x-tiddler-dictionary: the tiddler is parsed as sequence of name:value pairs
+
+      Other types currently just return undefined or as same as fallbackData.
+
+      titleOrTiddler: string tiddler title or a tiddler object
+      defaultData: default data to be returned if the tiddler is missing or doesn't contain data
+
+      Note that the same value is returned for repeated calls for the same tiddler data. The value is frozen to prevent modification; otherwise modifications would be visible to all callers
+    */
+    getTiddlerDataCached<D extends Record<string, unknown> | undefined>(titleOrTiddler: string, fallbackData?: D): D;
+    getTiddlerDataCached<D extends Record<string, unknown> | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
     /**
      * Set tiddler text of any field.
      *
