@@ -1,6 +1,11 @@
 /// <reference path="parser.d.ts" />
 
 declare module 'tiddlywiki' {
+  export interface IMakeWidgetOptions {
+    document: typeof document | IFakeDocument;
+    parentWidget?: Widget;
+    variables?: Record<string, any>;
+  }
   export class Wiki {
     /**
      * Wiki constructor. State is stored in private members that only a small number of privileged accessor methods have direct access. Methods added via the prototype have to use these accessors and cannot access the state data directly.
@@ -108,6 +113,35 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
     */
-    makeWidget(parser: WikiParser, options?: { document: any; parentWidget?: Widget; variables?: Record<string, any> }): Widget;
+    makeWidget(parser: WikiParser, options?: IMakeWidgetOptions): Widget;
+    /**
+      Make a widget tree for transclusion
+      @params title: target tiddler title
+      @params options: as for wiki.makeWidget() plus:
+
+      - options.field: optional field to transclude (defaults to "text")
+      - options.mode: transclusion mode "inline" or "block"
+      - options.recursionMarker : optional flag to set a recursion marker, defaults to "yes"
+      - options.children: optional array of children for the transclude widget
+      - options.importVariables: optional importvariables filter string for macros to be included
+      - options.importPageMacros: optional boolean; if true, equivalent to passing "[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]" to options.importVariables
+      */
+    makeTranscludeWidget(
+      title: string,
+      options: {
+        /**  optional array of children for the transclude widget */
+        children?: Widget[];
+        /** optional field to transclude (defaults to "text") */
+        field?: string;
+        /**  optional boolean; if true, equivalent to passing "[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]" to options.importVariables */
+        importPageMacros?: boolean;
+        /**  optional importvariables filter string for macros to be included */
+        importVariables?: string;
+        /**  transclusion mode "inline" or "block" */
+        mode?: 'inline' | 'block';
+        /**  optional flag to set a recursion marker, defaults to "yes" */
+        recursionMarker?: 'yes' | 'no';
+      } & IMakeWidgetOptions,
+    ): Widget;
   }
 }

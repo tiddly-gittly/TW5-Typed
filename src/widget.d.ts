@@ -9,6 +9,13 @@ declare module 'tiddlywiki' {
   }
 
   export interface IWidgetEvent {
+    /** maybe a DOM click event, if trigger by button click */
+    event: Event;
+    navigateFromTitle?: string;
+    /**
+     * Get `$param`
+     */
+    param?: string | undefined;
     /** widget event can carry any other parameters
      *
      * For example, `<$action-sendmessage $message="tw-mobile-sync-set-active-server-and-sync" title={{!!title}} />` will produce `paramObject: { title: "xxxx" }`
@@ -16,19 +23,12 @@ declare module 'tiddlywiki' {
     paramObject?: {
       [othersParamKeys: string]: unknown;
     };
-    /**
-     * Get `$param`
-     */
-    param?: string | undefined;
     /** the first parameter of addEventListener
      *
      * For example, the `'open-command-palette'` in `$tw.rootWidget.addEventListener('open-command-palette', (e: IWidgetEvent) => this.openPalette(e));`
      */
     type: string;
     widget: Widget;
-    /** maybe a DOM click event, if trigger by button click */
-    event: Event;
-    navigateFromTitle?: string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -96,5 +96,26 @@ declare module 'tiddlywiki' {
         text: text of variable, with parameters properly substituted
      */
     getVariable(name: string, options?: object): string;
+  }
+
+  export interface IFakeDocument {
+    compatMode: string;
+    createElement: (tag: string) => TW_Element;
+    createElementNS: (namespace: string, tag: string) => TW_Element;
+    createTextNode: (text: string) => TW_TextNode;
+    isTiddlyWikiFakeDom: boolean;
+    setSequenceNumber: (value: any) => void;
+  }
+  export class TW_Element {
+    isTiddlyWikiFakeDom: boolean;
+    tag: string;
+    attributes: Record<string, unknown>;
+    isRaw: boolean;
+    children: Array<TW_Element | TW_TextNode>;
+    _style: Record<string, unknown>;
+    namespaceURI: string;
+  }
+  export class TW_TextNode {
+    textContent: string;
   }
 }
