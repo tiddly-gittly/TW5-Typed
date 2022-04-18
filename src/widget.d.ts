@@ -16,7 +16,7 @@ declare module 'tiddlywiki' {
      * Get `$param`
      */
     param?: string | undefined;
-    /** widget event can carry any other parameters
+    /** Optional hashmap of additional tiddler fields. Widget event can carry any other parameters
      *
      * For example, `<$action-sendmessage $message="tw-mobile-sync-set-active-server-and-sync" title={{!!title}} />` will produce `paramObject: { title: "xxxx" }`
      */

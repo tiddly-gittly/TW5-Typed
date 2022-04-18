@@ -70,17 +70,18 @@ declare module 'tiddlywiki' {
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | object;
 
+    notifier: Notifier;
     /** Convenience function for pushing a tiddler onto the preloading array */
     preloadTiddler(fields: Record<string, unknown>): void;
     /** Convenience function for pushing an array of tiddlers onto the preloading array */
     preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
+
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
     preloadTiddlers: Record<string, Record<string, unknown>>;
 
     rootWidget: Widget;
 
     utils: ITWUtils;
-
     version: string;
     wiki: Wiki;
   }
