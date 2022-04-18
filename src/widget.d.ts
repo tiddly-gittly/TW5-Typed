@@ -65,7 +65,7 @@ declare module 'tiddlywiki' {
     /**
      * Lifecycle method: Render this widget into the DOM
      */
-    render(parent: Node, nextSibling: Node): void;
+    render(parent: Node, nextSibling: Node | null): void;
     /**
      * Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering.
      * You can do some cleanup or buildup before return true.
