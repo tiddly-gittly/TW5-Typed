@@ -59,9 +59,19 @@ declare module 'tiddlywiki' {
 
     config: ITWConfig;
 
+    /**
+      Global Hooks mechanism which allows plugins to modify default functionality
+    */
     hooks: {
+      /**
+        Add hooks to the  hashmap
+      */
       addHook(hookName: 'th-server-command-post-start', callback: (listenCommand: unknown, server: Server) => void): void;
       addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown): void;
+      /**
+        Invoke the hook by key
+      */
+      invokeHook(hookName: string): void;
     };
 
     modules: ITWModules;
