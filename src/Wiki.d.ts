@@ -125,7 +125,7 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
     */
-    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: IRenderOptions): string;
+    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: Partial<IMakeWidgetOptions> & IParserOptions): string;
     makeWidget(parser: WikiParser, options?: IMakeWidgetOptions): Widget;
     /**
       Make a widget tree for transclusion
