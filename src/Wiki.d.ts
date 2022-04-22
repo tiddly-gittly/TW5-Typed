@@ -1,9 +1,15 @@
 /// <reference path="parser.d.ts" />
 
 declare module 'tiddlywiki' {
-  export interface IMakeWidgetOptions {
+  export interface IMakeWidgetOptions extends IRenderOptions {
     document: typeof document | IFakeDocument;
+  }
+
+  export type OutputMimeTypes = 'text/html' | 'text/plain-formatted' | 'text/plain';
+  export type TextMimeTypes = 'text/html' | 'text/vnd.tiddlywiki' | 'text/plain';
+  export interface IRenderOptions {
     parentWidget?: Widget;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     variables?: Record<string, any>;
   }
   export class Wiki {
@@ -87,7 +93,7 @@ declare module 'tiddlywiki' {
      * @param {string} value text content to set
      * @param {object} options options, see tiddlywiki dev doc for details
      */
-    setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: any) => void;
+    setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: { suppressTimestamp?: boolean }) => void;
     parseTiddler(title: string, options?: IParserOptions): WikiParser;
     parseText(type: string, text: string, options?: IParserOptions): WikiParser;
     /**
@@ -99,11 +105,7 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
       */
-    renderTiddler(
-      outputType: 'text/html' | 'text/plain-formatted' | 'text/plain',
-      title: string,
-      options?: { parentWidget?: Widget; variables?: Record<string, any> },
-    ): string;
+    renderTiddler(outputType: OutputMimeTypes, title: string, options?: IRenderOptions): string;
     /**
       Make a widget tree for a parse tree
       @params parser: parser object
@@ -113,6 +115,17 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
     */
+    /**
+      Parse text in a specified format and render it into another format
+        outputType: content type for the output
+        textType: content type of the input text
+        text: input text
+        options: see below
+      Options include:
+      variables: hashmap of variables to set
+      parentWidget: optional parent widget for the root node
+    */
+    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: IRenderOptions): string;
     makeWidget(parser: WikiParser, options?: IMakeWidgetOptions): Widget;
     /**
       Make a widget tree for transclusion
