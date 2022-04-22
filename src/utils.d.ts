@@ -15,6 +15,20 @@ declare module 'tiddlywiki' {
      * @param className
      */
     addClass(element: Element, className: string): void;
+    /**
+      Attach specified event handlers to a DOM node
+      @param domNode: where to attach the event handlers
+      @param events: array of event handlers to be added (see below)
+      Each entry in the events array is an object with these properties:
+      - name: event name of `addEventListener`
+      - handlerFunction: optional event handler function
+      - handlerObject: optional event handler object
+      - handlerMethod: optionally specifies object handler method name (defaults to `handleEvent`)
+    */
+    addEventListeners(
+      domNode: Node,
+      events: Array<{ handlerFunction?: (event: MouseEvent) => void; handlerMethod?: string; handlerObject?: Widget; name: string }>,
+    ): void;
     /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */
     checkVersions(versionStringA: string, versionStringB: string): boolean;
     /**
@@ -26,8 +40,6 @@ declare module 'tiddlywiki' {
     decodeURIComponentSafe(uri: string): string;
     /** Convert a URI encoded string to a string safely */
     decodeURISafe(uri: string): string;
-    /** the function behind `<<now "format">> */
-    formatDateString(date: Date, format: string): string;
     /** Fill in any null or undefined properties of an object with the properties from a list of source objects. Each property that is an object is called recursively */
     deepDefaults(object: object, ...sourceObjectList: object[]): object;
     /**
@@ -82,6 +94,8 @@ declare module 'tiddlywiki' {
     evalSandboxed(code: string, context: IModuleSandbox, filename: string): unknown;
     /** Extend an object with the properties from a list of source objects */
     extend(object: object, ...sourceObjectList: object[]): object;
+    /** the function behind `<<now "format">> */
+    formatDateString(date: Date, format: string): string;
     /** Given an extension, always access the $tw.config.fileExtensionInfo using a lowercase extension only. */
     getFileExtensionInfo(extension: string): IFileExtensionInfo | null;
     /** Get the browser location.hash. We don't use location.hash because of the way that Firefox auto-urldecodes it (see http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash) */

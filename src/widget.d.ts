@@ -38,11 +38,22 @@ declare module 'tiddlywiki' {
    * @link https://tiddlywiki.com/dev/#Widgets
    */
   export class Widget {
-    constructor(parseTreeNode: unknown, options: unknown);
-    initialize: (parseTreeNode: unknown, options: unknown) => void;
-    parseTreeNode: unknown;
-    wiki: unknown;
+    constructor(parseTreeNode: IParseTreeNode, options?: unknown);
+    initialize: (parseTreeNode: IParseTreeNode, options?: unknown) => void;
+    parseTreeNode: IParseTreeNode;
+    wiki: ITiddlyWiki;
     parentWidget?: Widget;
+    children: Widget[];
+    /*
+Make child widgets correspondng to specified parseTreeNodes
+*/
+    makeChildWidgets(parseTreeNodes: IParseTreeNode[], options?: { variables?: unknown }): void;
+    /**
+      Construct the widget object for a parse tree node
+      options include:
+        variables: optional hashmap of variables to wrap around the widget
+    */
+    makeChildWidget(parseTreeNode: IParseTreeNode, options?: { variables?: unknown }): void;
     variablesConstructor: variablesConstructor;
     variables: unknown;
     domNodes: Node[];
@@ -73,6 +84,15 @@ declare module 'tiddlywiki' {
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
     refresh(changedTiddlers: IChangedTiddlers): boolean;
+    /**
+      Refresh all the children of a widget
+      will call `this.render`
+    */
+    refreshChildren(changedTiddlers: IChangedTiddlers): boolean;
+    /**
+      Rebuild a previously rendered widget
+    */
+    refreshSelf(): boolean;
     computeAttributes(): void;
     /**
      * Get parameters that user set in the widget
