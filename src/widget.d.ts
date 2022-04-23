@@ -39,15 +39,16 @@ declare module 'tiddlywiki' {
    */
   export class Widget {
     constructor(parseTreeNode: IParseTreeNode, options?: unknown);
-    initialize: (parseTreeNode: IParseTreeNode, options?: unknown) => void;
+    initialize(parseTreeNode: IParseTreeNode, options?: unknown): void;
     parseTreeNode: IParseTreeNode;
     wiki: ITiddlyWiki;
     parentWidget?: Widget;
     children: Widget[];
-    /*
-Make child widgets correspondng to specified parseTreeNodes
-*/
-    makeChildWidgets(parseTreeNodes: IParseTreeNode[], options?: { variables?: unknown }): void;
+    /**
+      Make child widgets correspondng to specified parseTreeNodes
+      @param parseTreeNodes default to `this.parseTreeNode.children`, can be undefined
+    */
+    makeChildWidgets(parseTreeNodes?: IParseTreeNode[], options?: { variables?: unknown }): void;
     /**
       Construct the widget object for a parse tree node
       options include:
@@ -71,12 +72,23 @@ Make child widgets correspondng to specified parseTreeNodes
     addEventListeners(listeners: Array<{ handler: (event: IWidgetEvent) => void | Promise<void>; type: string }>): void;
 
     parentDomNode: Node;
-    execute: () => void;
+    /**
+      Compute the internal state of the widget.
+      This will be automatically called in the `render` method.
+
+      For example, `getAttribute` and set them to class members.
+      
+    */
+    execute(): void;
 
     /**
      * Lifecycle method: Render this widget into the DOM
      */
     render(parent: Node, nextSibling: Node | null): void;
+    /**
+     * Render the children of this widget into the DOM
+     */
+    renderChildren(parent: Node, nextSibling: Node | null): void;
     /**
      * Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering.
      * You can do some cleanup or buildup before return true.
@@ -93,7 +105,7 @@ Make child widgets correspondng to specified parseTreeNodes
       Rebuild a previously rendered widget
     */
     refreshSelf(): boolean;
-    computeAttributes(): void;
+    computeAttributes(): Record<string, IParseTreeAttribute>;
     /**
      * Get parameters that user set in the widget
      * @param name attribute name, for example, `actions` in the button widget
