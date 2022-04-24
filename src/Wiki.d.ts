@@ -25,7 +25,24 @@ declare module 'tiddlywiki' {
     /**
      * Get full list of tiddler titles in the wiki
      */
-    getTiddlers: () => string[];
+    getTiddlers(): string[];
+    /**
+     * Return a named global cache object. Global cache objects are cleared whenever a tiddler change.
+     * You can put anything into the cache.
+     * @param cacheName key of the cache
+     * @param initializer when cache miss, this will be called to get initial value
+     */
+    getGlobalCache<T>(cacheName: string, initializer: () => T): T;
+    /**
+     * Return the named cache object for a tiddler. If the cache doesn't exist then the initializer function is invoked to create it
+     * @param cacheName key of the cache
+     * @param initializer when cache miss, this will be called to get initial value
+     */
+    getCacheForTiddler<T>(title: string, cacheName: string, initializer: () => T): T;
+    /**
+     * clear all cache, will be called when a tiddler is changed
+     */
+    clearGlobalCache(): void;
     /**
      * Compile filter string to be a function that execute the filter in the wiki.
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.

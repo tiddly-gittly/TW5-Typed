@@ -25,6 +25,15 @@ declare module 'tiddlywiki' {
     text: string;
     type: 'link';
   }
+  export interface IImageParseTreeNode extends IWikiASTNode {
+    type: 'image';
+  }
+  export interface ITranscludeParseTreeNode extends IWikiASTNode {
+    type: 'transclude';
+  }
+  export interface ITiddlerParseTreeNode extends IWikiASTNode {
+    type: 'tiddler';
+  }
   export type HTMLTags = keyof HTMLElementTagNameMap | 'strike';
 
   export interface IDomParseTreeNode extends IWikiASTNode {
@@ -64,5 +73,13 @@ declare module 'tiddlywiki' {
     text?: string;
     type: string;
   }
-  export type IParseTreeNode = IDomParseTreeNode | IMacroParameterCallParseTreeNode | IMacroCallParseTreeNode | ITextParseTreeNode | ICustomParseTreeNode;
+  export type IParseTreeNode =
+    | IDomParseTreeNode
+    | IMacroParameterCallParseTreeNode
+    | IMacroCallParseTreeNode
+    | ITextParseTreeNode
+    | IImageParseTreeNode
+    | ITranscludeParseTreeNode
+    | ITiddlerParseTreeNode
+    | ICustomParseTreeNode;
 }
