@@ -43,6 +43,13 @@ declare module 'tiddlywiki' {
     parseTreeNode: IParseTreeNode;
     wiki: ITiddlyWiki;
     parentWidget?: Widget;
+    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget */
+    widgetClasses: Widget;
+    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
+     *
+     * Like `new widget.widget(widgetNode,{` in `$tw.wiki.makeWidget`
+     */
+    widget: new (parseTreeNode: IParseTreeNode, options?: unknown) => Widget;
     children: Widget[];
     /**
       Make child widgets correspondng to specified parseTreeNodes
