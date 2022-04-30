@@ -22,7 +22,7 @@ declare module 'tiddlywiki' {
     type: 'text';
   }
   export interface ILinkParseTreeNode extends IWikiASTNode {
-    text: string;
+    text?: string;
     type: 'link';
   }
   export interface IImageParseTreeNode extends IWikiASTNode {

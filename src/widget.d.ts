@@ -9,8 +9,9 @@ declare module 'tiddlywiki' {
   }
 
   export interface IWidgetEvent {
+    [extraKeys: string]: unknown;
     /** maybe a DOM click event, if trigger by button click */
-    event: Event;
+    event: UIEvent | Event;
     navigateFromTitle?: string;
     /**
      * Get `$param`
@@ -23,6 +24,7 @@ declare module 'tiddlywiki' {
     paramObject?: {
       [othersParamKeys: string]: unknown;
     };
+    tiddlerTitle?: string;
     /** the first parameter of addEventListener
      *
      * For example, the `'open-command-palette'` in `$tw.rootWidget.addEventListener('open-command-palette', (e: IWidgetEvent) => this.openPalette(e));`

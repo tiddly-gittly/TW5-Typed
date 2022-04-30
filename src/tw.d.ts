@@ -30,6 +30,10 @@ declare module 'tiddlywiki' {
     type: string;
   }
 
+  export interface ILanguage {
+    getString(key: string, options: { variables: { title: string } }): string;
+  }
+
   export interface IContentTypeInfo {
     deserializerType: string;
     encoding: string;
@@ -71,10 +75,11 @@ declare module 'tiddlywiki' {
       /**
         Invoke the hook by key
       */
-      invokeHook(hookName: string): void;
+      invokeHook(hookName: string, event: IWidgetEvent): undefined | boolean;
     };
 
     modules: ITWModules;
+    language: ILanguage;
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
     node: null | object;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
