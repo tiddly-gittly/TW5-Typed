@@ -75,11 +75,11 @@ declare module 'tiddlywiki' {
       /**
         Invoke the hook by key
       */
-      invokeHook(hookName: string, event: IWidgetEvent): undefined | boolean;
+      invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
     };
 
-    modules: ITWModules;
     language: ILanguage;
+    modules: ITWModules;
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
     node: null | object;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */

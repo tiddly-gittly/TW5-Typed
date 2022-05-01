@@ -46,8 +46,19 @@ declare module 'tiddlywiki' {
     /**
      * Compile filter string to be a function that execute the filter in the wiki.
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.
+     * 
+     * @returns a function with the signature fn(source,widget) where:
+        source: an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
+        widget: an optional widget node for retrieving the current tiddler etc.
      */
-    compileFilter: (filterString: string) => (iterator?: SourceIterator) => string[];
+    compileFilter(filterString: string): (source?: SourceIterator, widget?: Widget) => string[];
+    /**
+     *
+     * @param filterString
+     * @param widget an optional widget node for retrieving the current tiddler etc.
+     * @param source an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
+     */
+    filterTiddlers(filterString: string, widget?: Widget, source?: SourceIterator): string[];
     /**
      * Set JSON tiddler, Object in data field will be JSON.stringify and put into the text.
      * This will make tiddler to be JSON data tiddler `"type":"application/json"`, so if you just want to modify existed tiddler's data, use `addTiddler` instead.

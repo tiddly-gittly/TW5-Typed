@@ -4,7 +4,10 @@
 declare module 'tiddlywiki' {
   export type TWDocument = Document;
   export type TWDOMElement = Element;
-  export type TWEachCallback<T> = (element?: unknown, index?: string | number, object?: T) => boolean | undefined;
+  /** Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated. */
+  export type TWEachCallback<O, I> =
+    | ((element?: I, indexOrKey?: string | number, object?: O) => boolean | undefined)
+    | ((element?: I, indexOrKey?: string | number, object?: O) => void);
   export interface ITWUtils {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
@@ -85,7 +88,7 @@ declare module 'tiddlywiki' {
      * Iterate through all the own properties of an object or array.
      * Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated.
      */
-    each<T = object | unknown[]>(object: T, callback: TWEachCallback<T>): void;
+    each<I = any>(object: Record<string, I> | I[], callback: TWEachCallback<Record<string, I> | I[], I>): void;
     /** Display an error and exit */
     error(error: Event | string): void;
     /** Run code globally with specified context variables in scope */
