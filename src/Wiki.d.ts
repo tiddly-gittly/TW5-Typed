@@ -135,6 +135,16 @@ declare module 'tiddlywiki' {
       */
     renderTiddler(outputType: OutputMimeTypes, title: string, options?: IRenderOptions): string;
     /**
+      Parse text in a specified format and render it into another format
+       @param outputType content type for the output
+       @param textType content type of the input text
+       @param text input text
+       @param options see below, Options includes:
+      - variables: hashmap of variables to set
+      - parentWidget: optional parent widget for the root node
+    */
+    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: Partial<IMakeWidgetOptions> & IParserOptions): string;
+    /**
       Make a widget tree for a parse tree
       @params parser: parser object
       @params options: see below
@@ -143,17 +153,6 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
     */
-    /**
-      Parse text in a specified format and render it into another format
-        outputType: content type for the output
-        textType: content type of the input text
-        text: input text
-        options: see below
-      Options include:
-      variables: hashmap of variables to set
-      parentWidget: optional parent widget for the root node
-    */
-    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: Partial<IMakeWidgetOptions> & IParserOptions): string;
     makeWidget(parser: WikiParser, options?: IMakeWidgetOptions): Widget;
     /**
       Make a widget tree for transclusion

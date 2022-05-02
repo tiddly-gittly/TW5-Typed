@@ -55,15 +55,16 @@ declare module 'tiddlywiki' {
     children: Widget[];
     /**
       Make child widgets correspondng to specified parseTreeNodes
+      And push them to `this.children`
       @param parseTreeNodes default to `this.parseTreeNode.children`, can be undefined
     */
     makeChildWidgets(parseTreeNodes?: IParseTreeNode[], options?: { variables?: unknown }): void;
     /**
-      Construct the widget object for a parse tree node
+      Construct the widget object for a parse tree node, and return the new widget
       options include:
         variables: optional hashmap of variables to wrap around the widget
     */
-    makeChildWidget(parseTreeNode: IParseTreeNode, options?: { variables?: unknown }): void;
+    makeChildWidget(parseTreeNode: IParseTreeNode, options?: { variables?: unknown }): Widget;
     variablesConstructor: variablesConstructor;
     variables: unknown;
     domNodes: Node[];
