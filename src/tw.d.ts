@@ -78,23 +78,28 @@ declare module 'tiddlywiki' {
       invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
     };
 
+    /** Determines if a tiddler is a shadow tiddler, regardless of whether it has been overridden by a real tiddler */
+    isShadowTiddler(title: string): boolean;
     language: ILanguage;
     modules: ITWModules;
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
     node: null | object;
+
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | object;
-
     notifier: Notifier;
+
     /** Convenience function for pushing a tiddler onto the preloading array */
     preloadTiddler(fields: Record<string, unknown>): void;
     /** Convenience function for pushing an array of tiddlers onto the preloading array */
     preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
-
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
     preloadTiddlers: Record<string, Record<string, unknown>>;
 
     rootWidget: Widget;
+
+    /** Test for the existence of a tiddler (excludes shadow tiddlers) */
+    tiddlerExists(title: string): boolean;
 
     utils: ITWUtils;
     version: string;

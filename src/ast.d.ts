@@ -3,7 +3,7 @@ declare module 'tiddlywiki' {
     end?: number;
     name?: string;
     start?: number;
-    type: 'string' | 'number';
+    type: 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
     value: string;
   }
 
@@ -42,19 +42,15 @@ declare module 'tiddlywiki' {
   }
   export interface ICodeBlockParseTreeNode extends IWikiASTNode {
     attributes: {
-      code?:
-        | {
-            type: 'string';
-            value: string;
-          }
-        | undefined;
-      language?:
-        | {
-            type: 'string';
-            value: string;
-          }
-        | undefined;
-    };
+      code?: {
+        type: 'string';
+        value: string;
+      };
+      language?: {
+        type: 'string';
+        value: string;
+      };
+    } & IWikiASTNode['attributes'];
     type: 'codeblock';
   }
   export interface IMacroParameterCallParseTreeNode extends IWikiASTNode {
@@ -81,5 +77,7 @@ declare module 'tiddlywiki' {
     | IImageParseTreeNode
     | ITranscludeParseTreeNode
     | ITiddlerParseTreeNode
+    | ICodeBlockParseTreeNode
+    | ILinkParseTreeNode
     | ICustomParseTreeNode;
 }

@@ -122,7 +122,20 @@ declare module 'tiddlywiki' {
      * @param {object} options options, see tiddlywiki dev doc for details
      */
     setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: { suppressTimestamp?: boolean }) => void;
+    /**
+      Parse a tiddler according to its MIME type
+    */
     parseTiddler(title: string, options?: IParserOptions): WikiParser;
+    /**
+      Parse a block of text of a specified MIME type
+      @param {string} type: content type of text to be parsed
+      @param {string} text: text
+      @param {object}options: see below
+
+    Options include:
+      - parseAsInline: if true, the text of the tiddler will be parsed as an inline run
+      - _canonical_uri: optional string of the canonical URI of this content
+    */
     parseText(type: string, text: string, options?: IParserOptions): WikiParser;
     /**
       Parse text from a tiddler and render it into another format
