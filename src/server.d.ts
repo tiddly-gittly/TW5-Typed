@@ -81,6 +81,11 @@ declare module 'tiddlywiki' {
       prefix: optional prefix (falls back to value of "path-prefix" variable)
       */
     listen(port?: string, host?: string, prefix?: string): void;
+
+    on(eventName: 'error', callback: (error: Error) => void): void;
+    on(eventName: 'listening', callback: () => void): void;
+    on(eventName: string, callback: (...arguments_: unknown[]) => unknown): void;
+
     /**
       Check whether a given user is authorized for the specified authorizationType ("readers" or "writers"). Pass null or undefined as the username to check for anonymous access
     */
