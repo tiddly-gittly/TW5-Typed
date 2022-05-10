@@ -58,6 +58,7 @@ module.exports = {
     'no-undef': 'off',
     'unicorn/no-array-for-each': 'off',
     'unicorn/no-await-expression-member': 'off',
+    'unicorn/prefer-dom-node-append': 'off',
     'multiline-ternary': 'off',
     'security/detect-object-injection': 'off',
     'security/detect-non-literal-fs-filename': 'off',

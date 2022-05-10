@@ -59,7 +59,43 @@ declare module 'tiddlywiki' {
       };
     };
 
-    browser: null | object;
+    browser: null | {
+      is?: {
+        android?: boolean;
+        bada?: boolean;
+        blackberry?: boolean;
+        chrome?: boolean;
+        firefox?: boolean;
+        firefoxos?: boolean;
+        gecko?: boolean;
+        ios?: boolean;
+        ipad?: boolean;
+        iphone?: boolean;
+        mobile?: boolean;
+        name?: boolean;
+        opera?: boolean;
+        phantomjs?: boolean;
+        safari?: boolean;
+        sailfish?: boolean;
+        seamonkey?: boolean;
+        silk?: boolean;
+        tizen?: boolean;
+        version?: boolean;
+        webkit?: boolean;
+        webos?: boolean;
+        windowsphone?: boolean;
+      };
+      /**
+       * @deprecated
+       * Install `$:/plugins/tiddlywiki/browser-sniff` to use `browser.is`
+       */
+      isFirefox: boolean;
+      /**
+       * @deprecated
+       * Install `$:/plugins/tiddlywiki/browser-sniff` to use `browser.is`
+       */
+      isIE: boolean;
+    };
 
     config: ITWConfig;
 
