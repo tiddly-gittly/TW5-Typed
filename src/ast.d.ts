@@ -3,8 +3,8 @@ declare module 'tiddlywiki' {
     end?: number;
     name?: string;
     start?: number;
-    type: 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
-    value: string;
+    type: 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function' | 'macro';
+    value: string | IMacroCallParseTreeNode;
   }
 
   export interface IWikiASTNode {
@@ -59,9 +59,16 @@ declare module 'tiddlywiki' {
     value: string;
   }
   export interface IMacroCallParseTreeNode extends IWikiASTNode {
-    name: string;
-    params: IMacroParameterCallParseTreeNode[];
+    name?: string;
+    params?: IMacroParameterCallParseTreeNode[];
+    /** `tag: '$macrocall',` */
+    tag?: string;
     type: 'macrocall';
+  }
+  export interface IMacroParseTreeNode extends IWikiASTNode {
+    name: string;
+    type: 'macro';
+    value: IMacroCallParseTreeNode;
   }
   export interface ICustomParseTreeNode extends IWikiASTNode {
     params: IMacroParameterCallParseTreeNode[];
@@ -70,6 +77,7 @@ declare module 'tiddlywiki' {
     type: string;
   }
   export type IParseTreeNode =
+    | IWikiASTNode
     | IDomParseTreeNode
     | IMacroParameterCallParseTreeNode
     | IMacroCallParseTreeNode
@@ -79,5 +87,7 @@ declare module 'tiddlywiki' {
     | ITiddlerParseTreeNode
     | ICodeBlockParseTreeNode
     | ILinkParseTreeNode
-    | ICustomParseTreeNode;
+    | ICustomParseTreeNode
+    | IMacroParseTreeNode
+    | IParseTreeAttribute;
 }
