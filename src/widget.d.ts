@@ -12,6 +12,7 @@ declare module 'tiddlywiki' {
     [extraKeys: string]: unknown;
     /** maybe a DOM click event, if trigger by button click */
     event: UIEvent | Event;
+    name: string;
     navigateFromTitle?: string;
     /**
      * Get `$param`
@@ -45,8 +46,11 @@ declare module 'tiddlywiki' {
     parseTreeNode: IParseTreeNode;
     wiki: ITiddlyWiki;
     parentWidget?: Widget;
-    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget */
-    widgetClasses: Widget;
+    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
+     *
+     * This is a set of all widgets defined in tiddlywiki.
+     */
+    widgetClasses: Record<string, Widget>;
     /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
      *
      * Like `new widget.widget(widgetNode,{` in `$tw.wiki.makeWidget`
@@ -59,6 +63,13 @@ declare module 'tiddlywiki' {
       @param parseTreeNodes default to `this.parseTreeNode.children`, can be undefined
     */
     makeChildWidgets(parseTreeNodes?: IParseTreeNode[], options?: { variables?: unknown }): void;
+    /**
+     * Remove any DOM nodes created by this widget or its children
+     *
+     * If this widget has directly created DOM nodes, delete them and exit. This assumes that any child widgets are contained within the created DOM nodes, which would normally be the case.
+     * Otherwise, ask the child widgets to delete their DOM nodes
+     */
+    removeChildDomNodes(): void;
     /**
       Construct the widget object for a parse tree node, and return the new widget
       options include:
