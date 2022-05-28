@@ -37,6 +37,7 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 0,
     'unicorn/prefer-node-protocol': 'off',
     'unicorn/prefer-module': 'off',
+    '@typescript-eslint/no-invalid-void-type': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/method-signature-style': 'off',
     'unicorn/prefer-string-slice': 'off',
