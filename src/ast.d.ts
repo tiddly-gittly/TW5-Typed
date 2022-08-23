@@ -12,6 +12,7 @@ declare module 'tiddlywiki' {
     children?: IParseTreeNode[];
     end?: number;
     isBlock?: boolean;
+    isMacroDefinition?: boolean;
     isSelfClosing?: boolean;
     orderedAttributes?: IParseTreeAttribute[];
     start?: number;
