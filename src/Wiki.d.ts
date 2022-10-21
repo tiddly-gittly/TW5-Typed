@@ -95,10 +95,12 @@ declare module 'tiddlywiki' {
 
       Alternative, uncached version of getTiddlerDataCached(). The return value can be mutated freely and reused
     */
-    getTiddlerData<D extends Record<string, unknown> | undefined>(titleOrTiddler: string, fallbackData?: D): D;
-    getTiddlerData<D extends Record<string, unknown> | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
+    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(titleOrTiddler: string, fallbackData?: D): D;
+    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
     /**
-      Get the content of a tiddler as a JavaScript object. How this is done depends on the type of the tiddler:
+     * D is any JSON, like JSON object or JSON array
+     * 
+     * Get the content of a tiddler as a JavaScript object. How this is done depends on the type of the tiddler:
 
       application/json: the tiddler JSON is parsed into an object
       application/x-tiddler-dictionary: the tiddler is parsed as sequence of name:value pairs
@@ -110,8 +112,8 @@ declare module 'tiddlywiki' {
 
       Note that the same value is returned for repeated calls for the same tiddler data. The value is frozen to prevent modification; otherwise modifications would be visible to all callers
     */
-    getTiddlerDataCached<D extends Record<string, unknown> | undefined>(titleOrTiddler: string, fallbackData?: D): D;
-    getTiddlerDataCached<D extends Record<string, unknown> | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
+    getTiddlerDataCached<D>(titleOrTiddler: string, fallbackData?: D): D;
+    getTiddlerDataCached<D>(titleOrTiddler: Tiddler, fallbackData?: D): D;
     /**
      * Set tiddler text of any field.
      *
