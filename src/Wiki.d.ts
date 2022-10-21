@@ -196,5 +196,11 @@ declare module 'tiddlywiki' {
         recursionMarker?: 'yes' | 'no';
       } & IMakeWidgetOptions,
     ): Widget;
+    /** Test for the existence of a tiddler (excludes shadow tiddlers) */
+    tiddlerExists(title: string): boolean;
+    /** Determines if a tiddler is a shadow tiddler, regardless of whether it has been overridden by a real tiddler */
+    isShadowTiddler(title: string): boolean;
+    /** return shadowTiddlers[title].source; */
+    getShadowSource(title: string): string | null;
   }
 }
