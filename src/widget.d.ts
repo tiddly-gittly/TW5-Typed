@@ -85,6 +85,8 @@ declare module 'tiddlywiki' {
     addEventListener(type: string, handler: (event: IWidgetEvent) => void | Promise<void>): void;
     /**
       Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
+
+      Events added via `addEventListener`, like `tm-notify`, can be invoked by this.
     */
     dispatchEvent(typeOrEvent: string | Omit<IWidgetEvent, 'widget'>): void;
     /**
