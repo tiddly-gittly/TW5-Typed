@@ -45,6 +45,7 @@ declare module 'tiddlywiki' {
     initialize(parseTreeNode: IParseTreeNode, options?: unknown): void;
     parseTreeNode: IParseTreeNode;
     wiki: ITiddlyWiki;
+    document: IFakeDocument;
     parentWidget?: Widget;
     /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
      *
@@ -187,16 +188,15 @@ declare module 'tiddlywiki' {
     isTiddlyWikiFakeDom: boolean;
     setSequenceNumber: (value: any) => void;
   }
-  export class TW_Element {
-    isTiddlyWikiFakeDom: boolean;
-    tag: string;
-    attributes: Record<string, unknown>;
-    isRaw: boolean;
-    children: Array<TW_Element | TW_TextNode>;
+  export interface TW_Element extends HTMLElement {
     _style: Record<string, unknown>;
+    appendChild: <T extends TW_Element | TW_TextNode | Node>(node: T) => T;
+    isRaw: boolean;
+    isTiddlyWikiFakeDom: boolean;
     namespaceURI: string;
+    tag: string;
   }
-  export class TW_TextNode {
+  export interface TW_TextNode extends Node {
     textContent: string;
   }
 }
