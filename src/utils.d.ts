@@ -39,6 +39,10 @@ declare module 'tiddlywiki' {
      * Missing or malformed version strings are parsed as 0.0.0
      */
     compareVersions(versionStringA: string, versionStringB: string): -1 | 0 | 1;
+    /*
+      Return the number of keys in an object
+    */
+    count(object: Record<string, any>): number;
     /** Convert a URIComponent encoded string to a string safely */
     decodeURIComponentSafe(uri: string): string;
     /** Convert a URI encoded string to a string safely */
