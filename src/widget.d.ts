@@ -199,4 +199,17 @@ declare module 'tiddlywiki' {
   export interface TW_TextNode extends Node {
     textContent: string;
   }
+
+  export interface ModalWidget {
+    new(wiki: Wiki): ModalWidget;
+    adjustPageClass(): void;
+    /**
+     * Display a dialog with mask
+     * @param title
+     * @param options
+     * variables: optional hashmap of variables to wrap around the widget
+     * downloadLink: normally is used for "Right-click to save changes"
+     */
+    display(title: string, options?: { downloadLink?: string; event?: IWidgetEvent; variables?: unknown }): void;
+  }
 }

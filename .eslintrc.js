@@ -41,6 +41,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/method-signature-style': 'off',
     'unicorn/prefer-string-slice': 'off',
+    '@typescript-eslint/no-misused-new': 'off',
     'unicorn/no-array-reduce': 'off',
     '@typescript-eslint/member-delimiter-style': [
       'warn',
