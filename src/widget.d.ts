@@ -201,15 +201,16 @@ declare module 'tiddlywiki' {
   }
 
   export interface ModalWidget {
-    new(wiki: Wiki): ModalWidget;
+    new (wiki: Wiki): ModalWidget;
     adjustPageClass(): void;
     /**
-     * Display a dialog with mask
+     *
      * @param title
      * @param options
      * variables: optional hashmap of variables to wrap around the widget
      * downloadLink: normally is used for "Right-click to save changes"
+     * maskClosable: Whether to close the modal dialog when the mask (area outside the modal) is clicked
      */
-    display(title: string, options?: { downloadLink?: string; event?: IWidgetEvent; variables?: unknown }): void;
+    display(title: string, options?: { downloadLink?: string; event?: IWidgetEvent; maskClosable?: boolean; variables?: unknown }): void;
   }
 }
