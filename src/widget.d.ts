@@ -120,7 +120,7 @@ declare module 'tiddlywiki' {
      * @param event
      * @returns handled
      */
-    invokeAction: (triggeringWidget: Widget, event: IWidgetEvent) => boolean | undefined;
+    invokeAction(triggeringWidget: Widget, event: IWidgetEvent): boolean | undefined;
 
     /**
      * Lifecycle method: Render this widget into the DOM
