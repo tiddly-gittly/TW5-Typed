@@ -64,6 +64,10 @@ declare module 'tiddlywiki' {
       @param parseTreeNodes default to `this.parseTreeNode.children`, can be undefined
     */
     makeChildWidgets(parseTreeNodes?: IParseTreeNode[], options?: { variables?: unknown }): void;
+    /*
+      Initialise widget properties. These steps are pulled out of the constructor so that we can reuse them in subclasses
+    */
+    initialise(parseTreeNode: IParseTreeNode, options?: { document?: Document; parentWidget?: Widget; wiki?: ITiddlyWiki }): void;
     /**
      * Remove any DOM nodes created by this widget or its children
      *
