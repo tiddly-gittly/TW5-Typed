@@ -12,6 +12,7 @@ declare module 'tiddlywiki' {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     variables?: Record<string, any>;
   }
+  export type ITiddlerFieldsParam = Omit<Partial<ITiddlerFields>, 'created' | 'modified'> & { created?: string; modified?: string };
   export class Wiki {
     /**
      * Wiki constructor. State is stored in private members that only a small number of privileged accessor methods have direct access. Methods added via the prototype have to use these accessors and cannot access the state data directly.
@@ -63,16 +64,16 @@ declare module 'tiddlywiki' {
      * Set JSON tiddler, Object in data field will be JSON.stringify and put into the text.
      * This will make tiddler to be JSON data tiddler `"type":"application/json"`, so if you just want to modify existed tiddler's data, use `addTiddler` instead.
      */
-    setTiddlerData: (title: string, data?: object, fields?: ITiddlerFields, options?: any) => void;
+    setTiddlerData: (title: string, data?: object, fields?: ITiddlerFieldsParam, options?: any) => void;
     /**
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
-    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFields>) => void;
+    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFieldsParam>) => void;
     /**
      * Call `addTiddler` for each iton of the list, but should passing `tiddler.fields`, directly passing tiddler object may failed to add in some cases.
      */
-    addTiddlers: (tiddler: Array<Partial<ITiddlerFields>>) => void;
+    addTiddlers: (tiddler: Array<Partial<ITiddlerFieldsParam>>) => void;
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
