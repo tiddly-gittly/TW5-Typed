@@ -69,11 +69,11 @@ declare module 'tiddlywiki' {
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
-    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFieldsParam>) => void;
+    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>) => void;
     /**
      * Call `addTiddler` for each iton of the list, but should passing `tiddler.fields`, directly passing tiddler object may failed to add in some cases.
      */
-    addTiddlers: (tiddler: Array<Partial<ITiddlerFieldsParam>>) => void;
+    addTiddlers: (tiddler: Array<Partial<ITiddlerFieldsParam>| Partial<ITiddlerFields>>) => void;
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
