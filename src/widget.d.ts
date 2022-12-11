@@ -4,8 +4,10 @@ declare module 'tiddlywiki' {
    * Key is tiddler title
    */
   export type IChangedTiddlers = Record<string, IChangedTiddlersMeta>;
+  /** Only one of these fields will be `true` */
   export interface IChangedTiddlersMeta {
-    modified: boolean;
+    deleted?: boolean;
+    modified?: boolean;
   }
 
   export interface IWidgetEvent {
