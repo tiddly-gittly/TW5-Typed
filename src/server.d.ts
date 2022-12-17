@@ -103,7 +103,7 @@ declare module 'tiddlywiki' {
    * @link https://talk.tiddlywiki.org/t/what-is-the-state-in-server-route-handler/2877
    */
   export type ServerEndpointHandler<T = Record<string, unknown>> = (
-    request: Http.ClientRequest,
+    request: Http.ClientRequest & Http.InformationEvent,
     response: Http.ServerResponse,
     context: ServerEndpointContext & T,
   ) => void;
