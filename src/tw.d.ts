@@ -41,6 +41,11 @@ declare module 'tiddlywiki' {
     flags: string[];
   }
 
+  export interface IStartUpOption {
+    bootPath: string;
+    callback?: () => unknown;
+  }
+
   export interface ITiddlyWiki {
     Tiddler: typeof Tiddler;
     Wiki: typeof Wiki;
@@ -51,7 +56,7 @@ declare module 'tiddlywiki' {
       files: IBootFilesIndex;
       log(logString: string): void;
       logMessages: string[];
-      startup(options: { callback?: () => unknown }): void;
+      startup(options: IStartUpOption): void;
       /** Default boot tasks */
       tasks: {
         readBrowserTiddlers: boolean;
