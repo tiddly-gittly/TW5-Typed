@@ -42,7 +42,7 @@ declare module 'tiddlywiki' {
   }
 
   export interface IStartUpOption {
-    bootPath: string;
+    bootPath?: string;
     callback?: () => unknown;
   }
 
