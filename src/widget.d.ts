@@ -146,8 +146,10 @@ declare module 'tiddlywiki' {
     /**
       Refresh all the children of a widget
       will call `this.render`
+
+      Need to call this after `setVariable`
     */
-    refreshChildren(changedTiddlers: IChangedTiddlers): boolean;
+    refreshChildren(changedTiddlers?: IChangedTiddlers): boolean;
     /**
      * Rebuild a previously rendered widget
      */
