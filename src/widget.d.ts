@@ -184,6 +184,15 @@ declare module 'tiddlywiki' {
         text: text of variable, with parameters properly substituted
      */
     getVariable(name: string, options?: object): string;
+    /**
+      Set the value of a context variable
+
+      @param name name of the variable
+      @param value value of the variable
+      @param params array of {name:, default:} for each parameter
+      @param isMacroDefinition true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
+      */
+    setVariable(name: string, value: string, parameters?: object[], isMacroDefinition?: boolean): void;
   }
 
   export interface IFakeDocument {
