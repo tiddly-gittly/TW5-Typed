@@ -3,7 +3,13 @@ declare module 'tiddlywiki' {
     end?: number;
     name?: string;
     start?: number;
-    type: 'string' | 'number' | 'bigint' | 'boolean' | 'macro' | 'macro-parameter';
+    type:
+      | 'string'
+      | 'number'
+      | 'bigint'
+      | 'boolean'
+      | 'macro'
+      | 'macro-parameter';
     value: string | IMacroCallParseTreeNode;
   }
 

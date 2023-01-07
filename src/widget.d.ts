@@ -36,40 +36,65 @@ declare module 'tiddlywiki' {
     widget: Widget;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-extraneous-class
   class variablesConstructor {}
 
   /**
    * @link https://tiddlywiki.com/dev/#Widgets
    */
   export class Widget {
-    constructor(parseTreeNode: IParseTreeNode, options?: unknown);
-    initialize(parseTreeNode: IParseTreeNode, options?: unknown): void;
     parseTreeNode: IParseTreeNode;
+
     wiki: ITiddlyWiki;
+
     document: IFakeDocument;
+
     parentWidget?: Widget;
+
     /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
      *
      * This is a set of all widgets defined in tiddlywiki.
      */
     widgetClasses: Record<string, Widget>;
+
     /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
      *
      * Like `new widget.widget(widgetNode,{` in `$tw.wiki.makeWidget`
      */
     widget: new (parseTreeNode: IParseTreeNode, options?: unknown) => Widget;
+
     children: Widget[];
+
+    variablesConstructor: variablesConstructor;
+
+    variables: unknown;
+
+    domNodes: Node[];
+
+    parentDomNode: Node;
+
+    constructor(parseTreeNode: IParseTreeNode, options?: unknown);
+    initialize(parseTreeNode: IParseTreeNode, options?: unknown): void;
     /**
       Make child widgets correspondng to specified parseTreeNodes
       And push them to `this.children`
       @param parseTreeNodes default to `this.parseTreeNode.children`, can be undefined
     */
-    makeChildWidgets(parseTreeNodes?: IParseTreeNode[], options?: { variables?: unknown }): void;
+    makeChildWidgets(
+      parseTreeNodes?: IParseTreeNode[],
+      options?: { variables?: unknown },
+    ): void;
     /*
       Initialise widget properties. These steps are pulled out of the constructor so that we can reuse them in subclasses
     */
-    initialise(parseTreeNode: IParseTreeNode, options?: { document?: Document; parentWidget?: Widget; wiki?: ITiddlyWiki }): void;
+    initialise(
+      parseTreeNode: IParseTreeNode,
+      options?: {
+        document?: Document;
+        parentWidget?: Widget;
+        wiki?: ITiddlyWiki;
+      },
+    ): void;
     /**
      * Remove any DOM nodes created by this widget or its children
      *
@@ -82,14 +107,17 @@ declare module 'tiddlywiki' {
       options include:
         variables: optional hashmap of variables to wrap around the widget
     */
-    makeChildWidget(parseTreeNode: IParseTreeNode, options?: { variables?: unknown }): Widget;
-    variablesConstructor: variablesConstructor;
-    variables: unknown;
-    domNodes: Node[];
+    makeChildWidget(
+      parseTreeNode: IParseTreeNode,
+      options?: { variables?: unknown },
+    ): Widget;
     /**
       Add an event listener
     */
-    addEventListener(type: string, handler: (event: IWidgetEvent) => void | Promise<void>): void;
+    addEventListener(
+      type: string,
+      handler: (event: IWidgetEvent) => void | Promise<void>,
+    ): void;
     /**
       Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
 
@@ -99,15 +127,19 @@ declare module 'tiddlywiki' {
     /**
       Add a list of event listeners from an array [{type:,handler:},...]
     */
-    addEventListeners(listeners: Array<{ handler: (event: IWidgetEvent) => void | Promise<void>; type: string }>): void;
+    addEventListeners(
+      listeners: Array<{
+        handler: (event: IWidgetEvent) => void | Promise<void>;
+        type: string;
+      }>,
+    ): void;
 
-    parentDomNode: Node;
     /**
       Compute the internal state of the widget.
       This will be automatically called in the `render` method.
 
       For example, `getAttribute` and set them to class members.
-      
+
     */
     execute(): void;
     /**
@@ -126,7 +158,10 @@ declare module 'tiddlywiki' {
      * @param event
      * @returns handled
      */
-    invokeAction(triggeringWidget: Widget, event: IWidgetEvent): boolean | undefined;
+    invokeAction(
+      triggeringWidget: Widget,
+      event: IWidgetEvent,
+    ): boolean | undefined;
 
     /**
      * Lifecycle method: Render this widget into the DOM
@@ -175,7 +210,7 @@ declare module 'tiddlywiki' {
      * Simplified version of getVariableInfo() that just returns the text.
      * @param name variable name, for example, `currentTiddler` in the widget context
      * @param options options for getVariableInfo()
-     * 
+     *
      * Options include
         params: array of {name:, value:} for each parameter
         defaultValue: default value if the variable is not defined
@@ -194,7 +229,12 @@ declare module 'tiddlywiki' {
       @param params array of {name:, default:} for each parameter
       @param isMacroDefinition true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
       */
-    setVariable(name: string, value: string, parameters?: object[], isMacroDefinition?: boolean): void;
+    setVariable(
+      name: string,
+      value: string,
+      parameters?: object[],
+      isMacroDefinition?: boolean,
+    ): void;
   }
 
   export interface IFakeDocument {
@@ -205,6 +245,7 @@ declare module 'tiddlywiki' {
     isTiddlyWikiFakeDom: boolean;
     setSequenceNumber: (value: any) => void;
   }
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   export interface TW_Element extends HTMLElement {
     _style: Record<string, unknown>;
     appendChild: <T extends TW_Element | TW_TextNode | Node>(node: T) => T;
@@ -213,13 +254,13 @@ declare module 'tiddlywiki' {
     namespaceURI: string;
     tag: string;
   }
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   export interface TW_TextNode extends Node {
     textContent: string;
   }
 
-  export interface ModalWidget {
-    new (wiki: Wiki): ModalWidget;
-    adjustPageClass(): void;
+  export type ModalWidget = {
+    adjustPageClass: () => void;
     /**
      *
      * @param title
@@ -227,6 +268,15 @@ declare module 'tiddlywiki' {
      * variables: optional hashmap of variables to wrap around the widget
      * downloadLink: normally is used for "Right-click to save changes"
      */
-    display(title: string, options?: { downloadLink?: string; event?: IWidgetEvent; variables?: unknown }): void;
-  }
+    display: (
+      title: string,
+      options?: {
+        downloadLink?: string;
+        event?: IWidgetEvent;
+        variables?: unknown;
+      },
+    ) => void;
+
+    new (wiki: Wiki): ModalWidget;
+  };
 }

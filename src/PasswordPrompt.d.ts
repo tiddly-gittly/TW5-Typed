@@ -15,11 +15,12 @@ declare module 'tiddlywiki' {
   ) => boolean;
 
   export class PasswordPrompt {
-    /** Creates a PasswordPrompt object */
-    constructor();
     /** Store of pending password prompts */
     passwordPrompts: PasswordPromptInfo[];
+
     promptWrapper: TWDOMElement;
+    /** Creates a PasswordPrompt object */
+    constructor();
     /** Hides or shows the wrapper depending on whether there are any outstanding prompts */
     setWrapperDisplay(): void;
     /**

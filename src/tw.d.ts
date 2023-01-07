@@ -31,7 +31,10 @@ declare module 'tiddlywiki' {
   }
 
   export interface ILanguage {
-    getString(key: string, options: { variables: { title: string } }): string;
+    getString: (
+      key: string,
+      options: { variables: { title: string } },
+    ) => string;
   }
 
   export interface IContentTypeInfo {
@@ -52,16 +55,17 @@ declare module 'tiddlywiki' {
 
     boot: {
       argv: string[];
-      boot(callback?: () => unknown): void;
+      boot: (callback?: () => void) => void;
       files: IBootFilesIndex;
-      log(logString: string): void;
+      log: (logString: string) => void;
       logMessages: string[];
-      startup(options: IStartUpOption): void;
+      startup: (options: IStartUpOption) => void;
       /** Default boot tasks */
       tasks: {
         readBrowserTiddlers: boolean;
         trapErrors: boolean;
       };
+      excludeRegExp: RegExp;
     };
 
     browser: null | {
@@ -117,15 +121,24 @@ declare module 'tiddlywiki' {
       /**
         Add hooks to the  hashmap
       */
-      addHook(hookName: 'th-server-command-post-start', callback: (listenCommand: unknown, server: Server) => void): void;
-      addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown): void;
+      addHook: (
+        hookName: 'th-server-command-post-start',
+        callback: (listenCommand: unknown, server: Server) => void,
+      ) => void;
+      addHook: (
+        hookName: string,
+        callback: (...arguments_: unknown[]) => unknown,
+      ) => void;
       /**
         Invoke the hook by key
       */
-      invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
+      invokeHook: (
+        hookName: string,
+        event: IWidgetEvent,
+      ) => undefined | IWidgetEvent;
     };
     /** Determines if a tiddler is a shadow tiddler, regardless of whether it has been overridden by a real tiddler */
-    isShadowTiddler(title: string): boolean;
+    isShadowTiddler: (title: string) => boolean;
     language: ILanguage;
     modules: ITWModules;
 
@@ -136,17 +149,28 @@ declare module 'tiddlywiki' {
 
     notifier: Notifier;
     /** Convenience function for pushing a tiddler onto the preloading array */
-    preloadTiddler(fields: Record<string, unknown>): void;
+    preloadTiddler: (fields: Record<string, unknown>) => void;
     /** Convenience function for pushing an array of tiddlers onto the preloading array */
-    preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
+    preloadTiddlerArray: (fieldsArray: Array<Record<string, unknown>>) => void;
 
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
     preloadTiddlers: Record<string, Record<string, unknown>>;
 
+    getLibraryItemSearchPaths: (libraryPath: string, envVar?: string) => string;
+
+    findLibraryItem: (name: string, paths: string[]) => string | null;
+
+    loadMetadataForFile: (filepath: string) => ITiddlerFields | null;
+
+    loadPluginFolder: (
+      filepath: string,
+      excludeRegExp?: RegExp,
+    ) => ITiddlerFields | null;
+
     rootWidget: Widget;
 
     /** Test for the existence of a tiddler (excludes shadow tiddlers) */
-    tiddlerExists(title: string): boolean;
+    tiddlerExists: (title: string) => boolean;
     utils: ITWUtils;
     version: string;
     wiki: Wiki;

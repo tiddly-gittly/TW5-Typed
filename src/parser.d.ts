@@ -14,10 +14,15 @@ declare module 'tiddlywiki' {
 
   export class WikiParseRule {
     is: { block?: boolean; inline?: boolean };
-    match?: null;
+
+    match?: unknown;
+
     matchRegExp?: RegExp;
+
     parser?: WikiParser;
-    nextTag?: null;
+
+    nextTag?: unknown;
+
     /** `{type: 'macrocall', start: 261, params: Array(1), name: 'reuse-tiddler', end: 290}` */
     nextCall?: {
       end: number;
@@ -29,15 +34,24 @@ declare module 'tiddlywiki' {
     };
   }
   export class WikiParser {
-    blockRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
-    inlineRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
-    pragmaRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
+    blockRules: { matchIndex?: number; rule: WikiParseRule }[];
+
+    inlineRules: { matchIndex?: number; rule: WikiParseRule }[];
+
+    pragmaRules: { matchIndex?: number; rule: WikiParseRule }[];
+
     configTrimWhiteSpace: boolean;
+
     pos: number;
+
     source: string;
+
     sourceLength: number;
+
     type: string;
+
     wiki: Wiki;
+
     tree: IParseTreeNode[];
   }
 }

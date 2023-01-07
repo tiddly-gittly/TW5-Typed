@@ -15,6 +15,7 @@ declare module 'tiddlywiki' {
   }
   export interface IModuleSandbox {
     $tw: ITiddlyWiki;
+    // eslint-disable-next-line node/prefer-global/buffer
     Buffer?: Buffer;
     clearInterval: typeof clearInterval;
     clearTimeout: typeof clearTimeout;
@@ -26,7 +27,11 @@ declare module 'tiddlywiki' {
     setInterval: typeof setInterval;
     setTimeout: typeof setTimeout;
   }
-  export type TWModuleDefinitionFucntion = (moduleInfo: IModuleInfo, exports: ITWModuleExports, requireFunction: ITWRequire) => void;
+  export type TWModuleDefinitionFucntion = (
+    moduleInfo: IModuleInfo,
+    exports: ITWModuleExports,
+    requireFunction: ITWRequire,
+  ) => void;
   /**
    * Information about each module is kept in an object with these members:
    *
@@ -44,11 +49,21 @@ declare module 'tiddlywiki' {
    */
   interface ITWModules {
     /** Apply the exports of the modules of a particular type to a target object */
-    applyMethods(moduleType: string, targetObject?: ITWModuleExports): ITWModuleExports;
+    applyMethods: (
+      moduleType: string,
+      targetObject?: ITWModuleExports,
+    ) => ITWModuleExports;
     /** Return a class created from a modules. The module should export the properties to be added to those of the optional base class */
-    createClassFromModule(moduleExports: ITWModuleExports, baseClass: new () => unknown): ITWModuleExports;
+    createClassFromModule: (
+      moduleExports: ITWModuleExports,
+      baseClass: new () => unknown,
+    ) => ITWModuleExports;
     /** Return an array of classes created from the modules of a specified type. Each module should export the properties to be added to those of the optional base class */
-    createClassesFromModules(moduleType: string, subType: string | null | undefined, baseClass: new () => unknown): Record<string, ITWModuleExports>;
+    createClassesFromModules: (
+      moduleType: string,
+      subType: string | null | undefined,
+      baseClass: new () => unknown,
+    ) => Record<string, ITWModuleExports>;
     /**
      * Define a JavaScript tiddler module for later execution
      * @param {string} moduleName name of module being defined
@@ -56,12 +71,16 @@ declare module 'tiddlywiki' {
      * @param {(string | TWModuleDefinitionFucntion | ITWModuleExports)} definition module definition; see discussion above
      * @memberof ITWModules
      */
-    define(moduleName: string, moduleType: string, definition: string | TWModuleDefinitionFucntion | ITWModuleExports): void;
+    define: (
+      moduleName: string,
+      moduleType: string,
+      definition: string | TWModuleDefinitionFucntion | ITWModuleExports,
+    ) => void;
     /**
      * Execute the module named 'moduleName'. The name can optionally be relative to the module named 'moduleRoot'
      * @memberof ITWModules
      */
-    execute(moduleName: string, moduleRoot: string): ITWModuleExports;
+    execute: (moduleName: string, moduleRoot: string) => ITWModuleExports;
     /**
      * Apply a callback to each module of a particular type
      *
@@ -69,9 +88,15 @@ declare module 'tiddlywiki' {
      * @param {(title, moduleExports) => void} callback function called as callback(title,moduleExports) for each module
      * @memberof ITWModules
      */
-    forEachModuleOfType(moduleType: string, callback: (title: string, moduleExports: unknown) => void): void;
+    forEachModuleOfType: (
+      moduleType: string,
+      callback: (title: string, moduleExports: unknown) => void,
+    ) => void;
     /** Get all the modules of a particular type in a hashmap by their `name` field */
-    getModulesByTypeAsHashmap(moduleType: string, nameField: string): Record<string, IModuleInfo>;
+    getModulesByTypeAsHashmap: (
+      moduleType: string,
+      nameField: string,
+    ) => Record<string, IModuleInfo>;
     /** hashmap by module name of moduleInfo */
     titles: Record<string, IModuleInfo>;
     /** hashmap by module type and then name of moduleInfo */

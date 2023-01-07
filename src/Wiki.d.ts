@@ -5,14 +5,22 @@ declare module 'tiddlywiki' {
     document: typeof document | IFakeDocument;
   }
 
-  export type OutputMimeTypes = 'text/html' | 'text/plain-formatted' | 'text/plain';
-  export type TextMimeTypes = 'text/html' | 'text/vnd.tiddlywiki' | 'text/plain';
+  export type OutputMimeTypes =
+    | 'text/html'
+    | 'text/plain-formatted'
+    | 'text/plain';
+  export type TextMimeTypes =
+    | 'text/html'
+    | 'text/vnd.tiddlywiki'
+    | 'text/plain';
   export interface IRenderOptions {
     parentWidget?: Widget;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     variables?: Record<string, any>;
   }
-  export type ITiddlerFieldsParam = Omit<Partial<ITiddlerFields>, 'created' | 'modified'> & { created?: string; modified?: string };
+  export type ITiddlerFieldsParam = Omit<
+    Partial<ITiddlerFields>,
+    'created' | 'modified'
+  > & { created?: string; modified?: string };
   export class Wiki {
     /**
      * Wiki constructor. State is stored in private members that only a small number of privileged accessor methods have direct access. Methods added via the prototype have to use these accessors and cannot access the state data directly.
@@ -22,11 +30,13 @@ declare module 'tiddlywiki' {
      */
     constructor(options: { enableIndexers: unknown[] });
     addIndexer(indexer: unknown, name: string): void;
-    getTiddler: <T extends Tiddler>(title: string) => T | undefined;
+    getTiddler<T extends Tiddler>(title: string): T | void;
     /**
      * Get full list of tiddler titles in the wiki
      */
     getTiddlers(): string[];
+    deleteTiddler(title: string): void;
+    each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
      * Return a named global cache object. Global cache objects are cleared whenever a tiddler change.
      * You can put anything into the cache.
@@ -39,7 +49,11 @@ declare module 'tiddlywiki' {
      * @param cacheName key of the cache
      * @param initializer when cache miss, this will be called to get initial value
      */
-    getCacheForTiddler<T>(title: string, cacheName: string, initializer: () => T): T;
+    getCacheForTiddler<T>(
+      title: string,
+      cacheName: string,
+      initializer: () => T,
+    ): T;
     /**
      * clear all cache, will be called when a tiddler is changed
      */
@@ -47,33 +61,48 @@ declare module 'tiddlywiki' {
     /**
      * Compile filter string to be a function that execute the filter in the wiki.
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.
-     * 
+     *
      * @returns a function with the signature fn(source,widget) where:
         source: an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
         widget: an optional widget node for retrieving the current tiddler etc.
      */
-    compileFilter(filterString: string): (source?: SourceIterator, widget?: Widget) => string[];
+    compileFilter(
+      filterString: string,
+    ): (source?: SourceIterator, widget?: Widget) => string[];
     /**
      *
      * @param filterString
      * @param widget an optional widget node for retrieving the current tiddler etc.
      * @param source an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
      */
-    filterTiddlers(filterString: string, widget?: Widget, source?: SourceIterator): string[];
+    filterTiddlers(
+      filterString: string,
+      widget?: Widget,
+      source?: SourceIterator,
+    ): string[];
     /**
      * Set JSON tiddler, Object in data field will be JSON.stringify and put into the text.
      * This will make tiddler to be JSON data tiddler `"type":"application/json"`, so if you just want to modify existed tiddler's data, use `addTiddler` instead.
      */
-    setTiddlerData: (title: string, data?: object, fields?: ITiddlerFieldsParam, options?: any) => void;
+    setTiddlerData(
+      title: string,
+      data?: object,
+      fields?: ITiddlerFieldsParam,
+      options?: any,
+    ): void;
     /**
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
-    addTiddler: (tiddler: Tiddler | Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>) => void;
+    addTiddler(
+      tiddler: Tiddler | Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>,
+    ): void;
     /**
      * Call `addTiddler` for each iton of the list, but should passing `tiddler.fields`, directly passing tiddler object may failed to add in some cases.
      */
-    addTiddlers: (tiddler: Array<Partial<ITiddlerFieldsParam>| Partial<ITiddlerFields>>) => void;
+    addTiddlers(
+      tiddler: Array<Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>>,
+    ): void;
     /**
      * Get tiddler's text field, with an optional default text.
      * If have _is_skinny field, will just return null (this is a rare case, so not put in the return type for now).
@@ -96,11 +125,13 @@ declare module 'tiddlywiki' {
 
       Alternative, uncached version of getTiddlerDataCached(). The return value can be mutated freely and reused
     */
-    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(titleOrTiddler: string, fallbackData?: D): D;
-    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(titleOrTiddler: Tiddler, fallbackData?: D): D;
+    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(
+      titleOrTiddler: string | Tiddler,
+      fallbackData?: D,
+    ): D;
     /**
      * D is any JSON, like JSON object or JSON array
-     * 
+     *
      * Get the content of a tiddler as a JavaScript object. How this is done depends on the type of the tiddler:
 
       application/json: the tiddler JSON is parsed into an object
@@ -113,8 +144,10 @@ declare module 'tiddlywiki' {
 
       Note that the same value is returned for repeated calls for the same tiddler data. The value is frozen to prevent modification; otherwise modifications would be visible to all callers
     */
-    getTiddlerDataCached<D>(titleOrTiddler: string, fallbackData?: D): D;
-    getTiddlerDataCached<D>(titleOrTiddler: Tiddler, fallbackData?: D): D;
+    getTiddlerDataCached<D>(
+      titleOrTiddler: string | Tiddler,
+      fallbackData?: D,
+    ): D;
     /**
      * Set tiddler text of any field.
      *
@@ -124,7 +157,13 @@ declare module 'tiddlywiki' {
      * @param {string} value text content to set
      * @param {object} options options, see tiddlywiki dev doc for details
      */
-    setText: (title: string, field?: string, index?: string | undefined, value?: string, options?: { suppressTimestamp?: boolean }) => void;
+    setText(
+      title: string,
+      field?: string,
+      index?: string,
+      value?: string,
+      options?: { suppressTimestamp?: boolean },
+    ): void;
     /**
       Parse a tiddler according to its MIME type
     */
@@ -149,7 +188,11 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
       */
-    renderTiddler(outputType: OutputMimeTypes, title: string, options?: IRenderOptions): string;
+    renderTiddler(
+      outputType: OutputMimeTypes,
+      title: string,
+      options?: IRenderOptions,
+    ): string;
     /**
       Parse text in a specified format and render it into another format
        @param outputType content type for the output
@@ -159,7 +202,12 @@ declare module 'tiddlywiki' {
       - variables: hashmap of variables to set
       - parentWidget: optional parent widget for the root node
     */
-    renderText(outputType: OutputMimeTypes, textType: TextMimeTypes, text: string, options?: Partial<IMakeWidgetOptions> & IParserOptions): string;
+    renderText(
+      outputType: OutputMimeTypes,
+      textType: TextMimeTypes,
+      text: string,
+      options?: Partial<IMakeWidgetOptions> & IParserOptions,
+    ): string;
     /**
       Make a widget tree for a parse tree
       @params parser: parser object
@@ -203,7 +251,11 @@ declare module 'tiddlywiki' {
     tiddlerExists(title: string): boolean;
     /** Determines if a tiddler is a shadow tiddler, regardless of whether it has been overridden by a real tiddler */
     isShadowTiddler(title: string): boolean;
+    isBinaryTiddler(title: string): boolean;
+    isImageTiddler(title: string): boolean;
     /** return shadowTiddlers[title].source; */
     getShadowSource(title: string): string | null;
+    getTiddlerBacklinks(targetTitle: string): string[];
+    getTiddlerLinks(title: string): string[];
   }
 }

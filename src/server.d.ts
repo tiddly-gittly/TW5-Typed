@@ -33,10 +33,8 @@ declare module 'tiddlywiki' {
         wiki - reference to wiki object
   */
   export class Server {
-    constructor(options: IServerOptions);
-    routes: IRoute[];
-    addRoute(route: IRoute): void;
     /**
+     * @example
      * ```json
      * {
           port: "8080",
@@ -71,9 +69,15 @@ declare module 'tiddlywiki' {
       'use-browser-cache': string;
     };
 
-    variables: Record<string, any>;
-    get(variableName: string): any;
     requestHandler: ServerEndpointHandler;
+
+    variables: Record<string, any>;
+
+    routes: IRoute[];
+
+    constructor(options: IServerOptions);
+    addRoute(route: IRoute): void;
+    get(variableName: string): any;
     /**
       Listen for requests
       port: optional port number (falls back to value of "port" variable)
@@ -84,12 +88,18 @@ declare module 'tiddlywiki' {
 
     on(eventName: 'error', callback: (error: Error) => void): void;
     on(eventName: 'listening', callback: () => void): void;
-    on(eventName: string, callback: (...arguments_: unknown[]) => unknown): void;
+    on(
+      eventName: string,
+      callback: (...arguments_: unknown[]) => unknown,
+    ): void;
 
     /**
       Check whether a given user is authorized for the specified authorizationType ("readers" or "writers"). Pass null or undefined as the username to check for anonymous access
     */
-    isAuthorized(authorizationType: 'readers' | 'writers', username?: string | undefined): boolean;
+    isAuthorized(
+      authorizationType: 'readers' | 'writers',
+      username?: string | undefined,
+    ): boolean;
     close(): void;
   }
 

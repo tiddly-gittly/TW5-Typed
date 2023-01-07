@@ -5,9 +5,11 @@ declare module 'tiddlywiki' {
   export type TWDocument = Document;
   export type TWDOMElement = Element;
   /** Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated. */
-  export type TWEachCallback<O, I> =
-    | ((element?: I, indexOrKey?: string | number, object?: O) => boolean | undefined)
-    | ((element?: I, indexOrKey?: string | number, object?: O) => void);
+  export type TWEachCallback<O, I> = (
+    element?: I,
+    indexOrKey?: string | number,
+    object?: O,
+  ) => boolean | void;
   export interface ITWUtils {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
@@ -17,7 +19,7 @@ declare module 'tiddlywiki' {
      * @param element
      * @param className
      */
-    addClass(element: Element, className: string): void;
+    addClass: (element: Element, className: string) => void;
     /**
       Attach specified event handlers to a DOM node
       @param domNode: where to attach the event handlers
@@ -28,27 +30,38 @@ declare module 'tiddlywiki' {
       - handlerObject: optional event handler object
       - handlerMethod: optionally specifies object handler method name (defaults to `handleEvent`)
     */
-    addEventListeners(
+    addEventListeners: (
       domNode: Node,
-      events: Array<{ handlerFunction?: (event: MouseEvent) => void; handlerMethod?: string; handlerObject?: Widget; name: string }>,
-    ): void;
+      events: {
+        handlerFunction?: (event: MouseEvent) => void;
+        handlerMethod?: string;
+        handlerObject?: Widget;
+        name: string;
+      }[],
+    ) => void;
     /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */
-    checkVersions(versionStringA: string, versionStringB: string): boolean;
+    checkVersions: (versionStringA: string, versionStringB: string) => boolean;
     /**
      * Returns +1 if the version string A is greater than the version string B, 0 if they are the same, and +1 if B is greater than A.
      * Missing or malformed version strings are parsed as 0.0.0
      */
-    compareVersions(versionStringA: string, versionStringB: string): -1 | 0 | 1;
+    compareVersions: (
+      versionStringA: string,
+      versionStringB: string,
+    ) => -1 | 0 | 1;
     /*
       Return the number of keys in an object
     */
-    count(object: Record<string, any>): number;
+    count: (object: Record<string, any>) => number;
     /** Convert a URIComponent encoded string to a string safely */
-    decodeURIComponentSafe(uri: string): string;
+    decodeURIComponentSafe: (uri: string) => string;
     /** Convert a URI encoded string to a string safely */
-    decodeURISafe(uri: string): string;
+    decodeURISafe: (uri: string) => string;
     /** Fill in any null or undefined properties of an object with the properties from a list of source objects. Each property that is an object is called recursively */
-    deepDefaults(object: object, ...sourceObjectList: object[]): object;
+    deepDefaults: (
+      origin: Record<string | symbol, unknown>,
+      ...defaults: Record<string | symbol, unknown>[]
+    ) => Record<string | symbol, unknown>;
     /**
      * Helper for making DOM elements
      * @param {string} tag tag name
@@ -74,7 +87,7 @@ declare module 'tiddlywiki' {
      * * eventListeners: array of event listeners (this option won't work until `$tw.utils.addEventListeners()` has been loaded)
      * @returns {Element}
      */
-    domMaker(
+    domMaker: (
       tag: string,
       options: {
         attributes?: Record<string, unknown>;
@@ -87,49 +100,66 @@ declare module 'tiddlywiki' {
         style?: Record<string, string>;
         text?: string;
       },
-    ): TWDOMElement;
+    ) => TWDOMElement;
     /**
      * Iterate through all the own properties of an object or array.
      * Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated.
      */
-    each<I = any>(object: Record<string, I> | I[], callback: TWEachCallback<Record<string, I> | I[], I>): void;
+    each: <I = any>(
+      object: Record<string, I> | I[],
+      callback: TWEachCallback<Record<string, I> | I[], I>,
+    ) => void;
     /** Display an error and exit */
-    error(error: Event | string): void;
+    error: (error: Event | string) => void;
     /** Run code globally with specified context variables in scope */
-    evalGlobal(code: string, context: IModuleSandbox, filename: string): unknown;
+    evalGlobal: (
+      code: string,
+      context: IModuleSandbox,
+      filename: string,
+    ) => unknown;
     /** Run code in a sandbox with only the specified context variables in scope */
-    evalSandboxed(code: string, context: IModuleSandbox, filename: string): unknown;
+    evalSandboxed: (
+      code: string,
+      context: IModuleSandbox,
+      filename: string,
+    ) => unknown;
     /** Extend an object with the properties from a list of source objects */
-    extend(object: object, ...sourceObjectList: object[]): object;
+    extend: (
+      origin: Record<string | symbol, unknown>,
+      ...sources: Record<string | symbol, unknown>[]
+    ) => Record<string | symbol, unknown>;
     /** the function behind `<<now "format">> */
-    formatDateString(date: Date, format: string): string;
+    formatDateString: (date: Date, format: string) => string;
     /** Given an extension, always access the $tw.config.fileExtensionInfo using a lowercase extension only. */
-    getFileExtensionInfo(extension: string): IFileExtensionInfo | null;
+    getFileExtensionInfo: (extension: string) => IFileExtensionInfo | null;
     /** Get the browser location.hash. We don't use location.hash because of the way that Firefox auto-urldecodes it (see http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash) */
-    getLocationHash(): string;
+    getLocationHash: () => string;
     /** Given an extension, get the correct encoding for that file. defaults to utf8 */
-    getTypeEncoding(extension: string): string;
+    getTypeEncoding: (extension: string) => string;
     /** Check if an object has a property. */
-    hop(object: object, property: string): boolean;
+    hop: (object: object, property: string) => boolean;
     /** Convert "&amp;" to &, "&nbsp;" to nbsp, "&lt;" to <, "&gt;" to > and "&quot;" to " */
-    htmlDecode(text: string): string;
+    htmlDecode: (text: string) => string;
     /** Determine if a value is an array. */
-    isArray(value: unknown): boolean;
+    isArray: (value: unknown) => boolean;
     /** Check if an array is equal by value and by reference. */
-    isArrayEqual(array1: unknown[], array2: unknown[]): boolean;
+    isArrayEqual: (array1: unknown[], array2: unknown[]) => boolean;
     /** Determine if a value is a date */
-    isDate(value: unknown): void;
+    isDate: (value: unknown) => void;
     /** Pad a string to a given length with "0"s. Length defaults to 2 */
-    pad(value: number, length?: number): string;
+    pad: (value: number, length?: number) => string;
     /** Parse a date from a UTC YYYYMMDDHHMMSSmmm format string */
-    parseDate(value: string | Date): Date;
+    parseDate: (value: string | Date) => Date;
     /** Parse a block of name:value fields. The `fields` object is used as the basis for the return value */
-    parseFields(text: string, fields?: object): object;
-    parseJSONSafe(input: string): any;
+    parseFields: (text: string, fields?: object) => object;
+    parseJSONSafe: (input: string) => any;
     /** Parse a string array from a bracketted list. For example "OneTiddler [[Another Tiddler]] LastOne" */
-    parseStringArray(value: string | string[], allowDuplicate?: boolean): string[];
+    parseStringArray: (
+      value: string | string[],
+      allowDuplicate?: boolean,
+    ) => string[];
     /** Parse a semantic version string into its constituent parts -- see https://semver.org */
-    parseVersion(version: string): {
+    parseVersion: (version: string) => {
       build?: string;
       major: number;
       minor: number;
@@ -142,7 +172,7 @@ declare module 'tiddlywiki' {
      * * array: array to modify (assumed to be free of duplicates)
      * * value: a single value to push or an array of values to push
      */
-    pushTop(array: unknown[], value: unknown): void;
+    pushTop: (array: unknown[], value: unknown) => void;
     /**
      * Register file type information
      * @param {string} contentType
@@ -155,7 +185,7 @@ declare module 'tiddlywiki' {
      * * flags:"image" for image types
      * * deserializerType: defaults to type if not specified
      */
-    registerFileType(
+    registerFileType: (
       contentType: string,
       encoding: string,
       extension: string | string[],
@@ -163,17 +193,31 @@ declare module 'tiddlywiki' {
         deserializerType?: string;
         flags?: string[];
       },
-    ): void;
+    ) => void;
     /**
      * Resolves a source filepath delimited with `/` relative to a specified absolute root filepath.
      * In relative paths, the special folder name `..` refers to immediate parent directory, and the
      * name `.` refers to the current directory
      */
-    resolvePath(sourcepath: string, rootpath: string): string;
+    resolvePath: (sourcepath: string, rootpath: string) => string;
     /** Convert a date into UTC YYYYMMDDHHMMSSmmm format */
-    stringifyDate(value: Date): string;
+    stringifyDate: (value: Date) => string;
     /** Stringify an array of tiddler titles into a list string */
-    stringifyList(value: string[]): string;
+    stringifyList: (value: string[]) => string;
+    generateTiddlerFilepath: (
+      title: string,
+      options?: {
+        directory?: string;
+        extension?: string;
+        fileInfo?: {
+          originalpath?: string;
+          filePath?: string;
+          writeError?: boolean;
+        };
+        pathFilters?: string[];
+        wiki?: Wiki;
+      },
+    ) => string;
   }
   /**
    * Notifier mechanism

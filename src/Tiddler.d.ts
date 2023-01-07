@@ -1,13 +1,15 @@
 declare module 'tiddlywiki' {
   export class Tiddler {
+    static fieldModules: Record<string, IModuleInfo>;
+
+    readonly cache: ITiddlerCache;
+
+    readonly fields: ITiddlerFields;
     /**
      *
      * @param tiddlers multiple tiddler fields or instances, will merge them to create a new one
      */
     constructor(...tiddlers: Array<Record<string, unknown> | Tiddler>);
-    readonly cache: ITiddlerCache;
-    readonly fields: ITiddlerFields;
-    static fieldModules: Record<string, IModuleInfo>;
     hasField(field: string): boolean;
     isEqual(tiddler: Tiddler, excludeFields: string[]): boolean;
   }
