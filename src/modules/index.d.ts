@@ -1,3 +1,6 @@
+/// <reference path="wiki.d.ts" />
+/// <reference path="story.d.ts" />
+/// <reference path="utils/index.d.ts" />
 /// <reference path="server/index.d.ts" />
 /// <reference path="parsers/index.d.ts" />
 /// <reference path="widgets/index.d.ts" />
@@ -18,7 +21,7 @@ declare module 'tiddlywiki' {
     (title: string): ITWModuleExports;
     readonly main: NodeJS.Module | { TiddlyWiki: TW5InitFunction };
   }
-  export interface IModuleSandbox {
+  export interface IEvalContent {
     $tw: ITiddlyWiki;
     // eslint-disable-next-line node/prefer-global/buffer
     Buffer?: Buffer;
@@ -37,6 +40,9 @@ declare module 'tiddlywiki' {
     exports: ITWModuleExports,
     requireFunction: ITWRequire,
   ) => void;
+
+  export type ITWModules = IModules;
+
   /**
    * Information about each module is kept in an object with these members:
    *
@@ -52,7 +58,7 @@ declare module 'tiddlywiki' {
    *
    * Each moduleInfo object is stored in two hashmaps: $tw.modules.titles and $tw.modules.types. The first is indexed by title and the second is indexed by type and then title
    */
-  interface ITWModules {
+  interface IModules {
     /** Apply the exports of the modules of a particular type to a target object */
     applyMethods: (
       moduleType: string,

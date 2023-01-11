@@ -4,7 +4,7 @@
     "declaration": true,
     "jsx": "preserve",
     "baseUrl": "./",
-    "types": ["./src"]
+    "types": ["./src", "node"]
   },
   "include": ["test"]
 }

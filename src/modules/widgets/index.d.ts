@@ -36,13 +36,24 @@ declare module 'tiddlywiki' {
     widget: Widget;
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-extraneous-class
-  class variablesConstructor {}
+  export interface IWidgetInitializeOptions {
+    wiki?: ITiddlyWiki;
+    parentWidget?: Widget;
+  }
 
   /**
    * @link https://tiddlywiki.com/dev/#Widgets
+   *
+   * Create a widget object for a parse tree node
+   * * parseTreeNode: reference to the parse tree node to be rendered
+   * * options: see below
+   *
+   * Options include:
+   * * wiki: mandatory reference to wiki associated with this render tree
+   * * parentWidget: optional reference to a parent renderer node for the context chain
+   * * document: optional document object to use instead of global document
    */
-  export class Widget {
+  export declare class Widget {
     parseTreeNode: IParseTreeNode;
 
     wiki: ITiddlyWiki;
@@ -51,30 +62,48 @@ declare module 'tiddlywiki' {
 
     parentWidget?: Widget;
 
-    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
-     *
-     * This is a set of all widgets defined in tiddlywiki.
-     */
-    widgetClasses: Record<string, Widget>;
-
-    /** we can use $tw.rootWidget.widgetClasses.widget to new a widget
-     *
-     * Like `new widget.widget(widgetNode,{` in `$tw.wiki.makeWidget`
-     */
-    widget: new (parseTreeNode: IParseTreeNode, options?: unknown) => Widget;
-
-    children: Widget[];
-
-    variablesConstructor: variablesConstructor;
-
-    variables: unknown;
+    attributes: Record<string, string>;
 
     domNodes: Node[];
 
     parentDomNode: Node;
 
-    constructor(parseTreeNode: IParseTreeNode, options?: unknown);
-    initialize(parseTreeNode: IParseTreeNode, options?: unknown): void;
+    eventListeners: Record<string, Function>;
+
+    /**
+     * we can use $tw.rootWidget.widgetClasses.xxx to new a widget
+     *
+     * This is a set of all widgets defined in tiddlywiki.
+     */
+    widgetClasses: Record<string, typeof Widget>;
+
+    children: Widget[];
+
+    qualifiers?: Record<string, string>;
+
+    ancestorCount?: number;
+
+    /**
+     * Set the value of a context variable
+     * * name: name of the variable
+     * * value: value of the variable
+     * * params: array of {name:, default:} for each parameter
+     * * isMacroDefinition: true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
+     */
+    variables: Record<
+      string,
+      {
+        value: string;
+        params?: { name: string; default: string }[];
+        isMacroDefinition: boolean;
+      }
+    >;
+
+    constructor(
+      parseTreeNode: IParseTreeNode,
+      options?: IWidgetInitializeOptions,
+    );
+
     /**
       Make child widgets correspondng to specified parseTreeNodes
       And push them to `this.children`
@@ -84,9 +113,10 @@ declare module 'tiddlywiki' {
       parseTreeNodes?: IParseTreeNode[],
       options?: { variables?: unknown },
     ): void;
-    /*
-      Initialise widget properties. These steps are pulled out of the constructor so that we can reuse them in subclasses
-    */
+
+    /**
+     * Initialise widget properties. These steps are pulled out of the constructor so that we can reuse them in subclasses
+     */
     initialise(
       parseTreeNode: IParseTreeNode,
       options?: {
@@ -279,4 +309,9 @@ declare module 'tiddlywiki' {
 
     new (wiki: Wiki): ModalWidget;
   };
+}
+
+export module '$:/core/modules/widgets/widget.js' {
+  import { Widget } from 'tiddlywiki';
+  export { Widget as widget };
 }

@@ -1,164 +1,364 @@
 /// <reference path="Crypto.d.ts" />
 /// <reference path="PasswordPrompt.d.ts" />
 
+type OptionalPropertyNames<T> = {
+  [K in keyof T]-?: {} extends { [P in K]: T[K] } ? K : never;
+}[keyof T];
+
+type SpreadProperties<L, R, K extends keyof L & keyof R> = {
+  [P in K]: L[P] | Exclude<R[P], undefined>;
+};
+
+type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never;
+
+type SpreadTwo<L, R> = Id<
+  Pick<L, Exclude<keyof L, keyof R>> &
+    Pick<R, Exclude<keyof R, OptionalPropertyNames<R>>> &
+    Pick<R, Exclude<OptionalPropertyNames<R>, keyof L>> &
+    SpreadProperties<L, R, OptionalPropertyNames<R> & keyof L>
+>;
+
+type Spread<A extends readonly [...any]> = A extends [infer L, ...infer R]
+  ? SpreadTwo<L, Spread<R>>
+  : unknown;
+
 declare module 'tiddlywiki' {
   export type TWDocument = Document;
-  export type TWDOMElement = Element;
-  /** Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated. */
-  export type TWEachCallback<O, I> = (
-    element?: I,
-    indexOrKey?: string | number,
-    object?: O,
-  ) => boolean | void;
-  export interface ITWUtils {
+  export type TWElement = Element;
+  export type TWDOMElement = TWElement;
+  export type ITWUtils = IUtils;
+
+  export interface IDomMakerOptions {
+    /**
+     * @type {string}
+     * @default 'http://www.w3.org/1999/xhtml'
+     * @memberof IDomMakerOptions
+     */
+    namespace?: string;
+
+    /**
+     * @en
+     * hashmap of attribute values
+     * @zh
+     * 属性值的 map
+     *
+     * @type {Record<string, unknown>}
+     * @memberof IDomMakerOptions
+     */
+    attributes?: Record<string, unknown>;
+
+    /**
+     * @en
+     * Styles for Element
+     * @zh
+     * 元素的样式
+     *
+     * @type {CSSStyleDeclaration}
+     * @memberof IDomMakerOptions
+     */
+    style?: CSSStyleDeclaration;
+
+    /**
+     * @en
+     * text to add as a child node
+     * @zh
+     * 添加为子节点的文本
+     *
+     * @type {string}
+     * @memberof IDomMakerOptions
+     */
+    text?: string;
+
+    /**
+     * @en
+     * array of further child nodes
+     * @zh
+     * 其他子节点的数组
+     *
+     * @type {TWElement[]}
+     * @memberof IDomMakerOptions
+     */
+    children?: TWElement[];
+
+    /**
+     * @en
+     * optional HTML for element
+     * @zh
+     * 元素的 HTML 内容
+     *
+     * @type {string}
+     * @memberof IDomMakerOptions
+     */
+    innerHTML?: string;
+
+    /**
+     * @en
+     * class name(s)
+     * @zh
+     * 元素的 class，多个则以空格分隔
+     *
+     * @type {string}
+     * @memberof IDomMakerOptions
+     */
+    class?: string;
+
+    /**
+     * @en
+     * defaults to current document
+     * @zh
+     * 默认为当前 document
+     *
+     * @type {TWDocument}
+     * @memberof IDomMakerOptions
+     */
+    document?: TWDocument;
+
+    /**
+     * @en
+     * array of event listeners (this option won't work until `$tw.utils.addEventListeners()` has been loaded)
+     * @zh
+     * 事件监听器的数组（这个选项在`$tw.utils.addEventListeners()`被加载之前不会起作用）。
+     *
+     * @type {EventListener[]}
+     * @memberof IDomMakerOptions
+     */
+    eventListeners?: EventListener[];
+  }
+
+  export interface IUtils {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
+
     /**
-     * Alternative to `element.classList.add`, add a css class name to an element, see issue for detail.
-     * @link https://github.com/Jermolene/TiddlyWiki5/issues/6475
-     * @param element
-     * @param className
+     * @en
+     * Check if an object has a property.
+     * @zh
+     * 检查一个对象是否有一个属性。
      */
-    addClass: (element: Element, className: string) => void;
+    hop: (object: Object, property: string | symbol) => boolean;
+
     /**
-      Attach specified event handlers to a DOM node
-      @param domNode: where to attach the event handlers
-      @param events: array of event handlers to be added (see below)
-      Each entry in the events array is an object with these properties:
-      - name: event name of `addEventListener`
-      - handlerFunction: optional event handler function
-      - handlerObject: optional event handler object
-      - handlerMethod: optionally specifies object handler method name (defaults to `handleEvent`)
-    */
-    addEventListeners: (
-      domNode: Node,
-      events: {
-        handlerFunction?: (event: MouseEvent) => void;
-        handlerMethod?: string;
-        handlerObject?: Widget;
-        name: string;
-      }[],
-    ) => void;
-    /** Returns true if the version string A is greater than the version string B. Returns true if the versions are the same */
-    checkVersions: (versionStringA: string, versionStringB: string) => boolean;
-    /**
-     * Returns +1 if the version string A is greater than the version string B, 0 if they are the same, and +1 if B is greater than A.
-     * Missing or malformed version strings are parsed as 0.0.0
+     * @en
+     * Determine if a value is an array.
+     * @zh
+     * 判断对象是否是一个数组。
      */
-    compareVersions: (
-      versionStringA: string,
-      versionStringB: string,
-    ) => -1 | 0 | 1;
-    /*
-      Return the number of keys in an object
-    */
-    count: (object: Record<string, any>) => number;
-    /** Convert a URIComponent encoded string to a string safely */
-    decodeURIComponentSafe: (uri: string) => string;
-    /** Convert a URI encoded string to a string safely */
-    decodeURISafe: (uri: string) => string;
-    /** Fill in any null or undefined properties of an object with the properties from a list of source objects. Each property that is an object is called recursively */
-    deepDefaults: (
-      origin: Record<string | symbol, unknown>,
-      ...defaults: Record<string | symbol, unknown>[]
-    ) => Record<string | symbol, unknown>;
+    isArray: (value: unknown) => boolean;
+
     /**
-     * Helper for making DOM elements
-     * @param {string} tag tag name
-     * @param {{
-     *           namespace?: string;
-     *           attributes?: Record<string, unknown>;
-     *           style?: Record<string, string>;
-     *           text?: string;
-     *           children?: Element[];
-     *           innerHTML?: string;
-     *           class?: string;
-     *           document?: Document;
-     *           eventListeners?: EventListener[];
-     *         }} options Options include:
-     * * namespace: defaults to http://www.w3.org/1999/xhtml
-     * * attributes: hashmap of attribute values
-     * * style: hashmap of styles
-     * * text: text to add as a child node
-     * * children: array of further child nodes
-     * * innerHTML: optional HTML for element
-     * * class: class name(s)
-     * * document: defaults to current document
-     * * eventListeners: array of event listeners (this option won't work until `$tw.utils.addEventListeners()` has been loaded)
-     * @returns {Element}
+     * @en
+     * Check if an array is equal by value and by reference.
+     * @zh
+     * 检查一个数组的值和引用是否相等。
      */
-    domMaker: (
-      tag: string,
-      options: {
-        attributes?: Record<string, unknown>;
-        children?: TWDOMElement[];
-        class?: string;
-        document?: TWDocument;
-        eventListeners?: EventListener[];
-        innerHTML?: string;
-        namespace?: string;
-        style?: Record<string, string>;
-        text?: string;
-      },
-    ) => TWDOMElement;
+    isArrayEqual: (array1: unknown[], array2: unknown[]) => boolean;
+
     /**
+     * @en
+     * Add an entry to a sorted array if it doesn't already exist, while maintaining the sort order
+     * @zh
+     * 如果一个已排序的数组中不存在一个条目，则添加该条目，同时保持排序顺序
+     */
+    insertSortedArray: <T extends Array<unknown>>(
+      array: T,
+      value: unknown,
+    ) => T;
+
+    /**
+     * @en
+     * Push entries onto an array, removing them first if they already exist in the array
+     * @zh
+     * 将条目推送到一个数组中，如果它们已经存在于数组中，则先将其删除。
+     *
+     * @param {unknown[]} array array to modify (assumed to be free of duplicates)
+     * @param {unknown} value a single value to push or an array of values to push
+     * @returns {unknown[]}
+     */
+    pushTop: <T extends Array<unknown>>(array: T, value: unknown) => T;
+
+    /**
+     * @en
+     * Determine if a value is a date
+     * @zh
+     * 确定一个值是否是一个日期
+     */
+    isDate: (value: unknown) => void;
+
+    /**
+     * @en
      * Iterate through all the own properties of an object or array.
      * Callback is invoked with (element, index, object), if callback returns false, then the each loop will be terminated.
+     * @zh
+     * 遍历一个对象或数组的所有自身属性。
+     * callback 被遍历调用 (element, index, object)，如果回调返回 false，那么每个循环将被终止。
+     * @param {T} object
+     * @param {(element: T[keyof T], index: keyof T, object: T) => void | false} callback
+     * @example
+     * $tw.utils.each([1, 2, 3], element => console.log(element));
+     * $tw.utils.each({ a: 1, b: 2 }, (value, key) => console.log(key, value));
      */
-    each: <I = any>(
-      object: Record<string, I> | I[],
-      callback: TWEachCallback<Record<string, I> | I[], I>,
+    each: <T>(
+      object: T,
+      callback: (
+        element: T[keyof T],
+        index: keyof T,
+        object: T,
+      ) => void | false,
     ) => void;
-    /** Display an error and exit */
-    error: (error: Event | string) => void;
-    /** Run code globally with specified context variables in scope */
-    evalGlobal: (
-      code: string,
-      context: IModuleSandbox,
-      filename: string,
-    ) => unknown;
-    /** Run code in a sandbox with only the specified context variables in scope */
-    evalSandboxed: (
-      code: string,
-      context: IModuleSandbox,
-      filename: string,
-    ) => unknown;
-    /** Extend an object with the properties from a list of source objects */
-    extend: (
-      origin: Record<string | symbol, unknown>,
-      ...sources: Record<string | symbol, unknown>[]
-    ) => Record<string | symbol, unknown>;
-    /** the function behind `<<now "format">> */
-    formatDateString: (date: Date, format: string) => string;
-    /** Given an extension, always access the $tw.config.fileExtensionInfo using a lowercase extension only. */
-    getFileExtensionInfo: (extension: string) => IFileExtensionInfo | null;
-    /** Get the browser location.hash. We don't use location.hash because of the way that Firefox auto-urldecodes it (see http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash) */
-    getLocationHash: () => string;
-    /** Given an extension, get the correct encoding for that file. defaults to utf8 */
-    getTypeEncoding: (extension: string) => string;
-    /** Check if an object has a property. */
-    hop: (object: object, property: string) => boolean;
-    /** Convert "&amp;" to &, "&nbsp;" to nbsp, "&lt;" to <, "&gt;" to > and "&quot;" to " */
+
+    /**
+     * @en
+     * Helper for making DOM elements
+     * @zh
+     * 产生一个 DOM 元素
+     *
+     * @param {string} tag tag name
+     * @param {IDomMakerOptions} options
+     * @returns {TWElement}
+     */
+    domMaker: (tag: string, options: IDomMakerOptions) => TWElement;
+
+    /**
+     * @en
+     * Display an error and exit
+     * @zh
+     * 打印一个错误，如果在 Node 环境下，会退出进程
+     */
+    error: (error: Event | Error | string) => null | never;
+
+    /**
+     * @en
+     * Extend an object with the properties from a list of source objects
+     * @zh
+     * 用源对象列表中的属性扩展一个对象
+     */
+    extend: <O extends object, S extends object[]>(
+      origin: O,
+      ...sources: [...S]
+    ) => Spread<[O, ...S]>;
+
+    /**
+     * @en
+     * Fill in any null or undefined properties of an object with the properties from a list of source objects. Each property that is an object is called recursively
+     * @zh
+     * 用源对象列表中的属性来填充对象的任何空或未定义的属性。每个属于对象的属性都被递归地调用
+     */
+    deepDefaults: <O extends object, S extends object[]>(
+      origin: O,
+      ...sources: [...S]
+    ) => Spread<[O, ...S]>;
+
+    /**
+     * @en
+     * Convert a URIComponent encoded string to a string safely
+     * @zh
+     * 将一个URIComponent编码的字符串安全地转换为一个字符串。
+     */
+    decodeURIComponentSafe: (uri: string) => string;
+
+    /**
+     * @en
+     * Convert a URI encoded string to a string safely
+     * @zh
+     * 将一个URI编码的字符串安全地转换为一个字符串
+     */
+    decodeURISafe: (uri: string) => string;
+
+    /**
+     * @en
+     * Convert `&amp;` to `&`, `&nbsp;` to ` `, `&lt;` to `<`, `&gt;` to `>` and `&quot;` to `"`
+     * @zh
+     * 将`&amp;`转换成`&`，`&nbsp;`转换成` `，`&lt;`转换成`<`，`&gt;`转换成`>`，`&quot;`转换成`"`
+     */
     htmlDecode: (text: string) => string;
-    /** Determine if a value is an array. */
-    isArray: (value: unknown) => boolean;
-    /** Check if an array is equal by value and by reference. */
-    isArrayEqual: (array1: unknown[], array2: unknown[]) => boolean;
-    /** Determine if a value is a date */
-    isDate: (value: unknown) => void;
-    /** Pad a string to a given length with "0"s. Length defaults to 2 */
+
+    /**
+     * @en
+     * Get the browser location.hash. We don't use location.hash because of the way that Firefox auto-urldecodes it (see http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash)
+     * @zh
+     * 获取浏览器的location.hash。我们不使用location.hash，因为Firefox的自动解码方式（见http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash）。
+     */
+    getLocationHash: () => string;
+
+    /**
+     * @en
+     * Pad a string to a given length with "0"s. Length defaults to 2
+     * @zh
+     * 用 "0 "将一个字符串填充到指定的长度。长度默认为2
+     */
     pad: (value: number, length?: number) => string;
-    /** Parse a date from a UTC YYYYMMDDHHMMSSmmm format string */
-    parseDate: (value: string | Date) => Date;
-    /** Parse a block of name:value fields. The `fields` object is used as the basis for the return value */
-    parseFields: (text: string, fields?: object) => object;
-    parseJSONSafe: (input: string) => any;
-    /** Parse a string array from a bracketted list. For example "OneTiddler [[Another Tiddler]] LastOne" */
+
+    /**
+     * @en
+     * Convert a date into UTC `YYYYMMDDHHMMSSmmm` format
+     * @zh
+     * 将日期转换成UTC `YYYYMMDDHMMSSmmm` 格式
+     */
+    stringifyDate: (value: Date) => string;
+
+    /**
+     * @en
+     * Parse a date from a UTC `YYYYMMDDHHMMSSmmm` format string
+     * @zh
+     * 从UTC `YYYYMMDDHHMMSSmmm` 格式字符串中解析一个日期
+     */
+    parseDate: (value: string | Date) => Date | null;
+
+    /**
+     * @en
+     * Stringify an array of tiddler titles into a list string
+     * @zh
+     * 将一个数组的tiddler标题字符串化为一个列表字符串
+     */
+    stringifyList: (value: string[]) => string;
+
+    /**
+     * @en
+     * Parse a string array from a bracketted list. For example `OneTiddler [[Another Tiddler]] LastOne`
+     * @zh
+     * 从一个带括号的列表中解析一个字符串数组。例如，`OneTiddler [[Another Tiddler]] LastOne`
+     */
     parseStringArray: (
       value: string | string[],
       allowDuplicate?: boolean,
-    ) => string[];
-    /** Parse a semantic version string into its constituent parts -- see https://semver.org */
+    ) => string[] | null;
+
+    /**
+     * @en
+     * Parse a block of name:value fields. The `fields` object is used as the basis for the return value
+     * @zh
+     * 解析一个name:value字段的块。`fields`对象被用作返回值的基础。
+     */
+    parseFields: (text: string, fields?: object) => Record<string, string>;
+
+    /**
+     * @en
+     * Safely parse a string as JSON
+     * @zh
+     * 安全地解析一个字符串为 JSON 对象
+     */
+    parseJSONSafe: (
+      input: string,
+      defaultJSON?: (error: Error) => unknown,
+    ) => unknown;
+
+    /**
+     * @en
+     * Resolves a source filepath delimited with `/` relative to a specified absolute root filepath.
+     * In relative paths, the special folder name `..` refers to immediate parent directory, and the
+     * name `.` refers to the current directory
+     * @zh
+     * 将以`/`为界的源文件路径相对于指定的绝对根文件路径进行解析。
+     * 在相对路径中，特殊的文件夹名称`...`指的是直接的父目录，而名称`.`指的是当前目录。
+     */
+    resolvePath: (sourcepath: string, rootpath: string) => string;
+
+    /**
+     * @en
+     * Parse a semantic version string into its constituent parts -- see https://semver.org
+     * @zh
+     * 将一个语义版本字符串解析为其构成部分 -- 见 https://semver.org
+     */
     parseVersion: (version: string) => {
       build?: string;
       major: number;
@@ -167,14 +367,34 @@ declare module 'tiddlywiki' {
       prerelease?: string;
       version: string;
     } | null;
+
     /**
-     * Push entries onto an array, removing them first if they already exist in the array
-     * * array: array to modify (assumed to be free of duplicates)
-     * * value: a single value to push or an array of values to push
+     * @en
+     * Returns +1 if the version string A is greater than the version string B, 0 if they are the same, and +1 if B is greater than A.
+     * Missing or malformed version strings are parsed as 0.0.0
+     * @zh
+     * 如果版本字符串A大于版本字符串B，则返回+1；如果它们相同，则返回0；如果B大于A，则返回+1；
+     * 缺失或畸形的版本字符串被解析为0.0.0
      */
-    pushTop: (array: unknown[], value: unknown) => void;
+    compareVersions: (
+      versionStringA: string,
+      versionStringB: string,
+    ) => -1 | 0 | 1;
+
     /**
+     * @en
+     * Returns true if the version string A is greater than the version string B. Returns true if the versions are the same
+     * @zh
+     * 如果版本字符串A大于版本字符串B，返回true；如果版本相同，返回true。
+     */
+    checkVersions: (versionStringA: string, versionStringB: string) => boolean;
+
+    /**
+     * @en
      * Register file type information
+     * @zh
+     * 注册文件类型信息
+     *
      * @param {string} contentType
      * @param {string} encoding
      * @param {(string | string[])} extension
@@ -194,41 +414,45 @@ declare module 'tiddlywiki' {
         flags?: string[];
       },
     ) => void;
+
     /**
-     * Resolves a source filepath delimited with `/` relative to a specified absolute root filepath.
-     * In relative paths, the special folder name `..` refers to immediate parent directory, and the
-     * name `.` refers to the current directory
+     * @en
+     * Given an extension, always access the $tw.config.fileExtensionInfo using a lowercase extension only.
+     * @zh
+     * 给定一个扩展名，总是只使用小写的扩展名来访问$tw.config.fileExtensionInfo。
      */
-    resolvePath: (sourcepath: string, rootpath: string) => string;
-    /** Convert a date into UTC YYYYMMDDHHMMSSmmm format */
-    stringifyDate: (value: Date) => string;
-    /** Stringify an array of tiddler titles into a list string */
-    stringifyList: (value: string[]) => string;
-    generateTiddlerFilepath: (
-      title: string,
-      options?: {
-        directory?: string;
-        extension?: string;
-        fileInfo?: {
-          originalpath?: string;
-          filePath?: string;
-          writeError?: boolean;
-        };
-        pathFilters?: string[];
-        wiki?: Wiki;
-      },
-    ) => string;
-  }
-  /**
-   * Notifier mechanism
-   */
-  export class Notifier {
-    /*
-      Display a notification
-        title: Title of tiddler containing the notification text
-        options: see below
-      Options include:
-      */
-    display(title: string, options?: Record<string, unknown>): void;
+    getFileExtensionInfo: (extension: string) => IFileExtensionInfo | null;
+
+    /**
+     * @en
+     * Given an extension, get the correct encoding for that file. defaults to utf8
+     * @zh
+     * 给定一个扩展名，获得该文件的正确编码。 默认为utf8
+     */
+    getTypeEncoding: (extension: string) => string;
+
+    /**
+     * @en
+     * Run code globally with specified context variables in scope
+     * @zh
+     * 在全局范围内运行代码，范围内有指定的上下文变量
+     */
+    evalGlobal: (
+      code: string,
+      context: IEvalContent,
+      filename: string,
+    ) => unknown;
+
+    /**
+     * @en
+     * Run code in a sandbox with only the specified context variables in scope
+     * @zh
+     * 在沙盒中运行代码，范围内只有指定的上下文变量
+     */
+    evalSandboxed: (
+      code: string,
+      context: IEvalContent,
+      filename: string,
+    ) => unknown;
   }
 }

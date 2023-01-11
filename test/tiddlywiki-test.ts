@@ -1,8 +1,8 @@
 import { IParseTreeNode, Tiddler, Widget } from 'tiddlywiki';
 
 export class ReactWidget extends Widget {
-  constructor(parseTreeNode: IParseTreeNode, options?: unknown) {
-    super(parseTreeNode, options);
+  constructor(parseTreeNode: IParseTreeNode) {
+    super(parseTreeNode);
     $tw.wiki.addIndexer((_tiddler: Tiddler) => {
       //
     }, '$:/core/tiddler');

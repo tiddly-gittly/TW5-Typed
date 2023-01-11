@@ -1,8 +1,10 @@
+/// <reference path="hooks.d.ts" />
 /// <reference path="boot/index.d.ts" />
 /// <reference path="wiki/index.d.ts" />
 /// <reference path="utils/index.d.ts" />
 /// <reference path="tiddler/index.d.ts" />
 /// <reference path="modules/index.d.ts" />
+/// <reference path="plugins/index.d.ts" />
 
 declare module 'tiddlywiki' {
   export interface IPluginInfo {
@@ -22,19 +24,20 @@ declare module 'tiddlywiki' {
 
   export interface ITiddlyWiki {
     Wiki: typeof Wiki;
+    Story: typeof Story;
     Tiddler: typeof Tiddler;
 
     wiki: Wiki;
     boot: IBoot;
     crypto: Crypto;
-    utils: ITWUtils;
+    utils: IUtils;
     version: string;
     safeMode: boolean;
-    config: ITWConfig;
+    config: IConfig;
     rootWidget: Widget;
     notifier: Notifier;
     language: ILanguage;
-    modules: ITWModules;
+    modules: IModules;
     locationHash: string;
     passwordPrompt: PasswordPrompt;
     packageInfo: Record<string, unknown>;
@@ -46,34 +49,14 @@ declare module 'tiddlywiki' {
     dragInProgress?: boolean;
 
     /**
-      Global Hooks mechanism which allows plugins to modify default functionality
-    */
-    hooks: {
-      names: Record<string, any>;
-      /**
-        Add hooks to the  hashmap
-      */
-      addHook(
-        hookName: 'th-server-command-post-start',
-        callback: (listenCommand: unknown, server: Server) => void,
-      ): void;
-      addHook(
-        hookName: string,
-        callback: (...arguments_: unknown[]) => unknown,
-      ): void;
-      /**
-        Invoke the hook by key
-      */
-      invokeHook(
-        hookName: string,
-        event: IWidgetEvent,
-      ): undefined | IWidgetEvent;
-    };
+     * Global Hooks mechanism which allows plugins to modify default functionality
+     */
+    hooks: IHooks;
 
-    addUnloadTask(task: any): void;
+    addUnloadTask(task: any);
 
     /** Convenience function for pushing a tiddler onto the preloading array */
-    preloadTiddler(fields: Record<string, unknown>): void;
+    preloadTiddler(fields: Record<string, unknown>);
     /** Convenience function for pushing an array of tiddlers onto the preloading array */
     preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */

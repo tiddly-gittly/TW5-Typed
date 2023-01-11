@@ -2,7 +2,7 @@
   "description": "Types for tiddlywiki",
   "license": "MIT",
   "name": "tw5-typed",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
   "homepage": "https://github.com/tiddly-gittly/tw5-typed",
   "bugs": {
@@ -35,6 +35,8 @@
   "devDependencies": {
     "@modern-js/eslint-config": "latest",
     "@modern-js/tsconfig": "latest",
+    "@types/codemirror": "^5.60.6",
+    "@types/echarts": "^4.9.16",
     "@types/node": "^18.11.9",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
