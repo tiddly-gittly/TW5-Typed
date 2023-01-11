@@ -1,5 +1,3 @@
-/// <reference path="Wiki.d.ts" />
-
 import type Http from 'http';
 
 declare module 'tiddlywiki' {

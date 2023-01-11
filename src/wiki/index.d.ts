@@ -1,4 +1,4 @@
-/// <reference path="parser.d.ts" />
+/// <reference path="../modules/filters/index.d.ts" />>
 
 declare module 'tiddlywiki' {
   export interface IMakeWidgetOptions extends IRenderOptions {

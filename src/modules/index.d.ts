@@ -1,3 +1,8 @@
+/// <reference path="server/index.d.ts" />
+/// <reference path="parsers/index.d.ts" />
+/// <reference path="widgets/index.d.ts" />
+/// <reference path="parsers/index.d.ts" />
+
 declare module 'tiddlywiki' {
   export interface ITWModuleExports {
     [exportName: string]: unknown;

@@ -2,7 +2,7 @@
   "description": "Types for tiddlywiki",
   "license": "MIT",
   "name": "tw5-typed",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
   "homepage": "https://github.com/tiddly-gittly/tw5-typed",
   "bugs": {
@@ -39,6 +39,7 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "rimraf": "^3.0.2",
+    "tiddlywiki": "^5.2.5",
     "typescript": "^4.9.4"
   }
 }

@@ -1,4 +1,15 @@
 declare module 'tiddlywiki' {
+  export interface IContentTypeInfo {
+    deserializerType: string;
+    encoding: string;
+    extension: string;
+    flags: string[];
+  }
+
+  export interface IFileExtensionInfo {
+    type: string;
+  }
+
   interface ITWConfig {
     [configName: string]: unknown;
     /** Map type to file content type */
