@@ -14,13 +14,13 @@ declare module 'tiddlywiki' {
 
     navigateTiddler(
       navigateTo: string,
-      navigateFromTitle: string,
-      navigateFromClientRect: DOMRect,
+      navigateFromTitle?: string,
+      navigateFromClientRect?: DOMRect,
     );
 
     addToStory(
       navigateTo: string,
-      navigateFromTitle: string,
+      navigateFromTitle?: string,
       options?: {
         openLinkFromInsideRiver?: 'top' | 'bottom' | 'above' | 'below';
       },
@@ -28,7 +28,7 @@ declare module 'tiddlywiki' {
 
     addToHistory(
       navigateTo: string | string[],
-      navigateFromClientRect: DOMRect,
+      navigateFromClientRect?: DOMRect,
     );
 
     saveStoryList(storyList: string[] | string);
