@@ -477,28 +477,6 @@ declare module 'tiddlywiki' {
     ): boolean;
   }
 
-  export interface IFakeDocument {
-    compatMode: string;
-    createElement: (tag: string) => TW_Element;
-    createElementNS: (namespace: string, tag: string) => TW_Element;
-    createTextNode: (text: string) => TW_TextNode;
-    isTiddlyWikiFakeDom: boolean;
-    setSequenceNumber: (value: any) => void;
-  }
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export interface TW_Element extends HTMLElement {
-    _style: Record<string, unknown>;
-    appendChild: <T extends TW_Element | TW_TextNode | Node>(node: T) => T;
-    isRaw: boolean;
-    isTiddlyWikiFakeDom: boolean;
-    namespaceURI: string;
-    tag: string;
-  }
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export interface TW_TextNode extends Node {
-    textContent: string;
-  }
-
   export type ModalWidget = {
     adjustPageClass: () => void;
     /**

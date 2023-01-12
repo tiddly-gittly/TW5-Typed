@@ -31,14 +31,15 @@ declare module 'tiddlywiki' {
     boot: IBoot;
     crypto: Crypto;
     utils: IUtils;
+    config: IConfig;
     version: string;
     safeMode: boolean;
-    config: IConfig;
+    modules: IModules;
     rootWidget: Widget;
     notifier: Notifier;
     language: ILanguage;
-    modules: IModules;
     locationHash: string;
+    fakeDocument: IFakeDocument;
     passwordPrompt: PasswordPrompt;
     packageInfo: Record<string, unknown>;
 
