@@ -6,7 +6,7 @@ declare const getModificationFields: () => {
 declare const getTiddlersWithTag: (tag: string) => string[];
 
 declare module 'tiddlywiki' {
-  class Wiki {
+  export interface Wiki {
     getCreationFields: typeof getCreationFields;
 
     getModificationFields: typeof getModificationFields;

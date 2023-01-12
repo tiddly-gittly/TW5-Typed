@@ -53,7 +53,7 @@ declare module 'tiddlywiki' {
    * * parentWidget: optional reference to a parent renderer node for the context chain
    * * document: optional document object to use instead of global document
    */
-  export declare class Widget {
+  export class Widget {
     parseTreeNode: IParseTreeNode;
 
     wiki: ITiddlyWiki;
@@ -311,7 +311,7 @@ declare module 'tiddlywiki' {
   };
 }
 
-export module '$:/core/modules/widgets/widget.js' {
+declare module '$:/core/modules/widgets/widget.js' {
   import { Widget } from 'tiddlywiki';
   export { Widget as widget };
 }

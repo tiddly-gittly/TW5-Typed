@@ -1,5 +1,5 @@
 declare module 'tiddlywiki' {
-  declare class Story {
+  export class Story {
     wiki: Wiki;
     storyTitle: string;
     historyTitle: string;

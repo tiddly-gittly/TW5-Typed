@@ -15,7 +15,7 @@ export class ReactWidget extends Widget {
     this.parentDomNode = parent;
     this.execute();
     this.computeAttributes();
-    const containerElement = document.createElement('div');
+    const containerElement = $tw.utils.domMaker('div');
     this.domNodes.push(containerElement);
     parent.appendChild(containerElement);
   }

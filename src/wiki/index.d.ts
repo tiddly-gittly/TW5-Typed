@@ -257,6 +257,6 @@ declare module 'tiddlywiki' {
     getShadowSource(title: string): string | null;
     getTiddlerBacklinks(targetTitle: string): string[];
     getTiddlerLinks(title: string): string[];
-    getPluginInfo(title: string): { tiddlers: ITiddlerFields[] };
+    getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
   }
 }

@@ -9,7 +9,7 @@ declare const addEventListeners: (
   }[],
 ) => void;
 
-declare class Notifier {
+export class Notifier {
   /**
    * Display a notification
    * * title: Title of tiddler containing the notification text

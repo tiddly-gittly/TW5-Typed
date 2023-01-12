@@ -197,13 +197,9 @@ declare module 'tiddlywiki' {
      * $tw.utils.each([1, 2, 3], element => console.log(element));
      * $tw.utils.each({ a: 1, b: 2 }, (value, key) => console.log(key, value));
      */
-    each: <T>(
+    each: <T, K = T extends Array<any> ? number : keyof T>(
       object: T,
-      callback: (
-        element: T[keyof T],
-        index: keyof T,
-        object: T,
-      ) => void | false,
+      callback: (element: T[K], index: K, object: T) => void | false,
     ) => void;
 
     /**
@@ -213,10 +209,10 @@ declare module 'tiddlywiki' {
      * 产生一个 DOM 元素
      *
      * @param {string} tag tag name
-     * @param {IDomMakerOptions} options
+     * @param {IDomMakerOptions} [options]
      * @returns {TWElement}
      */
-    domMaker: (tag: string, options: IDomMakerOptions) => TWElement;
+    domMaker: (tag: string, options?: IDomMakerOptions) => TWElement;
 
     /**
      * @en
