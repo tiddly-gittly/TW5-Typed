@@ -217,7 +217,10 @@ declare module 'tiddlywiki' {
       variables: hashmap of variables to set
       parentWidget: optional parent widget for the root node
     */
-    makeWidget(parser: WikiParser, options?: IMakeWidgetOptions): Widget;
+    makeWidget(
+      parser: { tree: IParseTreeNode[] },
+      options?: IMakeWidgetOptions,
+    ): Widget;
     /**
       Make a widget tree for transclusion
       @params title: target tiddler title

@@ -23,7 +23,7 @@ type Spread<A extends readonly [...any]> = A extends [infer L, ...infer R]
   : unknown;
 
 declare module 'tiddlywiki' {
-  export type TWDocument = Document;
+  export type TWDocument = Document | IFakeDocument;
   export type TWElement = Element;
   export type TWDOMElement = TWElement;
   export type ITWUtils = IUtils;
@@ -209,10 +209,10 @@ declare module 'tiddlywiki' {
      * 产生一个 DOM 元素
      *
      * @param {string} tag tag name
-     * @param {IDomMakerOptions} [options]
+     * @param {IDomMakerOptions} options
      * @returns {TWElement}
      */
-    domMaker: (tag: string, options?: IDomMakerOptions) => TWElement;
+    domMaker: (tag: string, options: IDomMakerOptions) => TWElement;
 
     /**
      * @en

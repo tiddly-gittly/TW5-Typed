@@ -4,6 +4,12 @@ declare const getModificationFields: () => {
   modifier?: string;
 };
 declare const getTiddlersWithTag: (tag: string) => string[];
+declare const getTextReferenceParserInfo: (
+  title: string,
+  field?: string,
+  index?: string,
+  options: { subTiddler: string },
+) => { sourceText: null | string; parserType: string | null };
 
 declare module 'tiddlywiki' {
   export interface Wiki {

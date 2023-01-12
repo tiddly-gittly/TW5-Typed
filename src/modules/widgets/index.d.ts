@@ -20,6 +20,14 @@ declare module 'tiddlywiki' {
     isMacroDefinition: boolean;
   }
 
+  export interface IWidgetInitialiseOptions {
+    document?: Document;
+    parentWidget?: Widget;
+    wiki?: ITiddlyWiki;
+  }
+
+  export type IWidgetInitializeOptions = IWidgetInitialiseOptions;
+
   export interface IWidgetEvent {
     [extraKeys: string]: unknown;
     /** maybe a DOM click event, if trigger by button click */
@@ -44,11 +52,6 @@ declare module 'tiddlywiki' {
      */
     type: string;
     widget: Widget;
-  }
-
-  export interface IWidgetInitializeOptions {
-    wiki?: ITiddlyWiki;
-    parentWidget?: Widget;
   }
 
   /**
@@ -104,7 +107,7 @@ declare module 'tiddlywiki' {
 
     constructor(
       parseTreeNode: IParseTreeNode,
-      options?: IWidgetInitializeOptions,
+      options?: IWidgetInitialiseOptions,
     );
 
     /**
@@ -115,11 +118,7 @@ declare module 'tiddlywiki' {
      */
     initialise(
       parseTreeNode: IParseTreeNode,
-      options?: {
-        document?: Document;
-        parentWidget?: Widget;
-        wiki?: ITiddlyWiki;
-      },
+      options?: IWidgetInitialiseOptions,
     ): void;
 
     /**
@@ -141,7 +140,7 @@ declare module 'tiddlywiki' {
      * @param {IChangedTiddlers} changedTiddlers Object key is tiddler title, value is metadata about the change
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
-    refresh(changedTiddlers: IChangedTiddlers): boolean;
+    refresh(changedTiddlers: IChangedTiddlers): boolean | void;
 
     /**
      * Compute the internal state of the widget.

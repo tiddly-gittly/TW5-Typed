@@ -4,7 +4,7 @@ declare module 'tiddlywiki' {
     storyTitle: string;
     historyTitle: string;
 
-    constructor(options: {
+    constructor(options?: {
       wiki?: Wiki;
       storyTitle?: string;
       historyTitle?: string;

@@ -13,7 +13,6 @@ declare module 'tiddlywiki' {
   export type ITWConfig = IConfig;
 
   interface IConfig {
-    [configName: string]: unknown;
     /** Map type to file content type */
     contentTypeInfo: Record<string, IContentTypeInfo>;
     /** @default 'TIDDLYWIKI_EDITION_PATH' */
@@ -51,5 +50,7 @@ declare module 'tiddlywiki' {
     wikiThemesSubDir: string;
     /** @default './tiddlers' */
     wikiTiddlersSubDir: string;
+    htmlUnsafeElements: string[];
+    [configName: string]: any;
   }
 }
