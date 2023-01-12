@@ -1,9 +1,12 @@
 /// <reference path="../modules/filters/index.d.ts" />>
 
 declare module 'tiddlywiki' {
-  export interface IMakeWidgetOptions extends IRenderOptions {
-    document: typeof document | IFakeDocument;
+  export interface IMakeWidgetOptions {
+    document?: TWDocument;
+    variables?: Record<string, string>;
+    parentWidget?: Widget;
   }
+  export type IRenderOptions = IMakeWidgetOptions & IParseOptions;
 
   export type OutputMimeTypes =
     | 'text/html'
@@ -13,10 +16,6 @@ declare module 'tiddlywiki' {
     | 'text/html'
     | 'text/vnd.tiddlywiki'
     | 'text/plain';
-  export interface IRenderOptions {
-    parentWidget?: Widget;
-    variables?: Record<string, any>;
-  }
   export type ITiddlerFieldsParam = Omit<
     Partial<ITiddlerFields>,
     'created' | 'modified'
@@ -167,7 +166,7 @@ declare module 'tiddlywiki' {
     /**
       Parse a tiddler according to its MIME type
     */
-    parseTiddler(title: string, options?: IParserOptions): WikiParser;
+    parseTiddler(title: string, options?: IParseOptions): WikiParser;
     /**
       Parse a block of text of a specified MIME type
       @param {string} type: content type of text to be parsed
@@ -178,7 +177,7 @@ declare module 'tiddlywiki' {
       - parseAsInline: if true, the text of the tiddler will be parsed as an inline run
       - _canonical_uri: optional string of the canonical URI of this content
     */
-    parseText(type: string, text: string, options?: IParserOptions): WikiParser;
+    parseText(type: string, text: string, options?: IParseOptions): WikiParser;
     /**
       Parse text from a tiddler and render it into another format
         outputType: content type for the output

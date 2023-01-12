@@ -212,7 +212,12 @@ declare module 'tiddlywiki' {
      * @param {IDomMakerOptions} options
      * @returns {TWElement}
      */
-    domMaker: (tag: string, options: IDomMakerOptions) => TWElement;
+    domMaker: <K extends keyof HTMLElementTagNameMap | string>(
+      tag: K,
+      options: IDomMakerOptions,
+    ) => K extends keyof HTMLElementTagNameMap
+      ? HTMLElementTagNameMap[K]
+      : HTMLElement;
 
     /**
      * @en

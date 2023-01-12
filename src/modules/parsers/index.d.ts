@@ -1,5 +1,5 @@
 declare module 'tiddlywiki' {
-  export interface IParserOptions {
+  export interface IParseOptions {
     /**
      * Optional source uri, used in parseText
      */
@@ -8,6 +8,7 @@ declare module 'tiddlywiki' {
      * While calling `getCacheForTiddler`, use inlineParseTree or blockParseTree
      */
     parseAsInline?: boolean;
+    defaultType?: string;
   }
 
   export class WikiParseRule {

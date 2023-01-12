@@ -21,7 +21,7 @@ declare module 'tiddlywiki' {
   }
 
   export interface IWidgetInitialiseOptions {
-    document?: Document;
+    document?: TWDocument;
     parentWidget?: Widget;
     wiki?: ITiddlyWiki;
   }
