@@ -56,7 +56,7 @@ declare module 'tiddlywiki' {
      * @type {CSSStyleDeclaration}
      * @memberof IDomMakerOptions
      */
-    style?: CSSStyleDeclaration;
+    style?: Partial<CSSStyleDeclaration>;
 
     /**
      * @en

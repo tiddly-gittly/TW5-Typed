@@ -11,7 +11,7 @@ export class ReactWidget extends Widget {
     }
   }
 
-  render(parent: Node, _nextSibling: Node): void {
+  render(parent: Element, _nextSibling: Element): void {
     this.parentDomNode = parent;
     this.execute();
     this.computeAttributes();

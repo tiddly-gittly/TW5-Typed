@@ -1,6 +1,6 @@
 declare const addClass: (element: Element, className: string) => void;
 declare const addEventListeners: (
-  domNode: Node,
+  domNode: Element,
   events: {
     handlerFunction?: (event: MouseEvent) => void;
     handlerMethod?: string;
