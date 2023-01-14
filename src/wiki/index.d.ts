@@ -67,7 +67,7 @@ declare module 'tiddlywiki' {
      */
     compileFilter(
       filterString: string,
-    ): (source?: SourceIterator, widget?: Widget) => string[];
+    ): (source?: SourceIterator | string[] | Record<string, unknown>, widget?: Widget) => string[];
     /**
      *
      * @param filterString

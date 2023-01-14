@@ -112,7 +112,7 @@ As with [JavaScript Macros](#JavaScript%20Macros), filter operators should not m
       });
     ```
    */
-  export type SourceIterator = (tiddler: Tiddler, title: string) => void;
+  export type SourceIterator = (callback: (tiddler: Tiddler, title: string) => void) => void;
   export interface ISearchOptions {
     /** If true, forces all but regexp searches to be anchored to the start of text */
     anchored?: boolean;
