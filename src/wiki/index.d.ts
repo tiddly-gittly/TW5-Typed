@@ -74,6 +74,10 @@ declare module 'tiddlywiki' {
      * @param widget an optional widget node for retrieving the current tiddler etc.
      * @param source an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
      */
+    /**
+     * Returns a function iterator(callback) that iterates through the specified titles, and invokes the callback with callback(tiddler,title)
+     */
+    makeTiddlerIterator(titles: string[]): SourceIterator;
     filterTiddlers(
       filterString: string,
       widget?: Widget,

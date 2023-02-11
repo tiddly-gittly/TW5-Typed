@@ -111,6 +111,8 @@ As with [JavaScript Macros](#JavaScript%20Macros), filter operators should not m
           include = !include;
       });
     ```
+
+    Construct the iterator using $tw.wiki.makeTiddlerIterator
    */
   export type SourceIterator = (callback: (tiddler: Tiddler, title: string) => void) => void;
   export interface ISearchOptions {
