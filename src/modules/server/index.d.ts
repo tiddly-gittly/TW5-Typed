@@ -114,5 +114,5 @@ declare module 'tiddlywiki' {
     request: Http.ClientRequest & Http.InformationEvent,
     response: Http.ServerResponse,
     context: ServerEndpointContext & T,
-  ) => void;
+  ) => void | Promise<void>;
 }
