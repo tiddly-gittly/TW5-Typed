@@ -318,11 +318,13 @@ declare module 'tiddlywiki' {
      * Parse a string array from a bracketted list. For example `OneTiddler [[Another Tiddler]] LastOne`
      * @zh
      * 从一个带括号的列表中解析一个字符串数组。例如，`OneTiddler [[Another Tiddler]] LastOne`
+     * 
+     * @returns {string[]} An array of tiddler titles. null if input is not string or string array. This won't happened in TS.
      */
     parseStringArray: (
       value: string | string[],
       allowDuplicate?: boolean,
-    ) => string[] | null;
+    ) => string[];
 
     /**
      * @en
