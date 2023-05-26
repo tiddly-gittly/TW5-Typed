@@ -94,6 +94,14 @@ declare module 'tiddlywiki' {
       options?: any,
     ): void;
     /**
+     * Parse a string array from a bracketted list.
+     * 
+     * For example "OneTiddler [[Another Tiddler]] LastOne"
+     * 
+     * @returns null if input is not string or string array. This won't happened in TS.
+     */
+    parseStringArray(value: string | string[], allowDuplicate?: boolean): string[];
+    /**
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
