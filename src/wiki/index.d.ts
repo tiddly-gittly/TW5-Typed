@@ -78,6 +78,18 @@ declare module 'tiddlywiki' {
      * Returns a function iterator(callback) that iterates through the specified titles, and invokes the callback with callback(tiddler,title)
      */
     makeTiddlerIterator(titles: string[]): SourceIterator;
+    /**
+     * You can use this with `makeTiddlerIterator`:
+     * 
+     * ```js
+     * $tw.wiki.filterTiddlers(filter, undefined, $tw.wiki.makeTiddlerIterator(['title']))
+     * ```
+     * 
+     * This calls `compileFilter`
+     * @param filterString 
+     * @param widget 
+     * @param source 
+     */
     filterTiddlers(
       filterString: string,
       widget?: Widget,
