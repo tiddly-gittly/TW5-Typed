@@ -28,5 +28,11 @@ declare module 'tiddlywiki' {
       trapErrors: boolean;
     };
     excludeRegExp: RegExp;
+    /** Exist in nodejs wiki, Load the tiddlers from the wiki directory */
+    wikiInfo?: ITiddlyWikiInfoJSON;
+    /** Exist in nodejs wiki, absolute path of wiki root folder */
+    wikiPath?: string;
+    /** Exist in nodejs wiki, usually is `./tiddlers` */
+    wikiTiddlersPath?: string;
   }
 }

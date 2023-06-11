@@ -53,4 +53,29 @@ declare module 'tiddlywiki' {
     htmlUnsafeElements: string[];
     [configName: string]: any;
   }
+
+  export interface ITiddlyWikiInfoJSON {
+    description: string
+    plugins: string[]
+    themes: string[]
+    languages: any[]
+    build: ITiddlyWikiInfoJSONBuild
+    config: ITiddlyWikiInfoJSONConfig
+  }
+  
+  export interface ITiddlyWikiInfoJSONBuild {
+    index: string[]
+    empty: string[]
+    encrypted: string[]
+    favicon: string[]
+    readmes: string[]
+    tw2: string[]
+    static: string[]
+    "external-js": string[]
+  }
+  
+  export interface ITiddlyWikiInfoJSONConfig {
+    "retain-original-tiddler-path": boolean
+  }
+  
 }

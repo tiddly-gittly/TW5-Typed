@@ -1,25 +1,5 @@
-declare const addClass: (element: Element, className: string) => void;
-declare const addEventListeners: (
-  domNode: Element,
-  events: {
-    handlerFunction?: (event: MouseEvent) => void;
-    handlerMethod?: string;
-    handlerObject?: Widget;
-    name: string;
-  }[],
-) => void;
-
-export class Notifier {
-  /**
-   * Display a notification
-   * * title: Title of tiddler containing the notification text
-   * * options: see below
-   * Options include:
-   */
-  display(title: string, options?: Record<string, unknown>): void;
-}
-
 declare module 'tiddlywiki' {
+  import { addClass, addEventListeners } from '$:/core/modules/utils/dom.js';
   interface IUtils {
     /**
      * Alternative to `element.classList.add`, add a css class name to an element, see issue for detail.
@@ -44,8 +24,28 @@ declare module 'tiddlywiki' {
      */
     Notifier: typeof Notifier;
   }
+  export class Notifier {
+    /**
+     * Display a notification
+     * * title: Title of tiddler containing the notification text
+     * * options: see below
+     * Options include:
+     */
+    display(title: string, options?: Record<string, unknown>): void;
+  }
 }
 
 declare module '$:/core/modules/utils/dom.js' {
-  export { addClass, addEventListeners, Notifier };
+  import { Widget, Notifier } from 'tiddlywiki';
+  export const addClass: (element: Element, className: string) => void;
+  export const addEventListeners: (
+    domNode: Element,
+    events: {
+      handlerFunction?: (event: MouseEvent) => void;
+      handlerMethod?: string;
+      handlerObject?: Widget;
+      name: string;
+    }[],
+  ) => void;
+  export { Notifier }
 }

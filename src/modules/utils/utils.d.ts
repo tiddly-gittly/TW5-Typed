@@ -1,8 +1,6 @@
-declare const count: (object: object) => number;
-declare const hashString: (str: string) => number;
-declare const formatDateString: (date: Date, format: string) => string;
 
 declare module 'tiddlywiki' {
+  import { formatDateString, hashString, count } from "$:/core/modules/utils/utils.js";
   interface IUtils {
     /**
      * @en
@@ -21,5 +19,7 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/utils/utils.js' {
-  export { count, formatDateString, hashString };
+  export const count: (object: object) => number;
+  export const hashString: (str: string) => number;
+  export const formatDateString: (date: Date, format: string) => string;
 }
