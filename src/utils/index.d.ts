@@ -318,7 +318,7 @@ declare module 'tiddlywiki' {
      * Parse a string array from a bracketted list. For example `OneTiddler [[Another Tiddler]] LastOne`
      * @zh
      * 从一个带括号的列表中解析一个字符串数组。例如，`OneTiddler [[Another Tiddler]] LastOne`
-     * 
+     *
      * @returns {string[]} An array of tiddler titles. null if input is not string or string array. This won't happened in TS.
      */
     parseStringArray: (
@@ -457,5 +457,20 @@ declare module 'tiddlywiki' {
       context: IEvalContent,
       filename: string,
     ) => unknown;
+    /**
+     * Transliterate string to ASCII
+     * (Some pairs taken from http://semplicewebsites.com/ removing-accents-javascript)
+     */
+    transliterationPairs: Record<string, string>;
+    /**
+     * Remove any of the characters that are illegal in Windows filenames
+     * See `$tw.utils.transliterationPairs` for the list of replacements
+     */
+    transliterate: (str: string) => string;
+    /**
+     * Remove any of the characters that are illegal in Windows filenames
+     * See `$tw.utils.transliterationPairs` for the list of replacements
+     */
+    transliterateToSafeASCII: (str: string) => string;
   }
 }
