@@ -67,7 +67,10 @@ declare module 'tiddlywiki' {
      */
     compileFilter(
       filterString: string,
-    ): (source?: SourceIterator | string[] | Record<string, unknown>, widget?: Widget) => string[];
+    ): (
+      source?: SourceIterator | string[] | Record<string, unknown>,
+      widget?: Widget,
+    ) => string[];
     /**
      *
      * @param filterString
@@ -80,15 +83,15 @@ declare module 'tiddlywiki' {
     makeTiddlerIterator(titles: string[]): SourceIterator;
     /**
      * You can use this with `makeTiddlerIterator`:
-     * 
+     *
      * ```js
      * $tw.wiki.filterTiddlers(filter, undefined, $tw.wiki.makeTiddlerIterator(['title']))
      * ```
-     * 
+     *
      * This calls `compileFilter`
-     * @param filterString 
-     * @param widget 
-     * @param source 
+     * @param filterString
+     * @param widget
+     * @param source
      */
     filterTiddlers(
       filterString: string,
@@ -271,11 +274,33 @@ declare module 'tiddlywiki' {
     isShadowTiddler(title: string): boolean;
     isBinaryTiddler(title: string): boolean;
     isImageTiddler(title: string): boolean;
+    isSystemTiddler(title: string): boolean;
+    isTemporaryTiddler(title: string): boolean;
+    isVolatileTiddler(title: string): boolean;
+    /**
+     * Like addTiddler() except it will silently reject any plugin tiddlers that are older than the currently loaded version. Returns true if the tiddler was imported
+     */
+    importTiddler(title: string): boolean;
     /** return shadowTiddlers[title].source; */
     getShadowSource(title: string): string | null;
     getTiddlerBacklinks(targetTitle: string): string[];
     getTiddlerLinks(title: string): string[];
     getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
     getChangeCount(title: string): number;
+    getCreationFields(): {
+      created: Date;
+      creator?: string;
+      [x: string]: unknown;
+    };
+    getModificationFields(): {
+      modified: Date;
+      modifier?: string;
+      [x: string]: unknown;
+    };
+    /**
+      Generate an unused title from the specified base
+      options.prefix must be a string
+    */
+    generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
   }
 }
