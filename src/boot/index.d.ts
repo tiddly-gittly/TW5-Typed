@@ -4,10 +4,13 @@ declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
     filepath: string;
     hasMetaFile: boolean;
-    tiddlerTitle: string;
+    isEditableFile: boolean;
     type: string;
   }
 
+  /**
+   * Key is `tiddlerTitle: string;`
+   */
   export type IBootFilesIndex = Record<string, IBootFilesIndexItem>;
 
   export interface IStartUpOption {
