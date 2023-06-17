@@ -276,5 +276,6 @@ declare module 'tiddlywiki' {
     getTiddlerBacklinks(targetTitle: string): string[];
     getTiddlerLinks(title: string): string[];
     getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
+    getChangeCount(title: string): number;
   }
 }
