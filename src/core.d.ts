@@ -82,12 +82,7 @@ declare module 'tiddlywiki' {
     loadTiddlersFromFile(
       filepath: string,
       defaultFields?: Record<string, unknown>,
-    ): {
-      filepath: string;
-      type: string;
-      tiddlers: ITiddlerFields[];
-      hasMetaFile: boolean;
-    };
+    ): ITiddlersInFile;
     loadMetadataForFile(filepath: string): ITiddlerFields | null;
     loadTiddlersFromPath(
       filepath: string,

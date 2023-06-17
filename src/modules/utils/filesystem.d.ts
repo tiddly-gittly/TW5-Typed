@@ -37,6 +37,12 @@ declare module 'tiddlywiki' {
     encoding: string;
     filepath: string;
   }
+  export interface ITiddlersInFile {
+    filepath: string;
+    type: string;
+    tiddlers: ITiddlerFields[];
+    hasMetaFile: boolean;
+  }
   interface IUtils {
     /**
      * Generate the filepath for saving a tiddler
