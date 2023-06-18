@@ -27,6 +27,12 @@ declare module 'tiddlywiki' {
     Wiki: typeof Wiki;
     Story: typeof Story;
     Tiddler: typeof Tiddler;
+    syncadaptor?: SyncAdaptor;
+    /**
+     * Presents when we have $tw.syncadaptor
+     */
+    syncer?: Syncer;
+    Syncer: { new(): Syncer };
 
     wiki: Wiki;
     boot: IBoot;
@@ -43,7 +49,6 @@ declare module 'tiddlywiki' {
     fakeDocument: IFakeDocument;
     passwordPrompt: PasswordPrompt;
     packageInfo: Record<string, unknown>;
-    syncadaptor: SyncAdaptor;
 
     /**
      * Check for this window being the source of the drag. If true, some drop target widget will stop responding to the drop event, so you can handle drop event in your own widget.

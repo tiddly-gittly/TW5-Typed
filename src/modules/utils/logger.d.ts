@@ -18,6 +18,6 @@ declare module 'tiddlywiki' {
     /**
      * A basic logging implementation
      */
-    Logger: Logger;
+    Logger: { new(loggerName: string): Logger};
   }
 }
