@@ -224,7 +224,7 @@ declare module 'tiddlywiki' {
       outputType: OutputMimeTypes,
       textType: TextMimeTypes,
       text: string,
-      options?: Partial<IMakeWidgetOptions> & IParserOptions,
+      options?: Partial<IMakeWidgetOptions> & IParseOptions,
     ): string;
     /**
       Make a widget tree for a parse tree
@@ -302,5 +302,23 @@ declare module 'tiddlywiki' {
       options.prefix must be a string
     */
     generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
+
+    addEventListener(
+      type: string,
+      handler: (event: unknown) => void | Promise<void>,
+    ): void;
+    addEventListener(
+      type: "change",
+      handler: (change: IChangedTiddlers) => void | Promise<void>,
+    ): void;
+
+    dispatchEvent(
+      type: string,
+      dataOrEvent: unknown,
+    ): void;
+    dispatchEvent(
+      type: "change",
+      change: IChangedTiddlers,
+    ): void;
   }
 }
