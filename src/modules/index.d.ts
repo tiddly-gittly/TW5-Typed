@@ -6,6 +6,7 @@
 /// <reference path="widgets/index.d.ts" />
 /// <reference path="parsers/index.d.ts" />
 /// <reference path="syncer/syncAdaptor.d.ts" />
+/// <reference path="syncer/syncer.d.ts" />
 
 declare module 'tiddlywiki' {
   export interface ITWModuleExports {
