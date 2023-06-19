@@ -20,6 +20,10 @@ declare module 'tiddlywiki' {
 
   export interface IBoot {
     argv: string[];
+    /**
+     * Parse any extra plugin references from `$tw.boot.argv[0]` that with `+` prefix.
+     */
+    extraPlugins: string[];
     boot: (callback?: () => void) => void;
     files: IBootFilesIndex;
     log: (logString: string) => void;
