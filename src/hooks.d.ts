@@ -68,7 +68,7 @@ declare module 'tiddlywiki' {
     addHook(
       hookName: 'th-importing-file',
       callback: (props: {
-        file: unknown;
+        file: { path?: string, name: string };
         type: string;
         isBinary: boolean;
         callback: Function;

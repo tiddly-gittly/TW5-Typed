@@ -7,7 +7,6 @@
 /// <reference path="plugins/index.d.ts" />
 
 declare module 'tiddlywiki' {
-
   export interface IPluginInfo {
     version: string;
     'plugin-type': string;
@@ -32,7 +31,7 @@ declare module 'tiddlywiki' {
      * Presents when we have $tw.syncadaptor
      */
     syncer?: Syncer;
-    Syncer: { new(): Syncer };
+    Syncer: { new (): Syncer };
 
     wiki: Wiki;
     boot: IBoot;
@@ -139,5 +138,10 @@ declare module 'tiddlywiki' {
     node: null | Record<string, any>;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | Record<string, any>;
+    platform: {
+      isLinux: boolean;
+      isMac: boolean;
+      isWindows: boolean;
+    };
   }
 }
