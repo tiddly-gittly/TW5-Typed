@@ -1,3 +1,5 @@
+/// <reference path="./navigator.d.ts" />
+
 declare module 'tiddlywiki' {
   /**
    * Parameter of Widget.refresh
