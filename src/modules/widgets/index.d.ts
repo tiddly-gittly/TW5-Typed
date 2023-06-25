@@ -71,7 +71,7 @@ declare module 'tiddlywiki' {
   export class Widget {
     parseTreeNode: IParseTreeNode;
 
-    wiki: ITiddlyWiki;
+    wiki: Wiki;
 
     document: IFakeDocument;
 
