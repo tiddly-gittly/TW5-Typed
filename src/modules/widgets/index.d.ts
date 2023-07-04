@@ -60,7 +60,7 @@ declare module 'tiddlywiki' {
     params?: IWidgetVariableParam[];
     defaultValue?: string;
     allowSelfAssigned?: boolean;
-    source: (iter: SourceIterator) => void;
+    source?: (iter: SourceIterator) => void;
   }
 
   /**
