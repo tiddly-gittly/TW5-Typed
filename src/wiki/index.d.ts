@@ -34,6 +34,12 @@ declare module 'tiddlywiki' {
      * Get full list of tiddler titles in the wiki
      */
     getTiddlers(): string[];
+    /**
+     * Get JSON string of tiddlers. Note that this will make lists like tags/list to be string, instead of array.
+     * @param filter Filter string
+     * @param spaces Last arg of `JSON.stringify`, default is `'  '`
+     */
+    getTiddlersAsJson(filter: string, spaces?: string): string;
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
