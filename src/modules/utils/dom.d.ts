@@ -23,6 +23,12 @@ declare module 'tiddlywiki' {
      * Notifier mechanism
      */
     Notifier: typeof Notifier;
+    /**
+     * Copy plain text to the clipboard on browsers that support it.
+     * 
+     * And send a notification to the user if doNotNotify is not true.
+     */
+    copyToClipboard(text: string, option?: { doNotNotify?: boolean }): void;
   }
   export class Notifier {
     /**
