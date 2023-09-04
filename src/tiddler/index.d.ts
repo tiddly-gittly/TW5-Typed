@@ -38,7 +38,7 @@ declare module 'tiddlywiki' {
       Get all the fields as a hashmap of strings. Options:
       exclude: an array of field names to exclude
     */
-    getFieldStrings(field: string, defaultValue?: string): string;
+    getFieldStrings(options?: { exclude?: string[] }): string;
     getFieldDay(field: string): string;
     /**
       Get the value of a field as a list
