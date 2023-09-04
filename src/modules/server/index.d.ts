@@ -106,6 +106,11 @@ declare module 'tiddlywiki' {
     data: string;
     server: Server;
     wiki: Wiki;
+    /**
+     * With `exports.path = /^\/recipes\/default\/tiddlers\/(.+)$/;` you can use:
+     * 
+     * `title = $tw.utils.decodeURIComponentSafe(state.params[0])`
+     */
     params: string[];
   }
   /**
