@@ -106,6 +106,7 @@ declare module 'tiddlywiki' {
     data: string;
     server: Server;
     wiki: Wiki;
+    params: string[];
   }
   /**
    * @link https://talk.tiddlywiki.org/t/what-is-the-state-in-server-route-handler/2877
