@@ -10,6 +10,7 @@ declare module 'tiddlywiki' {
     parseAsInline?: boolean;
     defaultType?: string;
     parentWidget?: Widget;
+    document?: TWDocument;
   }
 
   export class WikiParseRule {
