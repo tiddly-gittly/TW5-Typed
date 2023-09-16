@@ -325,16 +325,35 @@ declare module 'tiddlywiki' {
     */
     generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
 
+    removeEventListener(
+      type: string,
+      handler: (event: any) => void | Promise<void>,
+    ): void;
+
     addEventListener(
       type: string,
       handler: (event: unknown) => void | Promise<void>,
     ): void;
     addEventListener(
-      type: 'change',
+      type: "change",
       handler: (change: IChangedTiddlers) => void | Promise<void>,
     ): void;
+    addEventListener(
+      type: "lazyLoad",
+      handler: (title: string) => void | Promise<void>,
+    ): void;
 
-    dispatchEvent(type: string, dataOrEvent: unknown): void;
-    dispatchEvent(type: 'change', change: IChangedTiddlers): void;
+    dispatchEvent(
+      type: string,
+      dataOrEvent: unknown,
+    ): void;
+    dispatchEvent(
+      type: "change",
+      change: IChangedTiddlers,
+    ): void;
+    dispatchEvent(
+      type: "lazyLoad",
+      title: string,
+    ): void;
   }
 }
