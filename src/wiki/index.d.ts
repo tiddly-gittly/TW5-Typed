@@ -194,7 +194,7 @@ declare module 'tiddlywiki' {
     parseTiddler(title: string, options?: IParseOptions): WikiParser;
     /**
       Parse a block of text of a specified MIME type
-      @param {string} type: content type of text to be parsed
+      @param {string} type: MIME content type of text to be parsed
       @param {string} text: text
       @param {object}options: see below
 
@@ -203,6 +203,22 @@ declare module 'tiddlywiki' {
       - _canonical_uri: optional string of the canonical URI of this content
     */
     parseText(type: string, text: string, options?: IParseOptions): WikiParser;
+    /**
+     * Extracts tiddlers from a typed block of text, specifying default field values
+     * @param {string} type: MIME content type of text to be parsed
+     * @param {string} text: text
+     * @param {object} srcFields: default field values
+     * @param {object} options: see below
+     *
+     * Options include:
+     *  - deserializer: string, key of `$tw.Wiki.tiddlerDeserializerModules`
+     */
+    deserializeTiddlers(
+      type: string,
+      text: string,
+      srcFields?: ITiddlerFieldsParam,
+      options?: IParseOptions,
+    ): ITiddlerFieldsParam[];
     /**
       Parse text from a tiddler and render it into another format
         outputType: content type for the output
@@ -299,6 +315,11 @@ declare module 'tiddlywiki' {
     */
     generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
 
+    removeEventListener(
+      type: string,
+      handler: (event: any) => void | Promise<void>,
+    ): void;
+
     addEventListener(
       type: string,
       handler: (event: unknown) => void | Promise<void>,
@@ -306,6 +327,10 @@ declare module 'tiddlywiki' {
     addEventListener(
       type: "change",
       handler: (change: IChangedTiddlers) => void | Promise<void>,
+    ): void;
+    addEventListener(
+      type: "lazyLoad",
+      handler: (title: string) => void | Promise<void>,
     ): void;
 
     dispatchEvent(
@@ -315,6 +340,10 @@ declare module 'tiddlywiki' {
     dispatchEvent(
       type: "change",
       change: IChangedTiddlers,
+    ): void;
+    dispatchEvent(
+      type: "lazyLoad",
+      title: string,
     ): void;
   }
 }
