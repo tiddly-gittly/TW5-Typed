@@ -293,16 +293,6 @@ declare module 'tiddlywiki' {
     getTiddlerLinks(title: string): string[];
     getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
     getChangeCount(title: string): number;
-    getCreationFields(): {
-      created: Date;
-      creator?: string;
-      [x: string]: unknown;
-    };
-    getModificationFields(): {
-      modified: Date;
-      modifier?: string;
-      [x: string]: unknown;
-    };
     /**
       Generate an unused title from the specified base
       options.prefix must be a string
