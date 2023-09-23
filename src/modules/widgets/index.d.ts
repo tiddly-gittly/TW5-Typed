@@ -478,6 +478,7 @@ declare module 'tiddlywiki' {
      * @url https://tiddlywiki.com/dev/#Widget%20%60destroy%60%20method%20examples
     */
     destroy(): void;
+    removeLocalDomNodes(): void;
   }
 
   export type ModalWidget = {
