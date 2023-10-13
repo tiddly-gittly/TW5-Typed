@@ -10,5 +10,5 @@ declare module 'tiddlywiki' {
 }
 
 declare global {
-  export let $tw: ITiddlyWiki;
+  export const $tw: ITiddlyWiki;
 }

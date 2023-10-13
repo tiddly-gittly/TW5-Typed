@@ -1,5 +1,4 @@
 import { IParseTreeNode, Tiddler, Widget } from 'tiddlywiki';
-import { count } from '$:/core/modules/utils/utils.js';
 
 export class ReactWidget extends Widget {
   constructor(parseTreeNode: IParseTreeNode) {
@@ -21,5 +20,3 @@ export class ReactWidget extends Widget {
     parent.appendChild(containerElement);
   }
 }
-
-$tw.utils.count === count;

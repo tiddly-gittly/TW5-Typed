@@ -62,10 +62,20 @@ declare module 'tiddlywiki' {
 
     addUnloadTask(task: any);
 
-    /** Convenience function for pushing a tiddler onto the preloading array */
-    preloadTiddler(fields: Record<string, unknown>);
-    /** Convenience function for pushing an array of tiddlers onto the preloading array */
+    /**
+     * Convenience function for pushing a tiddler onto the preloading array.
+     * @param fields - The fields of the tiddler to push.
+     * @description 方便地将一个 tiddler 推入预加载数组中。
+     */
+    preloadTiddler(fields: Record<string, unknown>): void;
+
+    /**
+     * Convenience function for pushing an array of tiddlers onto the preloading array.
+     * @param fieldsArray - The array of tiddlers to push.
+     * @description 方便地将若干 tiddler 数组推入预加载数组中。
+     */
     preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
+
     /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
     preloadTiddlers: Record<string, Record<string, unknown>>;
 
