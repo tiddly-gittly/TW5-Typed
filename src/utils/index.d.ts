@@ -125,7 +125,7 @@ declare module 'tiddlywiki' {
     eventListeners?: EventListener[];
   }
 
-  export interface IUtils {
+  interface IUtilsBoot {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
 
@@ -338,10 +338,10 @@ declare module 'tiddlywiki' {
      * @zh
      * 安全地解析一个字符串为 JSON 对象
      */
-    parseJSONSafe: (
+    parseJSONSafe: <T = unknown>(
       input: string,
-      defaultJSON?: (error: Error) => unknown,
-    ) => unknown;
+      defaultJSON?: (error: Error) => T,
+    ) => T;
 
     /**
      * @en
@@ -456,4 +456,6 @@ declare module 'tiddlywiki' {
       filename: string,
     ) => unknown;
   }
+
+  export type IUtils = IUtilsBoot & IUtilsModules;
 }

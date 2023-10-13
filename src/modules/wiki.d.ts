@@ -8,7 +8,7 @@ declare const getTextReferenceParserInfo: (
   title: string,
   field?: string,
   index?: string,
-  options: { subTiddler: string },
+  options?: { subTiddler: string },
 ) => { sourceText: null | string; parserType: string | null };
 
 declare module 'tiddlywiki' {

@@ -23,5 +23,6 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/utils/fakedom.js' {
-  export type { TW_Element, TW_TextNode, IFakeDocument } from 'tiddlywiki';
+  import type { IFakeDocument } from 'tiddlywiki';
+  export const fakeDocument: IFakeDocument;
 }

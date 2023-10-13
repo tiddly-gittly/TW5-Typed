@@ -29,7 +29,7 @@ declare module 'tiddlywiki' {
      */
     constructor(options: { enableIndexers: unknown[] });
     addIndexer(indexer: unknown, name: string): void;
-    getTiddler<T extends Tiddler>(title: string): T | void;
+    getTiddler<T extends Tiddler>(title: string): T | undefined;
     /**
      * Get full list of tiddler titles in the wiki
      */
@@ -203,7 +203,7 @@ declare module 'tiddlywiki' {
     */
     renderText(
       outputType: OutputMimeTypes,
-      textType: TextMimeTypes,
+      textType: TextMimeTypes | string,
       text: string,
       options?: Partial<IMakeWidgetOptions> & IParserOptions,
     ): string;
