@@ -120,97 +120,21 @@ declare module '$:/core/modules/utils/utils.js' {
     },
   ): string;
 
-  /**
-   * Generate the filepath for saving a tiddler
-   * Options include:
-   * extension: file extension to be added the finished filepath
-   * directory: absolute path of root directory to which we are saving
-   * pathFilters: optional array of filters to be used to generate the base path
-   * wiki: optional wiki for evaluating the pathFilters
-   * fileInfo: an existing fileInfo object to check against
-   * @param title - The title of the tiddler
-   * @param options - Options for generating the filepath
-   * @returns The filepath
-   * @description 生成用于保存 tiddler 的文件路径
-   */
-  export function generateTiddlerFilepath(
-    title: string,
-    options: {
-      extension?: string;
-      directory?: string;
-      pathFilters?: string[];
-      wiki?: Wiki;
-      fileInfo?: FileInfo;
-    },
-  ): string;
+declare module 'tiddlywiki' {
+  interface IUtils {
+    /**
+     * Generate the filepath for saving a tiddler
+     * Options include:
+     * * extension: file extension to be added the finished filepath
+     * * directory: absolute path of root directory to which we are saving
+     * * pathFilters: optional array of filters to be used to generate the base path
+     * * wiki: optional wiki for evaluating the pathFilters
+     * * fileInfo: an existing fileInfo object to check against
+     */
+    generateTiddlerFilepath: typeof generateTiddlerFilepath;
+  }
+}
 
-  /**
-   * Save a tiddler to a file described by the fileInfo
-   * @param tiddler - The tiddler to save
-   * @param fileInfo - The fileInfo object describing the file to save to
-   * @param callback - A function to call when the operation is complete
-   * @description 将 tiddler 保存到由 fileInfo 描述的文件中
-   * fileInfo 包括：
-   * filepath：包含 tiddler 的文件的绝对路径
-   * type：tiddler 文件的类型（不是 tiddler 的类型）
-   * hasMetaFile：如果文件还有一个伴随的 .meta 文件，则为 true
-   */
-  export function saveTiddlerToFile(
-    tiddler: Tiddler,
-    fileInfo: FileInfo,
-    callback: (err: Error | null, fileInfo?: FileInfo) => void,
-  ): void;
-
-  /**
-   * Save a tiddler to a file described by the fileInfo synchronously
-   * @param tiddler - The tiddler to save
-   * @param fileInfo - The fileInfo object describing the file to save to
-   * @returns The fileInfo object
-   * @description 将 tiddler 同步保存到由 fileInfo 描述的文件中
-   * fileInfo 包括：
-   * filepath：包含 tiddler 的文件的绝对路径
-   * type：tiddler 文件的类型（不是 tiddler 的类型）
-   * hasMetaFile：如果文件还有一个伴随的 .meta 文件，则为 true
-   */
-  export function saveTiddlerToFileSync(
-    tiddler: Tiddler,
-    fileInfo: FileInfo,
-  ): FileInfo;
-
-  /**
-   * Delete a file described by the fileInfo if it exists
-   * @param fileInfo - The fileInfo object describing the file to delete
-   * @param callback - A function to call when the operation is complete
-   * @description 如果存在，则删除由 fileInfo 描述的文件
-   * fileInfo 包括：
-   * filepath：要删除的文件的绝对路径
-   * hasMetaFile：如果文件还有一个伴随的 .meta 文件，则为 true
-   */
-  export function deleteTiddlerFile(
-    fileInfo: FileInfo,
-    callback: (err: Error | null, fileInfo?: FileInfo) => void,
-  ): void;
-
-  /**
-   * Cleanup old files on disk, by comparing the options values:
-   * adaptorInfo from $tw.syncer.tiddlerInfo
-   * bootInfo from $tw.boot.files
-   * @param options - Options for cleaning up the files
-   * @param callback - A function to call when the operation is complete
-   * @description 通过比较选项值清理磁盘上的旧文件：
-   * adaptorInfo 来自 $tw.syncer.tiddlerInfo
-   * bootInfo 来自 $tw.boot.files
-   * 可选项包括：
-   * adaptorInfo：要清理的适配器信息
-   * bootInfo：要清理的启动信息
-   * title：要清理的 tiddler 的标题
-   */
-  export function cleanupTiddlerFiles(
-    options: {
-      adaptorInfo?: FileInfo;
-      bootInfo?: FileInfo;
-      title?: string;
-    },
-    callback: (err: Error | null, bootInfo?: FileInfo) => void,
-  ): void;
+declare module '$:/core/modules/utils/utils.js' {
+  export { generateTiddlerFilepath };
 }

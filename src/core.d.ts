@@ -26,6 +26,12 @@ declare module 'tiddlywiki' {
     Wiki: typeof Wiki;
     Story: typeof Story;
     Tiddler: typeof Tiddler;
+    syncadaptor?: SyncAdaptor;
+    /**
+     * Presents when we have $tw.syncadaptor
+     */
+    syncer?: Syncer;
+    Syncer: { new (): Syncer };
 
     wiki: Wiki;
     boot: IBoot;
@@ -80,12 +86,7 @@ declare module 'tiddlywiki' {
     loadTiddlersFromFile(
       filepath: string,
       defaultFields?: Record<string, unknown>,
-    ): {
-      filepath: string;
-      type: string;
-      tiddlers: ITiddlerFields[];
-      hasMetaFile: boolean;
-    };
+    ): ITiddlersInFile;
     loadMetadataForFile(filepath: string): ITiddlerFields | null;
     loadTiddlersFromPath(
       filepath: string,
@@ -137,5 +138,10 @@ declare module 'tiddlywiki' {
     node: null | Record<string, any>;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | Record<string, any>;
+    platform: {
+      isLinux: boolean;
+      isMac: boolean;
+      isWindows: boolean;
+    };
   }
 }

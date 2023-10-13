@@ -1,3 +1,5 @@
+/// <reference path="./navigator.d.ts" />
+
 declare module 'tiddlywiki' {
   /**
    * Parameter of Widget.refresh
@@ -54,6 +56,13 @@ declare module 'tiddlywiki' {
     widget: Widget;
   }
 
+  export interface IGetWidgetVariableOptions {
+    params?: IWidgetVariableParam[];
+    defaultValue?: string;
+    allowSelfAssigned?: boolean;
+    source?: (iter: SourceIterator) => void;
+  }
+
   /**
    * @link https://tiddlywiki.com/dev/#Widgets
    *
@@ -69,7 +78,7 @@ declare module 'tiddlywiki' {
   export class Widget {
     parseTreeNode: IParseTreeNode;
 
-    wiki: ITiddlyWiki;
+    wiki: Wiki;
 
     document: IFakeDocument;
 
@@ -169,32 +178,25 @@ declare module 'tiddlywiki' {
     ): void;
 
     /**
-     * Get variable in the context of the widget.
-     * Simplified version of getVariableInfo() that just returns the text.
+     * Get the prevailing value of a context variable
      * @param name variable name, for example, `currentTiddler` in the widget context
      * @param options options for getVariableInfo()
      *
      * Options include
      * * params: array of {name:, value:} for each parameter
      * * defaultValue: default value if the variable is not defined
+     * * source: optional source iterator for evaluating function invocations
+     * * allowSelfAssigned: if true, includes the current widget in the context chain instead of just the parent
      *
      * Returns an object with the following fields:
      * * params: array of {name:,value:} of parameters passed to wikitext variables
      * * text: text of variable, with parameters properly substituted
-     *
-     * @param {string} name
-     * @param {{ params?: IWidgetVariableParam[]; defaultValue: string }} [options]
-     * @return {*}  {{
-     *       text: string;
-     *       params?: IWidgetVariableParam[];
-     *       srcVariable?: IWidgetVariable;
-     *       isCacheable?: boolean;
-     *     }}
-     * @memberof Widget
+     * * resultList: result of variable evaluation as an array
+     * * srcVariable: reference to the object defining the variable
      */
     getVariableInfo(
       name: string,
-      options?: { params?: IWidgetVariableParam[]; defaultValue: string },
+      options?: IGetWidgetVariableOptions,
     ): {
       text: string;
       params?: IWidgetVariableParam[];
@@ -204,16 +206,8 @@ declare module 'tiddlywiki' {
 
     /**
      * Simplified version of getVariableInfo() that just returns the text
-     *
-     * @param {string} name
-     * @param {{ params?: IWidgetVariableParam[]; defaultValue: string }} [options]
-     * @return {*}  {string}
-     * @memberof Widget
      */
-    getVariable(
-      name: string,
-      options?: { params?: IWidgetVariableParam[]; defaultValue: string },
-    ): string;
+    getVariable(name: string, options?: IGetWidgetVariableOptions): string;
 
     resolveVariableParameters(
       formalParams?: IWidgetVariableParam[],
@@ -476,6 +470,15 @@ declare module 'tiddlywiki' {
       event: IWidgetEvent,
       variables: Record<string, IWidgetVariable>,
     ): boolean;
+
+    /**
+     * The destroy method will be called by parent widget.
+     * If you widget don't have any child widget, you can just write your own tear down logic. If it may have some child widget, don't forget to call original destroy method in the Widget class to destroy children widgets.
+     * @version >=5.3.0
+     * @url https://tiddlywiki.com/dev/#Widget%20%60destroy%60%20method%20examples
+    */
+    destroy(): void;
+    removeLocalDomNodes(): void;
   }
 
   export type ModalWidget = {

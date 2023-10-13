@@ -111,8 +111,10 @@ As with [JavaScript Macros](#JavaScript%20Macros), filter operators should not m
           include = !include;
       });
     ```
+
+    Construct the iterator using $tw.wiki.makeTiddlerIterator
    */
-  export type SourceIterator = (callback: (tiddler: Tiddler, title: string) => void) => void;
+  export type SourceIterator = (tiddler: Tiddler, title: string) => void;
   export interface ISearchOptions {
     /** If true, forces all but regexp searches to be anchored to the start of text */
     anchored?: boolean;

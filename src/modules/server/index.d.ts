@@ -106,6 +106,12 @@ declare module 'tiddlywiki' {
     data: string;
     server: Server;
     wiki: Wiki;
+    /**
+     * With `exports.path = /^\/recipes\/default\/tiddlers\/(.+)$/;` you can use:
+     * 
+     * `title = $tw.utils.decodeURIComponentSafe(state.params[0])`
+     */
+    params: string[];
   }
   /**
    * @link https://talk.tiddlywiki.org/t/what-is-the-state-in-server-route-handler/2877
@@ -114,5 +120,5 @@ declare module 'tiddlywiki' {
     request: Http.ClientRequest & Http.InformationEvent,
     response: Http.ServerResponse,
     context: ServerEndpointContext & T,
-  ) => void;
+  ) => void | Promise<void>;
 }

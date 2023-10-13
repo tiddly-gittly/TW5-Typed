@@ -34,6 +34,12 @@ declare module 'tiddlywiki' {
      * Get full list of tiddler titles in the wiki
      */
     getTiddlers(): string[];
+    /**
+     * Get JSON string of tiddlers. Note that this will make lists like tags/list to be string, instead of array.
+     * @param filter Filter string
+     * @param spaces Last arg of `JSON.stringify`, default is `'  '`
+     */
+    getTiddlersAsJson(filter: string, spaces?: string): string;
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
@@ -67,12 +73,31 @@ declare module 'tiddlywiki' {
      */
     compileFilter(
       filterString: string,
-    ): (source?: SourceIterator | string[] | Record<string, unknown>, widget?: Widget) => string[];
+    ): (
+      source?: SourceIterator | string[] | Record<string, unknown>,
+      widget?: Widget,
+    ) => string[];
     /**
      *
      * @param filterString
      * @param widget an optional widget node for retrieving the current tiddler etc.
      * @param source an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
+     */
+    /**
+     * Returns a function iterator(callback) that iterates through the specified titles, and invokes the callback with callback(tiddler,title)
+     */
+    makeTiddlerIterator(titles: string[]): SourceIterator;
+    /**
+     * You can use this with `makeTiddlerIterator`:
+     *
+     * ```js
+     * $tw.wiki.filterTiddlers(filter, undefined, $tw.wiki.makeTiddlerIterator(['title']))
+     * ```
+     *
+     * This calls `compileFilter`
+     * @param filterString
+     * @param widget
+     * @param source
      */
     filterTiddlers(
       filterString: string,
@@ -169,7 +194,7 @@ declare module 'tiddlywiki' {
     parseTiddler(title: string, options?: IParseOptions): WikiParser;
     /**
       Parse a block of text of a specified MIME type
-      @param {string} type: content type of text to be parsed
+      @param {string} type: MIME content type of text to be parsed
       @param {string} text: text
       @param {object}options: see below
 
@@ -178,6 +203,22 @@ declare module 'tiddlywiki' {
       - _canonical_uri: optional string of the canonical URI of this content
     */
     parseText(type: string, text: string, options?: IParseOptions): WikiParser;
+    /**
+     * Extracts tiddlers from a typed block of text, specifying default field values
+     * @param {string} type: MIME content type of text to be parsed
+     * @param {string} text: text
+     * @param {object} srcFields: default field values
+     * @param {object} options: see below
+     *
+     * Options include:
+     *  - deserializer: string, key of `$tw.Wiki.tiddlerDeserializerModules`
+     */
+    deserializeTiddlers(
+      type: string,
+      text: string,
+      srcFields?: ITiddlerFieldsParam,
+      options?: IParseOptions,
+    ): ITiddlerFieldsParam[];
     /**
       Parse text from a tiddler and render it into another format
         outputType: content type for the output
@@ -205,7 +246,7 @@ declare module 'tiddlywiki' {
       outputType: OutputMimeTypes,
       textType: TextMimeTypes | string,
       text: string,
-      options?: Partial<IMakeWidgetOptions> & IParserOptions,
+      options?: Partial<IMakeWidgetOptions> & IParseOptions,
     ): string;
     /**
       Make a widget tree for a parse tree
@@ -255,10 +296,54 @@ declare module 'tiddlywiki' {
     isShadowTiddler(title: string): boolean;
     isBinaryTiddler(title: string): boolean;
     isImageTiddler(title: string): boolean;
+    isSystemTiddler(title: string): boolean;
+    isTemporaryTiddler(title: string): boolean;
+    isVolatileTiddler(title: string): boolean;
+    /**
+     * Like addTiddler() except it will silently reject any plugin tiddlers that are older than the currently loaded version. Returns true if the tiddler was imported
+     */
+    importTiddler(title: string): boolean;
     /** return shadowTiddlers[title].source; */
     getShadowSource(title: string): string | null;
     getTiddlerBacklinks(targetTitle: string): string[];
     getTiddlerLinks(title: string): string[];
     getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
+    getChangeCount(title: string): number;
+    /**
+      Generate an unused title from the specified base
+      options.prefix must be a string
+    */
+    generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
+
+    removeEventListener(
+      type: string,
+      handler: (event: any) => void | Promise<void>,
+    ): void;
+
+    addEventListener(
+      type: string,
+      handler: (event: unknown) => void | Promise<void>,
+    ): void;
+    addEventListener(
+      type: "change",
+      handler: (change: IChangedTiddlers) => void | Promise<void>,
+    ): void;
+    addEventListener(
+      type: "lazyLoad",
+      handler: (title: string) => void | Promise<void>,
+    ): void;
+
+    dispatchEvent(
+      type: string,
+      dataOrEvent: unknown,
+    ): void;
+    dispatchEvent(
+      type: "change",
+      change: IChangedTiddlers,
+    ): void;
+    dispatchEvent(
+      type: "lazyLoad",
+      title: string,
+    ): void;
   }
 }

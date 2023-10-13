@@ -13,10 +13,18 @@ declare const getTextReferenceParserInfo: (
 
 declare module 'tiddlywiki' {
   export interface Wiki {
+    /**
+     * Return a hashmap of the fields that should be set when a tiddler is created
+     */
     getCreationFields: typeof getCreationFields;
-
+    /**
+     * Return a hashmap of the fields that should be set when a tiddler is modified.
+     * This is used for generating `modified` field when modify tiddler using actions like `action-setmultiplefields`
+     */
     getModificationFields: typeof getModificationFields;
-
+    /**
+     * Retrieves a list of the tiddler titles that are tagged with a given tag
+     */
     getTiddlersWithTag: typeof getTiddlersWithTag;
   }
 }
