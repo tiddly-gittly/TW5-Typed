@@ -20,7 +20,8 @@ declare module 'tiddlywiki' {
   import * as filesystem from '$:/core/modules/utils/filesystem.js';
   import * as LinkedList from '$:/core/modules/utils/linked-list.js';
   import * as performance from '$:/core/modules/utils/performance.js';
-  import * as logger from '$:/core/modules/utils/logger.js';
+  // import the class directly, to fix: Property 'log' does not exist on type 'typeof Logger'.ts(2339)
+  import { Logger } from '$:/core/modules/utils/logger.js';
   import * as parsetree from '$:/core/modules/utils/parsetree.js';
   import * as pluginMaker from '$:/core/modules/utils/pluginmaker.js';
   import * as transliterate from '$:/core/modules/utils/transliterate.js';
@@ -34,12 +35,11 @@ declare module 'tiddlywiki' {
     Pick<typeof utils, keyof typeof utils> &
     Pick<typeof LinkedList, keyof typeof LinkedList> &
     Pick<typeof performance, keyof typeof performance> &
-    Pick<typeof logger, keyof typeof logger> &
     Pick<typeof parsetree, keyof typeof parsetree> &
     Pick<typeof pluginMaker, keyof typeof pluginMaker> &
     Pick<typeof transliterate, keyof typeof transliterate> &
     Pick<typeof crypto, keyof typeof crypto> &
     Pick<typeof csv, keyof typeof csv> &
     Pick<typeof editionInfo, keyof typeof editionInfo> &
-    Pick<typeof escapecss, keyof typeof escapecss>;
+    Pick<typeof escapecss, keyof typeof escapecss> & { Logger: Logger };
 }

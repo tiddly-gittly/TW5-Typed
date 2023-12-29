@@ -119,6 +119,7 @@ declare module '$:/core/modules/utils/utils.js' {
       wiki?: Wiki;
     },
   ): string;
+}
 
 declare module 'tiddlywiki' {
   interface IUtils {

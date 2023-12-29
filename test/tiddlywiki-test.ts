@@ -6,6 +6,9 @@ export class ReactWidget extends Widget {
   constructor(parseTreeNode: IParseTreeNode) {
     super(parseTreeNode);
     this.logger = new $tw.utils.Logger('TidGiIPCSyncAdaptor');
+    const logger = new $tw.utils.Logger('TidGiIPCSyncAdaptor');
+    logger.table({ a: 1, b: 2 });
+    this.logger.log('getUpdatedTiddlers');
     $tw.wiki.addIndexer((_tiddler: Tiddler) => {
       //
     }, '$:/core/tiddler');
