@@ -1,8 +1,11 @@
-import { IParseTreeNode, Tiddler, Widget } from 'tiddlywiki';
+import { IParseTreeNode, IUtils, Tiddler, Widget } from 'tiddlywiki';
 
 export class ReactWidget extends Widget {
+  logger: IUtils['Logger'];
+
   constructor(parseTreeNode: IParseTreeNode) {
     super(parseTreeNode);
+    this.logger = new $tw.utils.Logger('TidGiIPCSyncAdaptor');
     $tw.wiki.addIndexer((_tiddler: Tiddler) => {
       //
     }, '$:/core/tiddler');
