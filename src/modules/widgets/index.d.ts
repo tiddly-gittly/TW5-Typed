@@ -123,7 +123,7 @@ declare module 'tiddlywiki' {
      * @en
      * Initialise widget properties. These steps are pulled out of the constructor so that we can reuse them in subclasses
      * @zh
-     * 初始化widget属性。这些步骤被拉出构造函数，以便我们可以在子类中重复使用它们
+     * 初始化 widget 属性。这些步骤被拉出构造函数，以便我们可以在子类中重复使用它们
      */
     initialise(
       parseTreeNode: IParseTreeNode,
@@ -134,7 +134,7 @@ declare module 'tiddlywiki' {
      * @en
      * Lifecycle method: Render this widget into the DOM
      * @zh
-     * 生命周期方法: 将这个微件渲染到DOM中;
+     * 生命周期方法：将这个微件渲染到 DOM 中;
      * 只会在首次渲染、销毁后重新渲染时自动调用，或者通过 refreshSelf 等方法主动调用
      */
     render(parent: Element, nextSibling: Element | null): void;
@@ -307,7 +307,7 @@ declare module 'tiddlywiki' {
      * options include:
      * * `excludeEventAttributes`: ignores attributes whose name begins with "on"
      * @zh
-     * 将微件的计算属性分配给一个domNode, 选项包括:
+     * 将微件的计算属性分配给一个 domNode, 选项包括:
      * * `excludeEventAttributes`: 忽略名称以 "on "开头的属性
      * 一些特殊的属性：
      * * `xlink:<xlink-name>`
@@ -476,31 +476,10 @@ declare module 'tiddlywiki' {
      * If you widget don't have any child widget, you can just write your own tear down logic. If it may have some child widget, don't forget to call original destroy method in the Widget class to destroy children widgets.
      * @version >=5.3.0
      * @url https://tiddlywiki.com/dev/#Widget%20%60destroy%60%20method%20examples
-    */
+     */
     destroy(): void;
     removeLocalDomNodes(): void;
   }
-
-  export type ModalWidget = {
-    adjustPageClass: () => void;
-    /**
-     *
-     * @param title
-     * @param options
-     * variables: optional hashmap of variables to wrap around the widget
-     * downloadLink: normally is used for "Right-click to save changes"
-     */
-    display: (
-      title: string,
-      options?: {
-        downloadLink?: string;
-        event?: IWidgetEvent;
-        variables?: unknown;
-      },
-    ) => void;
-
-    new (wiki: Wiki): ModalWidget;
-  };
 }
 
 declare module '$:/core/modules/widgets/widget.js' {

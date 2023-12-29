@@ -9,6 +9,8 @@ export class ReactWidget extends Widget {
     const logger = new $tw.utils.Logger('TidGiIPCSyncAdaptor');
     logger.table({ a: 1, b: 2 });
     this.logger.log('getUpdatedTiddlers');
+    $tw.modal.display('tiddler-title');
+    $tw.notifier.display('tiddler-title');
     $tw.wiki.addIndexer((_tiddler: Tiddler) => {
       //
     }, '$:/core/tiddler');

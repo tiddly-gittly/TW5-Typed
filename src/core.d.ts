@@ -5,6 +5,7 @@
 /// <reference path="tiddler/index.d.ts" />
 /// <reference path="modules/index.d.ts" />
 /// <reference path="plugins/index.d.ts" />
+/// <reference path="modules/utils/dom/index.d.ts" />
 
 declare module 'tiddlywiki' {
   export interface IPluginInfo {
@@ -48,6 +49,7 @@ declare module 'tiddlywiki' {
     fakeDocument: IFakeDocument;
     passwordPrompt: PasswordPrompt;
     packageInfo: Record<string, unknown>;
+    modal: IModal;
 
     /**
      * Check for this window being the source of the drag. If true, some drop target widget will stop responding to the drop event, so you can handle drop event in your own widget.

@@ -1,6 +1,7 @@
 /// <reference path="Crypto.d.ts" />
 /// <reference path="PasswordPrompt.d.ts" />
 
+
 type OptionalPropertyNames<T> = {
   [K in keyof T]-?: {} extends { [P in K]: T[K] } ? K : never;
 }[keyof T];
@@ -253,7 +254,7 @@ declare module 'tiddlywiki' {
      * @en
      * Convert a URIComponent encoded string to a string safely
      * @zh
-     * 将一个URIComponent编码的字符串安全地转换为一个字符串。
+     * 将一个 URIComponent 编码的字符串安全地转换为一个字符串。
      */
     decodeURIComponentSafe: (uri: string) => string;
 
@@ -261,7 +262,7 @@ declare module 'tiddlywiki' {
      * @en
      * Convert a URI encoded string to a string safely
      * @zh
-     * 将一个URI编码的字符串安全地转换为一个字符串
+     * 将一个 URI 编码的字符串安全地转换为一个字符串
      */
     decodeURISafe: (uri: string) => string;
 
@@ -277,7 +278,7 @@ declare module 'tiddlywiki' {
      * @en
      * Get the browser location.hash. We don't use location.hash because of the way that Firefox auto-urldecodes it (see http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash)
      * @zh
-     * 获取浏览器的location.hash。我们不使用location.hash，因为Firefox的自动解码方式（见http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash）。
+     * 获取浏览器的 location.hash。我们不使用 location.hash，因为 Firefox 的自动解码方式（见 http://stackoverflow.com/questions/1703552/encoding-of-window-location-hash）。
      */
     getLocationHash: () => string;
 
@@ -285,7 +286,7 @@ declare module 'tiddlywiki' {
      * @en
      * Pad a string to a given length with "0"s. Length defaults to 2
      * @zh
-     * 用 "0 "将一个字符串填充到指定的长度。长度默认为2
+     * 用 "0 "将一个字符串填充到指定的长度。长度默认为 2
      */
     pad: (value: number, length?: number) => string;
 
@@ -293,7 +294,7 @@ declare module 'tiddlywiki' {
      * @en
      * Convert a date into UTC `YYYYMMDDHHMMSSmmm` format
      * @zh
-     * 将日期转换成UTC `YYYYMMDDHMMSSmmm` 格式
+     * 将日期转换成 UTC `YYYYMMDDHMMSSmmm` 格式
      */
     stringifyDate: (value: Date) => string;
 
@@ -301,7 +302,7 @@ declare module 'tiddlywiki' {
      * @en
      * Parse a date from a UTC `YYYYMMDDHHMMSSmmm` format string
      * @zh
-     * 从UTC `YYYYMMDDHHMMSSmmm` 格式字符串中解析一个日期
+     * 从 UTC `YYYYMMDDHHMMSSmmm` 格式字符串中解析一个日期
      */
     parseDate: (value: string | Date) => Date | null;
 
@@ -309,7 +310,7 @@ declare module 'tiddlywiki' {
      * @en
      * Stringify an array of tiddler titles into a list string
      * @zh
-     * 将一个数组的tiddler标题字符串化为一个列表字符串
+     * 将一个数组的 tiddler 标题字符串化为一个列表字符串
      */
     stringifyList: (value: string[]) => string;
 
@@ -330,7 +331,7 @@ declare module 'tiddlywiki' {
      * @en
      * Parse a block of name:value fields. The `fields` object is used as the basis for the return value
      * @zh
-     * 解析一个name:value字段的块。`fields`对象被用作返回值的基础。
+     * 解析一个 name:value 字段的块。`fields`对象被用作返回值的基础。
      */
     parseFields: (text: string, fields?: object) => Record<string, string>;
 
@@ -376,8 +377,8 @@ declare module 'tiddlywiki' {
      * Returns +1 if the version string A is greater than the version string B, 0 if they are the same, and +1 if B is greater than A.
      * Missing or malformed version strings are parsed as 0.0.0
      * @zh
-     * 如果版本字符串A大于版本字符串B，则返回+1；如果它们相同，则返回0；如果B大于A，则返回+1；
-     * 缺失或畸形的版本字符串被解析为0.0.0
+     * 如果版本字符串 A 大于版本字符串 B，则返回 +1；如果它们相同，则返回 0；如果 B 大于 A，则返回 +1；
+     * 缺失或畸形的版本字符串被解析为 0.0.0
      */
     compareVersions: (
       versionStringA: string,
@@ -388,7 +389,7 @@ declare module 'tiddlywiki' {
      * @en
      * Returns true if the version string A is greater than the version string B. Returns true if the versions are the same
      * @zh
-     * 如果版本字符串A大于版本字符串B，返回true；如果版本相同，返回true。
+     * 如果版本字符串 A 大于版本字符串 B，返回 true；如果版本相同，返回 true。
      */
     checkVersions: (versionStringA: string, versionStringB: string) => boolean;
 
@@ -430,7 +431,7 @@ declare module 'tiddlywiki' {
      * @en
      * Given an extension, get the correct encoding for that file. defaults to utf8
      * @zh
-     * 给定一个扩展名，获得该文件的正确编码。 默认为utf8
+     * 给定一个扩展名，获得该文件的正确编码。默认为 utf8
      */
     getTypeEncoding: (extension: string) => string;
 
