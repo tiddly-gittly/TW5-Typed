@@ -115,7 +115,10 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param srcWindow The source window to get the scroll position from, defaults to the current window if not specified.
    * @returns An object with 'x' and 'y' properties representing the horizontal and vertical scroll positions in pixels.
    */
-  export function getScrollPosition(srcWindow?: Window): { x: number; y: number; };
+  export function getScrollPosition(srcWindow?: Window): {
+    x: number;
+    y: number;
+  };
 
   /**
    * Adjusts the height of a textarea to fit its content, preserving scroll position, and returns the new height.
@@ -123,14 +126,24 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param minHeight The minimum height to use for the textarea.
    * @returns The new height of the textarea.
    */
-  export function resizeTextAreaToFit(domNode: HTMLTextAreaElement, minHeight: string): number;
+  export function resizeTextAreaToFit(
+    domNode: HTMLTextAreaElement,
+    minHeight: string,
+  ): number;
 
   /**
    * Gets the bounding rectangle of an element in absolute page coordinates.
    * @param element The element to get the bounding rectangle for.
    * @returns An object representing the bounding rectangle with properties: left, width, right, top, height, bottom.
    */
-  export function getBoundingPageRect(element: Element): { left: number; width: number; right: number; top: number; height: number; bottom: number; };
+  export function getBoundingPageRect(element: Element): {
+    left: number;
+    width: number;
+    right: number;
+    top: number;
+    height: number;
+    bottom: number;
+  };
 
   /**
    * Saves a named password in the browser.
@@ -185,7 +198,10 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param options Options for copying, including 'doNotNotify' to suppress notifications.
    * @returns True if the operation succeeded, otherwise false.
    */
-  export function copyToClipboard(text: string, options?: { doNotNotify?: boolean }): boolean;
+  export function copyToClipboard(
+    text: string,
+    options?: { doNotNotify?: boolean },
+  ): boolean;
 
   /**
    * Gets the path part of the current location.
@@ -200,7 +216,11 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param event The event object.
    * @returns An object containing variables derived from the DOM and event.
    */
-  export function collectDOMVariables(selectedNode: Element, domNode: Element, event: Event): Record<string, string>;
+  export function collectDOMVariables(
+    selectedNode: Element,
+    domNode: Element,
+    event: Event,
+  ): Record<string, string>;
 
   /**
    * Safely executes a querySelector, avoiding exceptions on invalid selectors.
@@ -208,7 +228,10 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param baseElement The base element to start the query from, defaults to document.
    * @returns The first element matching the selector, or null if none are found or the selector is invalid.
    */
-  export function querySelectorSafe(selector: string, baseElement?: Element): Element | null;
+  export function querySelectorSafe(
+    selector: string,
+    baseElement?: Element,
+  ): Element | null;
 
   /**
    * Safely executes a querySelectorAll, avoiding exceptions on invalid selectors.
@@ -216,18 +239,8 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param baseElement The base element to start the query from, defaults to document.
    * @returns A NodeList of elements matching the selector, or an empty NodeList if none are found or the selector is invalid.
    */
-  export function querySelectorAllSafe(selector: string, baseElement?: Element): NodeList;
-
-  /**
-   * Notifier mechanism
-   */
-  export class Notifier {
-    /**
-     * Display a notification
-     * * title: Title of tiddler containing the notification text
-     * * options: see below
-     * Options include:
-     */
-    display(title: string, options?: Record<string, unknown>): void;
-  }
+  export function querySelectorAllSafe(
+    selector: string,
+    baseElement?: Element,
+  ): NodeList;
 }
