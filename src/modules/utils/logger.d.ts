@@ -81,4 +81,17 @@ declare module '$:/core/modules/utils/logger.js' {
      */
     clearAlerts(): void;
   }
+  // This part is important for TypeScript to understand the constructor signature
+  // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
+  export interface Logger {
+    new (
+      componentName?: string,
+      options?: {
+        colour?: string;
+        enable?: boolean;
+        save?: boolean;
+        saveLimit?: number;
+      }
+    ): Logger;
+  }
 }
