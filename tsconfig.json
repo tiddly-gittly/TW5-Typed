@@ -1,11 +1,13 @@
 {
-  "extends": "@modern-js/tsconfig/base",
+  "extends": "@modern-js/tsconfig/base.json",
   "compilerOptions": {
     "strict": true,
     "declaration": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": "./",
+    "lib": ["DOM", "ESNext"],
     "types": ["./src", "node"]
   },
-  "include": ["test"]
+  "include": ["src", "test"],
+  "exclude": ["./**/*.js"]
 }
