@@ -2,7 +2,7 @@
   "description": "Types for tiddlywiki",
   "license": "MIT",
   "name": "tw5-typed",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
   "homepage": "https://github.com/tiddly-gittly/tw5-typed",
   "bugs": {
@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "check": "tsc --noEmit && eslint src/**/*.ts",
-    "prepublishOnly": "npm run check"
+    "prepublishOnly": "tsc --noEmit"
   },
   "husky": {
     "hooks": {
@@ -36,6 +36,8 @@
   "devDependencies": {
     "@modern-js/eslint-config": "latest",
     "@modern-js/tsconfig": "latest",
+    "dprint": "^0.45.0",
+    "eslint-config-tidgi": "^1.1.5",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "rimraf": "^3.0.2",
