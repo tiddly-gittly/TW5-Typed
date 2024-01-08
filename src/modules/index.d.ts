@@ -7,6 +7,7 @@
 /// <reference path="parsers/index.d.ts" />
 /// <reference path="syncer/syncAdaptor.d.ts" />
 /// <reference path="syncer/syncer.d.ts" />
+/// <reference path="keyboard.d.ts" />
 
 declare module 'tiddlywiki' {
   export interface ITWModuleExports {

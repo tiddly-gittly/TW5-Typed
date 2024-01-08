@@ -1,4 +1,5 @@
 /// <reference path="./navigator.d.ts" />
+/// <reference path="./edit.d.ts" />
 
 declare module 'tiddlywiki' {
   /**
