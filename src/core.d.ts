@@ -21,6 +21,12 @@ declare module 'tiddlywiki' {
     getString(key: string, options: { variables: { title: string } }): string;
   }
 
+  export interface IMacro {
+    name: string;
+    params: Array[];
+    run: Function;
+  }
+
   export type IWikiInfo = Record<string, unknown>;
 
   export interface ITiddlyWiki {
@@ -50,6 +56,8 @@ declare module 'tiddlywiki' {
     passwordPrompt: PasswordPrompt;
     packageInfo: Record<string, unknown>;
     modal: IModal;
+    keyboardManager: KeyboardManager;
+    macros: Record<string, IMacro>;
 
     /**
      * Check for this window being the source of the drag. If true, some drop target widget will stop responding to the drop event, so you can handle drop event in your own widget.

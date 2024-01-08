@@ -11,6 +11,7 @@ declare module 'tiddlywiki' {
     readonly text: string;
     readonly title: string;
     readonly type: string;
+    readonly 'color-scheme': 'dark' | 'light';
   }
 
   export class Tiddler {
