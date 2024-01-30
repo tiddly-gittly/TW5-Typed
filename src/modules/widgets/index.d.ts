@@ -402,7 +402,7 @@ declare module 'tiddlywiki' {
      * Dispatch an event to a widget. If the widget doesn't handle the event then it is also dispatched to the parent widget
      * Events added via `addEventListener`, like `tm-notify`, can be invoked by this.
      */
-    dispatchEvent(typeOrEvent: string | Omit<IWidgetEvent, 'widget'>): void;
+    dispatchEvent(widgetEvent: Omit<IWidgetEvent, 'widget'> & { widget?: IWidgetEvent['widget'] }): void;
 
     /**
      * Rebuild a previously rendered widget
