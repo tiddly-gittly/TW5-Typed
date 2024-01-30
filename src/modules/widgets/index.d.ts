@@ -388,7 +388,10 @@ declare module 'tiddlywiki' {
     ): void;
 
     /**
-     * Add an event listener
+     * Add an event listener.
+     * If the handler is sync, then should return a boolean, `false` means the event is handled and don't propagate, and `true` will be dispatched to the parent widget.
+     * If the handler is async, then it is always propagate to the parent widget.
+     * @returns should propagate to parent widget
      */
     addEventListener(
       type: string,
