@@ -475,13 +475,6 @@ declare module 'tiddlywiki' {
       variables: Record<string, IWidgetVariable>,
     ): boolean;
 
-    /**
-     * The destroy method will be called by parent widget.
-     * If you widget don't have any child widget, you can just write your own tear down logic. If it may have some child widget, don't forget to call original destroy method in the Widget class to destroy children widgets.
-     * @version >=5.3.0
-     * @url https://tiddlywiki.com/dev/#Widget%20%60destroy%60%20method%20examples
-     */
-    destroy(): void;
     removeLocalDomNodes(): void;
   }
 }
