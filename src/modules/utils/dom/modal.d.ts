@@ -1,7 +1,7 @@
 /// <reference path="../../widgets/index.d.ts" />
 
-declare module 'tiddlywiki' {
-  export interface IModal {
+declare module '$:/core/modules/utils/dom/modal.js' {
+  export class Modal {
     adjustPageClass: () => void;
     /**
      *
@@ -19,6 +19,7 @@ declare module 'tiddlywiki' {
       },
     ) => void;
 
-    // new (wiki: Wiki): ModalWidget;
+    constructor (wiki: Wiki);
+    new (wiki: Wiki): Modal;
   }
 }
