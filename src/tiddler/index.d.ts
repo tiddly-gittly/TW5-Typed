@@ -27,8 +27,8 @@ declare module 'tiddlywiki' {
      */
     constructor(...tiddlers: Array<Record<string, unknown> | Tiddler>);
 
-    hasTag(field: string): boolean;
-    hasField(): boolean;
+    hasTag(tag: string): boolean;
+    hasField(field: string): boolean;
     isPlugin(): boolean;
     isDraft(): boolean;
     /**
