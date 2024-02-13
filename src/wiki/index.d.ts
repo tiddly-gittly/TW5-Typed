@@ -20,6 +20,10 @@ declare module 'tiddlywiki' {
     Partial<ITiddlerFields>,
     'created' | 'modified'
   > & { created?: string; modified?: string };
+  export type ITiddlerJSONResult = Omit<
+    Partial<ITiddlerFieldsParam>,
+    'list' | 'tags'
+  > & { list?: string; tags?: string };
   export class Wiki {
     /**
      * Wiki constructor. State is stored in private members that only a small number of privileged accessor methods have direct access. Methods added via the prototype have to use these accessors and cannot access the state data directly.
@@ -39,7 +43,7 @@ declare module 'tiddlywiki' {
      * @param filter Filter string
      * @param spaces Last arg of `JSON.stringify`, default is `'  '`
      */
-    getTiddlersAsJson(filter: string, spaces?: string): string;
+    getTiddlersAsJson(filter: string, spaces?: string): ITiddlerJSONResult;
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
