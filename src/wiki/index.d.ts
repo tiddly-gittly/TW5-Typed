@@ -85,7 +85,7 @@ declare module 'tiddlywiki' {
     compileFilter(
       filterString: string,
     ): (
-      source?: SourceIterator | string[] | Record<string, unknown>,
+      source?: (iterator: SourceIterator) => void | string[] | Record<string, unknown>,
       widget?: Widget,
     ) => string[];
     /**
