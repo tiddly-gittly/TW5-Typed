@@ -39,11 +39,18 @@ declare module 'tiddlywiki' {
      */
     getTiddlers(): string[];
     /**
-     * Get JSON string of tiddlers. Note that this will make lists like tags/list to be string, instead of array.
+     * Get JSON string of tiddlers. Note that this will make lists like tags/list to be string, instead of array. And result is a string, not an array.
      * @param filter Filter string
      * @param spaces Last arg of `JSON.stringify`, default is `'  '`
+     * @returns a stringified JSON with type ITiddlerJSONResult. You will need to use `JSON.parse` on it.
      */
-    getTiddlersAsJson(filter: string, spaces?: string): ITiddlerJSONResult;
+    getTiddlersAsJson(filter: string, spaces?: string): string;
+    /**
+     * Get JSON string of tiddler. Note that this will make lists like tags/list to be string, instead of array. And result is a string, not an object.
+     * @param title 
+     * @returns a stringified JSON with type ITiddlerJSONResult. You will need to use `JSON.parse` on it.
+     */
+    getTiddlerAsJson(title: string): string;
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
