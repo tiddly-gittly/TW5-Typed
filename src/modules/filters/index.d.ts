@@ -141,6 +141,8 @@ As with [JavaScript Macros](#JavaScript%20Macros), filter operators should not m
   export interface IFilterOperatorParameterOperator {
     /** the operand for the filter step (as a string; if the filter specified it in angle brackets or braces, the text reference or letiable name will have already been resolved); */
     operand: string;
+    /** Filter can have one or more operands, like `charcode[13],[10]`. */
+    operands: string[];
     /** the name of the filter operator specified in the WikiText; */
     operator: string;
     /** (optional) a string containing a single exclamation mark if the filter operator is to be negated; */
