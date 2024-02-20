@@ -379,10 +379,11 @@ declare module 'tiddlywiki' {
 
     /**
      * Add a list of event listeners from an array [{type:,handler:},...]
+     * See also `addEventListener`.
      */
     addEventListeners(
       listeners: {
-        handler: (event: IWidgetEvent) => void | Promise<void>;
+        handler: (event: IWidgetEvent) => void | Promise<void> | boolean;
         type: string;
       }[],
     ): void;
@@ -395,7 +396,7 @@ declare module 'tiddlywiki' {
      */
     addEventListener(
       type: string,
-      handler: (event: IWidgetEvent) => void | Promise<void>,
+      handler: (event: IWidgetEvent) => void | Promise<void> | boolean,
     ): void;
 
     /**
