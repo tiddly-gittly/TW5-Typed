@@ -445,7 +445,7 @@ declare module 'tiddlywiki' {
      */
     invokeAction?(
       triggeringWidget: Widget,
-      event: IWidgetEvent,
+      event: IWidgetEvent | null,
     ): boolean | undefined;
 
     /**
@@ -456,7 +456,7 @@ declare module 'tiddlywiki' {
      * @param {IWidgetEvent} event
      * @memberof Widget
      */
-    invokeActions(triggeringWidget: Widget, event: IWidgetEvent): boolean;
+    invokeActions(triggeringWidget: Widget, event: IWidgetEvent | null): boolean;
 
     /**
      * @en
@@ -472,7 +472,7 @@ declare module 'tiddlywiki' {
     invokeActionString(
       actions: string,
       triggeringWidget: Widget,
-      event: IWidgetEvent,
+      event: IWidgetEvent | null,
       variables: Record<string, IWidgetVariable>,
     ): boolean;
 
