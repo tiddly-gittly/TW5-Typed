@@ -104,3 +104,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# doc
+docs/api
+docs/README.md
+.docusaurus
+build
