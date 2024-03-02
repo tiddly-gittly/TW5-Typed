@@ -108,7 +108,7 @@ declare module 'tiddlywiki' {
      * Set the value of a context variable
      * * name: name of the variable
      * * value: value of the variable
-     * * params: array of {name:, default:} for each parameter
+     * * params: array of `{name: string, default: string}` for each parameter
      * * isMacroDefinition: true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
      */
     variables: Record<string, IWidgetVariable>;
@@ -166,7 +166,7 @@ declare module 'tiddlywiki' {
      *
      * @param {string } name name of the variable
      * @param {string} value value of the variable
-     * @param {IWidgetVariableParam[]} [params=[]] array of {name:, default:} for each parameter
+     * @param {IWidgetVariableParam[]} [params=[]] array of `{name: string, default: string}` for each parameter
      * @param {boolean} [isMacroDefinition=true] true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
      */
     setVariable(
@@ -182,13 +182,13 @@ declare module 'tiddlywiki' {
      * @param options options for getVariableInfo()
      *
      * Options include
-     * * params: array of {name:, value:} for each parameter
+     * * params: array of `{name: string, default: string}` for each parameter
      * * defaultValue: default value if the variable is not defined
      * * source: optional source iterator for evaluating function invocations
      * * allowSelfAssigned: if true, includes the current widget in the context chain instead of just the parent
      *
      * Returns an object with the following fields:
-     * * params: array of {name:,value:} of parameters passed to wikitext variables
+     * * params: array of `{name:,value:}` of parameters passed to wikitext variables
      * * text: text of variable, with parameters properly substituted
      * * resultList: result of variable evaluation as an array
      * * srcVariable: reference to the object defining the variable
@@ -255,7 +255,7 @@ declare module 'tiddlywiki' {
      * @zh
      * 计算微件的属性的当前值。返回一个已经改变的属性名称的哈希图
      *
-     * @return {*}  {Record<string, true>}
+     * @return Object with keys of the names of the attributes that have changed
      * @memberof Widget
      */
     computeAttributes(): Record<string, true>;
@@ -376,7 +376,7 @@ declare module 'tiddlywiki' {
     renderChildren(parent: Element, nextSibling: Element | null): void;
 
     /**
-     * Add a list of event listeners from an array [{type:,handler:},...]
+     * Add a list of event listeners from an array `[{type:,handler:},...]`
      * See also `addEventListener`.
      */
     addEventListeners(
