@@ -26,7 +26,6 @@ declare module 'tiddlywiki' {
   }
   export interface IEvalContent {
     $tw: ITiddlyWiki;
-    // eslint-disable-next-line node/prefer-global/buffer
     Buffer?: Buffer;
     clearInterval: typeof clearInterval;
     clearTimeout: typeof clearTimeout;

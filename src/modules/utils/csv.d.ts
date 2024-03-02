@@ -1,8 +1,8 @@
 declare module '$:/core/modules/utils/csv.js' {
   /**
    * Information about a CSV cell.
-   * @property {number} start - The start index of the cell in the CSV string.
-   * @property {number} end - The end index of the cell in the CSV string.
+   * @property start - The start index of the cell in the CSV string.
+   * @property end - The end index of the cell in the CSV string.
    * @property {boolean} isQuoted - Whether the cell is quoted.
    * @description CSV 单元格的信息。
    */

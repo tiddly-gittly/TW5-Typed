@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /// <reference path="./logger.d.ts" />
 import { Logger } from '$:/core/modules/utils/logger.js';
 

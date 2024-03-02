@@ -10,7 +10,7 @@ declare module '$:/core/modules/utils/utils.js' {
     | 'light gray';
 
   export const terminalColourLookup: Record<
-    TerminalColourName | string,
+    TerminalColourName,
     string
   >;
 
@@ -179,7 +179,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The modified array.
    * @description 从数组中删除条目。
    */
-  export function removeArrayEntries(array: any[], value: any | any[]): any[];
+  export function removeArrayEntries<T>(array: T[], value: T | T[]): T[];
 
   /**
    * Checks whether any members of a hashmap are present in another hashmap.

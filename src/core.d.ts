@@ -24,6 +24,7 @@ declare module 'tiddlywiki' {
   export interface IMacro {
     name: string;
     params: any[][];
+    // eslint-disable-next-line @typescript-eslint/ban-types
     run: Function;
   }
 

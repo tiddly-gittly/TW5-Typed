@@ -10,5 +10,7 @@ module.exports = {
   extends: ['eslint-config-tidgi'],
   rules: {
     '@typescript-eslint/triple-slash-reference': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/naming-convention': 'off',
   },
 };
