@@ -52,6 +52,9 @@ devDependencies:
   prism-react-renderer:
     specifier: ^2.3.1
     version: 2.3.1(react@18.2.0)
+  react:
+    specifier: ^18.2.0
+    version: 18.2.0
   rimraf:
     specifier: ^5.0.5
     version: 5.0.5
