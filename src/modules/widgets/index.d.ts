@@ -448,6 +448,13 @@ declare module 'tiddlywiki' {
 
     /**
      * @en
+     * `invokeActions` will invoke the action widgets that are descendents of the current action widget, if this returns `true` (by default is `true`, invocation will propagate through through the child).
+     * Override this method and return `false` to stop the propagation down, and handle the invocation of child widgets by yourself.
+     */
+    allowActionPropagation(): boolean;
+
+    /**
+     * @en
      * Invoke the action widgets that are descendents of the current widget.
      *
      * @param {Widget} triggeringWidget
