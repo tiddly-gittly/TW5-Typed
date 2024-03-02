@@ -1,0 +1,34 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Check Docs build
+
+on:
+  # Only check if we can build the doc in PR
+  pull_request:
+    branches:
+      - master
+
+env:
+  # Hosted GitHub runners have 7 GB of memory available, let's use 6 GB
+  NODE_OPTIONS: --max-old-space-size=6144
+
+jobs:
+  # Single deploy job since we're just deploying
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm i
+      - name: Gen API Docs
+        run: pnpm run docs:generate
+      - name: Build Docs Site
+        run: pnpm run docs:build
