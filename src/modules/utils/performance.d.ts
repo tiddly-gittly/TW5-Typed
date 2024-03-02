@@ -13,7 +13,7 @@ declare module '$:/core/modules/utils/performance.js' {
      */
     enabled: boolean;
     /**
-     * Hashmap by measurement name of {time:, invocations:}.
+     * Hashmap by measurement name of `{time:, invocations:}`.
      */
     measures: Record<string, { invocations: number; time: number }>;
     /**

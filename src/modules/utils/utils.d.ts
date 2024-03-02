@@ -345,10 +345,10 @@ declare module '$:/core/modules/utils/utils.js' {
   export function unescapeLineBreaks(s: string): string;
 
   /**
-   * Returns an escape sequence for given character. Uses \x for characters <= 0xFF to save space, \u for the rest.
+   * Returns an escape sequence for given character. Uses `\x` for characters `<=` 0xFF to save space, `\u` for the rest.
    * @param ch - The character to escape.
    * @returns The escaped character.
-   * @description 返回给定字符的转义序列。对于字符 <= 0xFF，使用 \x 以节省空间，对于其余字符使用 \u。
+   * @description 返回给定字符的转义序列。对于字符 `<=` 0xFF，使用 `\x` 以节省空间，对于其余字符使用 `\u`。
    */
   export function escape(ch: string): string;
 
@@ -470,7 +470,7 @@ declare module '$:/core/modules/utils/utils.js' {
   export function getAnimationDuration(): number;
 
   /**
-   * Hashes a string to a number. the function behind `<<now "format">>
+   * Hashes a string to a number. the function behind `<<now "format">>`
    * @param str - The string to hash.
    * @returns The hashed number.
    * @description 将字符串哈希为数字。

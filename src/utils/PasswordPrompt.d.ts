@@ -38,7 +38,7 @@ declare module 'tiddlywiki' {
      * * noUserName: set true to disable username prompt
      * * canCancel: set true to enable a cancel button (callback called with null)
      * * repeatPassword: set true to prompt for the password twice
-     * * callback: function to be called on submission with parameter of object {username:,password:}. Callback must return `true` to remove the password prompt
+     * * callback: function to be called on submission with parameter of object `{username,password}`. Callback must return `true` to remove the password prompt
      * @returns {PasswordPromptInfo}
      * @memberof PasswordPrompt
      */

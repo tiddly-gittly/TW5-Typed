@@ -41,8 +41,8 @@ devDependencies:
     specifier: ^0.45.0
     version: 0.45.0
   eslint-config-tidgi:
-    specifier: ^1.2.1
-    version: 1.2.1(typescript@5.3.3)
+    specifier: ^1.2.2
+    version: 1.2.2(typescript@5.3.3)
   husky:
     specifier: ^9.0.11
     version: 9.0.11
@@ -3821,7 +3821,7 @@ packages:
     resolution: {integrity: sha512-UZIhv8G+5b5skkcuhgvxYWHjk7FW7/JP5lPASMEUoliAPwIH/rxoUSQPia2cuOj9AmDZmwUl1usKm85t5VUMew==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
-      eslint: ^8.56.0
+      eslint: ^8.57.0 || $eslint
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -5945,8 +5945,8 @@ packages:
       eslint-plugin-promise: 6.1.1(eslint@8.57.0)
     dev: true
 
-  /eslint-config-tidgi@1.2.1(typescript@5.3.3):
-    resolution: {integrity: sha512-GoyoDl84+HLc1UKauiS1zEjmkOYs9d8hb02BWpSeYocvm2TXmoNI/csxOIA6OAPRj9YWZIbuHYgoovjFIBSpdg==}
+  /eslint-config-tidgi@1.2.2(typescript@5.3.3):
+    resolution: {integrity: sha512-BJCyWGC/MPHRrEwKfxLwJmynASW6kB5sLIiM90nN/u+55wqhl2wWpetL3Do4isfpfXdQyehvUjlgzxpTegv/Dg==}
     peerDependencies:
       typescript: ^5.3.3
     dependencies:

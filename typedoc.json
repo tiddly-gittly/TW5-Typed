@@ -1,6 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/"],
+  "entryPoints": ["./src/*"],
+  "exclude": ["./src/plugins"],
   "entryPointStrategy": "expand",
   "out": "docs/api",
   "compilerOptions": {
