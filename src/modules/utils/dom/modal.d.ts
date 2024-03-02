@@ -1,7 +1,10 @@
 /// <reference path="../../widgets/index.d.ts" />
+/// <reference path="../../../wiki/index.d.ts" />
 
 declare module '$:/core/modules/utils/dom/modal.js' {
   export class Modal {
+    constructor(wiki: Wiki);
+
     adjustPageClass: () => void;
     /**
      * @param title
@@ -17,8 +20,5 @@ declare module '$:/core/modules/utils/dom/modal.js' {
         variables?: unknown;
       },
     ) => void;
-
-    constructor(wiki: Wiki);
-    new(wiki: Wiki): Modal;
   }
 }

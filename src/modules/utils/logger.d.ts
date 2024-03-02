@@ -4,6 +4,27 @@ declare module '$:/core/modules/utils/logger.js' {
    * @description 日志记录实用程序。
    */
   export class Logger {
+    constructor(
+      componentName?: string,
+      options?: {
+        colour?: string;
+        enable?: boolean;
+        save?: boolean;
+        saveLimit?: number;
+      },
+    );
+    // This part is important for TypeScript to understand the constructor signature
+    // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
+    new(
+      componentName?: string,
+      options?: {
+        colour?: string;
+        enable?: boolean;
+        save?: boolean;
+        saveLimit?: number;
+      },
+    );
+
     /**
      * The name of the component.
      */
@@ -36,15 +57,6 @@ declare module '$:/core/modules/utils/logger.js' {
      * The alert count of the logger.
      */
     alertCount: number;
-    constructor(
-      componentName?: string,
-      options?: {
-        colour?: string;
-        enable?: boolean;
-        save?: boolean;
-        saveLimit?: number;
-      },
-    );
     /**
      * Set the logger to save the buffer.
      * @param logger - The logger to save the buffer.
@@ -80,16 +92,5 @@ declare module '$:/core/modules/utils/logger.js' {
      * @description 清除未处理的警报。
      */
     clearAlerts(): void;
-    // This part is important for TypeScript to understand the constructor signature
-    // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
-    new(
-      componentName?: string,
-      options?: {
-        colour?: string;
-        enable?: boolean;
-        save?: boolean;
-        saveLimit?: number;
-      },
-    );
   }
 }

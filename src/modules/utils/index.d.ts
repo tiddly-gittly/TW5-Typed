@@ -15,6 +15,7 @@
 declare module 'tiddlywiki' {
   // Thanks for GitHub Copilot, you has helped me a lot!
   import * as dom from '$:/core/modules/utils/dom.js';
+  import * as logger from '$:/core/modules/utils/logger.js';
   import * as utils from '$:/core/modules/utils/utils.js';
   import * as filesystem from '$:/core/modules/utils/filesystem.js';
   import * as LinkedList from '$:/core/modules/utils/linked-list.js';
@@ -31,6 +32,7 @@ declare module 'tiddlywiki' {
 
   type IUtilsModules =
     & Pick<typeof dom, keyof typeof dom>
+    & Pick<typeof logger, keyof typeof logger>
     & Partial<Pick<typeof filesystem, keyof typeof filesystem>>
     & Pick<typeof utils, keyof typeof utils>
     & Pick<typeof LinkedList, keyof typeof LinkedList>
@@ -41,6 +43,5 @@ declare module 'tiddlywiki' {
     & Pick<typeof crypto, keyof typeof crypto>
     & Pick<typeof csv, keyof typeof csv>
     & Pick<typeof editionInfo, keyof typeof editionInfo>
-    & Pick<typeof escapecss, keyof typeof escapecss>
-    & { Logger: Logger };
+    & Pick<typeof escapecss, keyof typeof escapecss>;
 }
