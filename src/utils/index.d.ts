@@ -1,6 +1,8 @@
 /// <reference path="Crypto.d.ts" />
 /// <reference path="PasswordPrompt.d.ts" />
 
+import { Spread } from 'type-fest';
+
 declare module 'tiddlywiki' {
   export type TWDocument = Document | IFakeDocument;
   export type TWElement = Element;
@@ -154,7 +156,7 @@ declare module 'tiddlywiki' {
     deepDefaults: <O extends object, S extends object[]>(
       origin: O,
       ...sources: [...S]
-    ) => Spread<[O, ...S]>;
+    ) => Spread<O, S>;
 
     /**
      * @en
@@ -185,7 +187,7 @@ declare module 'tiddlywiki' {
      * $tw.utils.each([1, 2, 3], element => console.log(element));
      * $tw.utils.each({ a: 1, b: 2 }, (value, key) => console.log(key, value));
      */
-    each: <T, K = T extends any[] ? number : keyof T>(
+    each: <T, K = T extends unknown[] ? number : keyof T>(
       object: T,
       callback: (element: T[K], index: K, object: T) => undefined | false,
     ) => void;
@@ -231,7 +233,7 @@ declare module 'tiddlywiki' {
     extend: <O extends object, S extends object[]>(
       origin: O,
       ...sources: [...S]
-    ) => Spread<[O, ...S]>;
+    ) => Spread<O, S>;
 
     /**
      * @en

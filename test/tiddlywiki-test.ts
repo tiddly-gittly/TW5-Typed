@@ -1,5 +1,5 @@
-import { IParseTreeNode, IUtils, Tiddler, Widget } from 'tiddlywiki';
 import { Modal } from '$:/core/modules/utils/dom/modal.js';
+import { IParseTreeNode, IUtils, Tiddler, Widget } from 'tiddlywiki';
 
 export class ReactWidget extends Widget {
   logger: IUtils['Logger'];
@@ -13,8 +13,7 @@ export class ReactWidget extends Widget {
     $tw.modal.display('tiddler-title');
     new Modal($tw.wiki).display('$:/plugins/linonetwo/tw-calendar/calendar-widget/tiddlywiki-ui/popup/CreateNewTiddlerPopup');
     $tw.notifier.display('tiddler-title');
-    $tw.wiki.addIndexer((_tiddler: Tiddler) => {
-    }, '$:/core/tiddler');
+    $tw.wiki.addIndexer((_tiddler: Tiddler) => {}, '$:/core/tiddler');
     if ($tw.browser?.is?.mobile === true) {
       $tw.wiki.addTiddler({ title: 'aaa', text: 'bbb' });
     }
@@ -26,6 +25,6 @@ export class ReactWidget extends Widget {
     this.computeAttributes();
     const containerElement = $tw.utils.domMaker('div', {});
     this.domNodes.push(containerElement);
-    parent.appendChild(containerElement);
+    parent.append(containerElement);
   }
 }

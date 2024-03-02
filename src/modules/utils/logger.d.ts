@@ -80,16 +80,16 @@ declare module '$:/core/modules/utils/logger.js' {
      * @description 清除未处理的警报。
      */
     clearAlerts(): void;
+    // This part is important for TypeScript to understand the constructor signature
+    // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
+    new(
+      componentName?: string,
+      options?: {
+        colour?: string;
+        enable?: boolean;
+        save?: boolean;
+        saveLimit?: number;
+      },
+    );
   }
-  // This part is important for TypeScript to understand the constructor signature
-  // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
-  export type Logger = new(
-    componentName?: string,
-    options?: {
-      colour?: string;
-      enable?: boolean;
-      save?: boolean;
-      saveLimit?: number;
-    },
-  ) => Logger;
 }
