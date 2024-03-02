@@ -52,7 +52,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The integer represented by the string or the default value if the string is not a base-10 number.
    * @description 返回由 str（字符串）表示的整数。如果 str 不是十进制数字，则返回 dflt（默认）参数。
    */
-  export function getInt(str: string, deflt: number): number;
+  export function getInt(string_: string, deflt: number): number;
 
   /**
    * Repeatedly replaces a substring within a string. Like String.prototype.replace, but without any of the default special handling of $ sequences in the replace string.
@@ -75,7 +75,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The repeated string.
    * @description 重复一个字符串。
    */
-  export function repeat(str: string, count: number): string;
+  export function repeat(string_: string, count: number): string;
 
   /**
    * Checks if a string starts with another string.
@@ -84,7 +84,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns True if the string starts with the search string, false otherwise.
    * @description 检查字符串是否以另一个字符串开头。
    */
-  export function startsWith(str: string, search: string): boolean;
+  export function startsWith(string_: string, search: string): boolean;
 
   /**
    * Checks if a string ends with another string.
@@ -93,7 +93,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns True if the string ends with the search string, false otherwise.
    * @description 检查字符串是否以另一个字符串结尾。
    */
-  export function endsWith(str: string, search: string): boolean;
+  export function endsWith(string_: string, search: string): boolean;
 
   /**
    * Trims whitespace from the start and end of a string.
@@ -101,7 +101,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The trimmed string.
    * @description 从字符串的开头和结尾修剪空格。
    */
-  export function trim(str: string): string;
+  export function trim(string_: string): string;
 
   /**
    * Trims a prefix from a string.
@@ -110,7 +110,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The trimmed string.
    * @description 从字符串中修剪前缀。
    */
-  export function trimPrefix(str: string, unwanted: string): string;
+  export function trimPrefix(string_: string, unwanted: string): string;
 
   /**
    * Trims a suffix from a string.
@@ -119,7 +119,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The trimmed string.
    * @description 从字符串中修剪后缀。
    */
-  export function trimSuffix(str: string, unwanted: string): string;
+  export function trimSuffix(string_: string, unwanted: string): string;
 
   /**
    * Converts a string to sentence case (i.e. capitalizes the first letter).
@@ -127,7 +127,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The converted string.
    * @description 将字符串转换为句子格式（即将第一个字母大写）。
    */
-  export function toSentenceCase(str: string): string;
+  export function toSentenceCase(string_: string): string;
 
   /**
    * Converts a string to title case (i.e. capitalizes each initial letter).
@@ -135,7 +135,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The converted string.
    * @description 将字符串转换为标题格式（即将每个单词的第一个字母大写）。
    */
-  export function toTitleCase(str: string): string;
+  export function toTitleCase(string_: string): string;
 
   /**
    * Finds the line break preceding a given position in a string.
@@ -200,7 +200,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The extended object.
    * @description 使用一个或多个源扩展对象。
    */
-  export function extend(object: object, ...src: object[]): object;
+  export function extend(object: object, ...source: object[]): object;
 
   /**
    * Extend an object with properties from one or more sources.
@@ -209,7 +209,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The extended object.
    * @description 从一个或多个源中复制属性来扩展对象。
    */
-  export function extend(object: any, ...src: any[]): any;
+  export function extend(object: any, ...source: any[]): any;
 
   /**
    * Deep copy an object.
@@ -252,7 +252,7 @@ declare module '$:/core/modules/utils/utils.js' {
    */
   export function formatTitleString(
     template: string,
-    options: { base?: string; separator?: string; counter?: number },
+    options: { base?: string; counter?: number; separator?: string },
   ): string;
 
   /**
@@ -399,7 +399,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @param fn - The function to execute.
    * @description 在事件循环的下一个时刻执行函数。
    */
-  export function nextTick(fn: () => void): void;
+  export function nextTick(function_: () => void): void;
 
   /**
    * Converts a hyphenated CSS property name into a camel case one.
@@ -407,7 +407,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The converted CSS property name.
    * @description 将连字符分隔的 CSS 属性名称转换为驼峰式。
    */
-  export function unHyphenateCss(propName: string): string;
+  export function unHyphenateCss(propertyName: string): string;
 
   /**
    * Converts a camelcase CSS property name into a dashed one ("backgroundColor" --> "background-color").
@@ -415,7 +415,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The converted CSS property name.
    * @description 将驼峰式的 CSS 属性名称转换为连字符分隔的。
    */
-  export function hyphenateCss(propName: string): string;
+  export function hyphenateCss(propertyName: string): string;
 
   /**
    * Parses a text reference of one of these forms:
@@ -441,10 +441,10 @@ declare module '$:/core/modules/utils/utils.js' {
    * * field：tiddler 字段名称
    * * index：JSON 属性索引
    */
-  export function parseTextReference(textRef: string): {
-    title?: string;
+  export function parseTextReference(textReference: string): {
     field?: string;
     index?: string;
+    title?: string;
   };
 
   /**
@@ -475,7 +475,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The hashed number.
    * @description 将字符串哈希为数字。
    */
-  export function hashString(str: string): number;
+  export function hashString(string_: string): number;
 
   /**
    * Decodes a base64 string.
@@ -499,7 +499,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The tiddler dictionary format sequence of name:value pairs.
    * @description 将 hashmap 转换为 tiddler 字典格式的 name:value 对序列。
    */
-  export function makeTiddlerDictionary(data: { [key: string]: any }): string;
+  export function makeTiddlerDictionary(data: Record<string, any>): string;
 
   /**
    * High resolution microsecond timer for profiling.
@@ -547,8 +547,8 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns True if the string ends with the substring, false otherwise.
    * @description 检查字符串是否以给定的子字符串结尾。
    */
-  export function strEndsWith(
-    str: string,
+  export function stringEndsWith(
+    string_: string,
     ending: string,
     position?: number,
   ): boolean;
@@ -566,7 +566,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The parsed number or 0 if the string is not a valid number.
    * @description 将字符串解析为数字。
    */
-  export function parseNumber(str: string): number;
+  export function parseNumber(string_: string): number;
 
   /**
    * Parses a string into an integer.
@@ -574,7 +574,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The parsed integer or 0 if the string is not a valid integer.
    * @description 将字符串解析为整数。
    */
-  export function parseInt(str: string): number;
+  export function parseInt(string_: string): number;
 
   /**
    * Converts a number to a string.
@@ -582,7 +582,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The converted string.
    * @description 将数字转换为字符串。
    */
-  export function stringifyNumber(num: number): string;
+  export function stringifyNumber(number_: number): string;
 
   /**
    * Creates a comparison function for a given type.
@@ -594,9 +594,9 @@ declare module '$:/core/modules/utils/utils.js' {
   export function makeCompareFunction(
     type: string,
     options?: {
-      isCaseSensitive?: boolean;
-      invert?: boolean;
       defaultType?: string;
+      invert?: boolean;
+      isCaseSensitive?: boolean;
     },
   ): (a: any, b: any) => number;
 }

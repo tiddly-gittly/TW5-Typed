@@ -19,7 +19,7 @@ declare module 'tiddlywiki' {
 
   export interface IServerOptions {
     routes: IRoute[];
-    variables?: { [key: string]: string };
+    variables?: Record<string, string>;
     wiki: Wiki;
   }
 
@@ -104,14 +104,14 @@ declare module 'tiddlywiki' {
   export interface ServerEndpointContext {
     authenticatedUsername: string | undefined;
     data: string;
-    server: Server;
-    wiki: Wiki;
     /**
      * With `exports.path = /^\/recipes\/default\/tiddlers\/(.+)$/;` you can use:
-     * 
+     *
      * `title = $tw.utils.decodeURIComponentSafe(state.params[0])`
      */
     params: string[];
+    server: Server;
+    wiki: Wiki;
   }
   /**
    * @link https://talk.tiddlywiki.org/t/what-is-the-state-in-server-route-handler/2877

@@ -8,4 +8,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   extends: ['eslint-config-tidgi'],
+  rules: {
+    '@typescript-eslint/triple-slash-reference': 'off',
+  },
 };

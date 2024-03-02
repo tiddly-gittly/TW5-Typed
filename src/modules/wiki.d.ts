@@ -9,7 +9,7 @@ declare const getTextReferenceParserInfo: (
   field?: string,
   index?: string,
   options?: { subTiddler: string },
-) => { sourceText: null | string; parserType: string | null };
+) => { parserType: string | null; sourceText: null | string };
 
 declare module 'tiddlywiki' {
   export interface Wiki {
@@ -30,5 +30,5 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/wiki.js' {
-  export { getModificationFields, getCreationFields, getTiddlersWithTag };
+  export { getCreationFields, getModificationFields, getTiddlersWithTag };
 }

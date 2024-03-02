@@ -9,12 +9,12 @@
 
 declare module 'tiddlywiki' {
   export interface IPluginInfo {
-    version: string;
-    'plugin-type': string;
-    dependents: string;
-    type: 'application/json';
-    text: string;
     [pluginProperty: string]: string;
+    dependents: string;
+    'plugin-type': string;
+    text: string;
+    type: 'application/json';
+    version: string;
   }
 
   export interface ILanguage {
@@ -23,99 +23,19 @@ declare module 'tiddlywiki' {
 
   export interface IMacro {
     name: string;
-    params: Array[];
+    params: any[][];
     run: Function;
   }
 
   export type IWikiInfo = Record<string, unknown>;
 
   export interface ITiddlyWiki {
-    Wiki: typeof Wiki;
     Story: typeof Story;
+    Syncer: new() => Syncer;
     Tiddler: typeof Tiddler;
-    syncadaptor?: SyncAdaptor;
-    /**
-     * Presents when we have $tw.syncadaptor
-     */
-    syncer?: Syncer;
-    Syncer: { new (): Syncer };
-
-    wiki: Wiki;
-    boot: IBoot;
-    crypto: Crypto;
-    utils: IUtils;
-    config: IConfig;
-    version: string;
-    safeMode: boolean;
-    modules: IModules;
-    rootWidget: Widget;
-    notifier: Notifier;
-    language: ILanguage;
-    locationHash: string;
-    fakeDocument: IFakeDocument;
-    passwordPrompt: PasswordPrompt;
-    packageInfo: Record<string, unknown>;
-    modal: IModal;
-    keyboardManager: KeyboardManager;
-    macros: Record<string, IMacro>;
-
-    /**
-     * Check for this window being the source of the drag. If true, some drop target widget will stop responding to the drop event, so you can handle drop event in your own widget.
-     * Used by `DropZoneWidget.prototype.handleDropEvent`
-     */
-    dragInProgress?: boolean;
-
-    /**
-     * Global Hooks mechanism which allows plugins to modify default functionality
-     */
-    hooks: IHooks;
-
+    Wiki: typeof Wiki;
     addUnloadTask(task: any);
-
-    /**
-     * Convenience function for pushing a tiddler onto the preloading array.
-     * @param fields - The fields of the tiddler to push.
-     * @description 方便地将一个 tiddler 推入预加载数组中。
-     */
-    preloadTiddler(fields: Record<string, unknown>): void;
-
-    /**
-     * Convenience function for pushing an array of tiddlers onto the preloading array.
-     * @param fieldsArray - The array of tiddlers to push.
-     * @description 方便地将若干 tiddler 数组推入预加载数组中。
-     */
-    preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
-
-    /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
-    preloadTiddlers: Record<string, Record<string, unknown>>;
-
-    getLibraryItemSearchPaths(libraryPath: string, envVar?: string): string;
-    findLibraryItem(name: string, paths: string[]): string | null;
-    loadPluginFolder(
-      filepath: string,
-      excludeRegExp?: RegExp,
-    ): IPluginInfo | null;
-    loadPlugin(name: string, paths: string[]): void;
-    loadPlugins(plugins: string[], libraryPath: string, envVar?: string): void;
-    loadWikiTiddlers(
-      wikiPath: string,
-      options?: { parentPaths?: string; readOnly?: boolean },
-    ): IWikiInfo;
-    loadTiddlersNode(): void;
-    loadTiddlersBrowser(): void;
-    loadTiddlersFromFile(
-      filepath: string,
-      defaultFields?: Record<string, unknown>,
-    ): ITiddlersInFile;
-    loadMetadataForFile(filepath: string): ITiddlerFields | null;
-    loadTiddlersFromPath(
-      filepath: string,
-      excludeRegExp?: RegExp,
-    ): ITiddlerFields[];
-    loadTiddlersFromSpecification(
-      filepath: string,
-      excludeRegExp?: RegExp,
-    ): ITiddlerFields[];
+    boot: IBoot;
 
     browser: null | {
       is?: {
@@ -154,14 +74,94 @@ declare module 'tiddlywiki' {
        */
       isIE: boolean;
     };
+    config: IConfig;
+    crypto: Crypto;
+    /**
+     * Check for this window being the source of the drag. If true, some drop target widget will stop responding to the drop event, so you can handle drop event in your own widget.
+     * Used by `DropZoneWidget.prototype.handleDropEvent`
+     */
+    dragInProgress?: boolean;
+    fakeDocument: IFakeDocument;
+    findLibraryItem(name: string, paths: string[]): string | null;
+    getLibraryItemSearchPaths(libraryPath: string, environmentVariable?: string): string;
+    /**
+     * Global Hooks mechanism which allows plugins to modify default functionality
+     */
+    hooks: IHooks;
+    keyboardManager: KeyboardManager;
+    language: ILanguage;
+    loadMetadataForFile(filepath: string): ITiddlerFields | null;
+    loadPlugin(name: string, paths: string[]): void;
+    loadPluginFolder(
+      filepath: string,
+      excludeRegExp?: RegExp,
+    ): IPluginInfo | null;
+    loadPlugins(plugins: string[], libraryPath: string, environmentVariable?: string): void;
+    loadTiddlersBrowser(): void;
+    loadTiddlersFromFile(
+      filepath: string,
+      defaultFields?: Record<string, unknown>,
+    ): ITiddlersInFile;
+    loadTiddlersFromPath(
+      filepath: string,
+      excludeRegExp?: RegExp,
+    ): ITiddlerFields[];
+    loadTiddlersFromSpecification(
+      filepath: string,
+      excludeRegExp?: RegExp,
+    ): ITiddlerFields[];
+
+    loadTiddlersNode(): void;
+
+    loadWikiTiddlers(
+      wikiPath: string,
+      options?: { parentPaths?: string; readOnly?: boolean },
+    ): IWikiInfo;
+
+    locationHash: string;
+
+    macros: Record<string, IMacro>;
+
+    modal: IModal;
+
+    modules: IModules;
+
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
     node: null | Record<string, any>;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
     nodeWebKit: null | Record<string, any>;
+    notifier: Notifier;
+    packageInfo: Record<string, unknown>;
+    passwordPrompt: PasswordPrompt;
     platform: {
       isLinux: boolean;
       isMac: boolean;
       isWindows: boolean;
     };
+    /**
+     * Convenience function for pushing a tiddler onto the preloading array.
+     * @param fields - The fields of the tiddler to push.
+     * @description 方便地将一个 tiddler 推入预加载数组中。
+     */
+    preloadTiddler(fields: Record<string, unknown>): void;
+    /**
+     * Convenience function for pushing an array of tiddlers onto the preloading array.
+     * @param fieldsArray - The array of tiddlers to push.
+     * @description 方便地将若干 tiddler 数组推入预加载数组中。
+     */
+    preloadTiddlerArray(fieldsArray: Array<Record<string, unknown>>): void;
+    /** External JavaScript can populate this array before calling boot.js in order to preload tiddlers */
+    preloadTiddlers: Record<string, Record<string, unknown>>;
+    rootWidget: Widget;
+    safeMode: boolean;
+    syncadaptor?: SyncAdaptor;
+
+    /**
+     * Presents when we have $tw.syncadaptor
+     */
+    syncer?: Syncer;
+    utils: IUtils;
+    version: string;
+    wiki: Wiki;
   }
 }

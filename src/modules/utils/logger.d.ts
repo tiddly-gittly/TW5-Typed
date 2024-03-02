@@ -56,7 +56,7 @@ declare module '$:/core/modules/utils/logger.js' {
      * @param args - The arguments to log.
      * @description 记录消息。
      */
-    log(...args: any[]): void;
+    log(...arguments_: any[]): void;
     /**
      * Get the message buffer.
      * @returns The message buffer.
@@ -74,7 +74,7 @@ declare module '$:/core/modules/utils/logger.js' {
      * @param args - The arguments to alert.
      * @description 警报消息。
      */
-    alert(...args: any[]): void;
+    alert(...arguments_: any[]): void;
     /**
      * Clear outstanding alerts.
      * @description 清除未处理的警报。
@@ -83,15 +83,13 @@ declare module '$:/core/modules/utils/logger.js' {
   }
   // This part is important for TypeScript to understand the constructor signature
   // fixes `Property 'prototype' is missing in type 'Logger' but required in type 'typeof Logger'.ts(2741)`
-  export interface Logger {
-    new (
-      componentName?: string,
-      options?: {
-        colour?: string;
-        enable?: boolean;
-        save?: boolean;
-        saveLimit?: number;
-      }
-    ): Logger;
-  }
+  export type Logger = new(
+    componentName?: string,
+    options?: {
+      colour?: string;
+      enable?: boolean;
+      save?: boolean;
+      saveLimit?: number;
+    },
+  ) => Logger;
 }

@@ -27,12 +27,12 @@ declare module '$:/core/modules/utils/dom.js' {
    */
   export function addEventListeners(
     domNode: Element,
-    events: {
+    events: Array<{
       handlerFunction?: (event: MouseEvent) => void;
       handlerMethod?: string;
       handlerObject?: Widget;
       name: string;
-    }[],
+    }>,
   ): void;
 
   /**
@@ -89,7 +89,7 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param className The class name to look for.
    * @returns True if the element has the class, otherwise false.
    */
-  export function hasClass(el: Element, className: string): boolean;
+  export function hasClass(element: Element, className: string): boolean;
 
   /**
    * Toggles a class on an element based on a given condition.
@@ -98,7 +98,7 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param status If true, adds the class; if false, removes it. If undefined, toggles based on current state.
    */
   export function toggleClass(
-    el: Element,
+    element: Element,
     className: string,
     status?: boolean,
   ): void;
@@ -108,14 +108,14 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param el The starting element to search from.
    * @returns The first scrollable parent element, or the body if none are found.
    */
-  export function getScrollContainer(el: Element): Element;
+  export function getScrollContainer(element: Element): Element;
 
   /**
    * Get the scroll position of the viewport.
    * @param srcWindow The source window to get the scroll position from, defaults to the current window if not specified.
    * @returns An object with 'x' and 'y' properties representing the horizontal and vertical scroll positions in pixels.
    */
-  export function getScrollPosition(srcWindow?: Window): {
+  export function getScrollPosition(sourceWindow?: Window): {
     x: number;
     y: number;
   };
@@ -137,12 +137,12 @@ declare module '$:/core/modules/utils/dom.js' {
    * @returns An object representing the bounding rectangle with properties: left, width, right, top, height, bottom.
    */
   export function getBoundingPageRect(element: Element): {
+    bottom: number;
+    height: number;
     left: number;
-    width: number;
     right: number;
     top: number;
-    height: number;
-    bottom: number;
+    width: number;
   };
 
   /**
@@ -190,7 +190,7 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param srcDomNode The source DOM node.
    * @param dstDomNode The destination DOM node.
    */
-  export function copyStyles(srcDomNode: Element, dstDomNode: Element): void;
+  export function copyStyles(sourceDomNode: Element, dstDomNode: Element): void;
 
   /**
    * Copies plain text to the clipboard on browsers that support it.

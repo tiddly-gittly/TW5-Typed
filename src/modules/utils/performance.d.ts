@@ -15,7 +15,7 @@ declare module '$:/core/modules/utils/performance.js' {
     /**
      * Hashmap by measurement name of {time:, invocations:}.
      */
-    measures: { [key: string]: { time: number; invocations: number } };
+    measures: Record<string, { invocations: number; time: number }>;
     /**
      * A logger instance.
      */
@@ -33,7 +33,7 @@ declare module '$:/core/modules/utils/performance.js' {
      * @returns The wrapped function.
      * @description 在顶层函数周围包装性能报告。
      */
-    report(name: string, fn: Function): Function;
+    report(name: string, function_: Function): Function;
     /**
      * Logs performance measurements.
      * @description 记录性能测量。
@@ -46,6 +46,6 @@ declare module '$:/core/modules/utils/performance.js' {
      * @returns The wrapped function.
      * @description 在子函数周围包装性能测量。
      */
-    measure(name: string, fn: Function): Function;
+    measure(name: string, function_: Function): Function;
   }
 }

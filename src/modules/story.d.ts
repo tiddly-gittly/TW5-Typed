@@ -5,9 +5,9 @@ declare module 'tiddlywiki' {
     historyTitle: string;
 
     constructor(options?: {
-      wiki?: Wiki;
-      storyTitle?: string;
       historyTitle?: string;
+      storyTitle?: string;
+      wiki?: Wiki;
     });
 
     getStoryList(): string[];

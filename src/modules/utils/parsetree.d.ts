@@ -68,7 +68,7 @@ declare module '$:/core/modules/utils/parsetree.js' {
    */
   export function findParseTreeNode(
     nodeArray: any[],
-    search: { type: string; tag: string },
+    search: { tag: string; type: string },
   ): any;
 
   /**

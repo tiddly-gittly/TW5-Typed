@@ -7,9 +7,9 @@ declare module '$:/core/modules/utils/csv.js' {
    * @description CSV 单元格的信息。
    */
   interface CellInfo {
-    start: number;
     end: number;
     isQuoted: boolean;
+    start: number;
   }
 
   /**

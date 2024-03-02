@@ -29,16 +29,18 @@ declare module 'tiddlywiki' {
   import * as editionInfo from '$:/core/modules/utils/edition-info.js';
   import * as escapecss from '$:/core/modules/utils/escapecss.js';
 
-  type IUtilsModules = Pick<typeof dom, keyof typeof dom> &
-    Partial<Pick<typeof filesystem, keyof typeof filesystem>> &
-    Pick<typeof utils, keyof typeof utils> &
-    Pick<typeof LinkedList, keyof typeof LinkedList> &
-    Pick<typeof performance, keyof typeof performance> &
-    Pick<typeof parsetree, keyof typeof parsetree> &
-    Pick<typeof pluginMaker, keyof typeof pluginMaker> &
-    Pick<typeof transliterate, keyof typeof transliterate> &
-    Pick<typeof crypto, keyof typeof crypto> &
-    Pick<typeof csv, keyof typeof csv> &
-    Pick<typeof editionInfo, keyof typeof editionInfo> &
-    Pick<typeof escapecss, keyof typeof escapecss> & { Logger: Logger };
+  type IUtilsModules =
+    & Pick<typeof dom, keyof typeof dom>
+    & Partial<Pick<typeof filesystem, keyof typeof filesystem>>
+    & Pick<typeof utils, keyof typeof utils>
+    & Pick<typeof LinkedList, keyof typeof LinkedList>
+    & Pick<typeof performance, keyof typeof performance>
+    & Pick<typeof parsetree, keyof typeof parsetree>
+    & Pick<typeof pluginMaker, keyof typeof pluginMaker>
+    & Pick<typeof transliterate, keyof typeof transliterate>
+    & Pick<typeof crypto, keyof typeof crypto>
+    & Pick<typeof csv, keyof typeof csv>
+    & Pick<typeof editionInfo, keyof typeof editionInfo>
+    & Pick<typeof escapecss, keyof typeof escapecss>
+    & { Logger: Logger };
 }

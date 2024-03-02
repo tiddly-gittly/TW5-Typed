@@ -4,14 +4,11 @@ declare module 'tiddlywiki' {
    * @url https://tiddlywiki.com/dev/#SyncAdaptorModules
    */
   export interface SyncAdaptor {
-    name: string;
-    supportsLazyLoading: boolean;
-    isReady(): boolean;
-    getTiddlerInfo(title: string): IBootFilesIndexItem;
     getTiddlerFileInfo(
       title: string,
       callback: (error: null, fileInfo: IFileInfo) => void,
     ): void;
+    getTiddlerInfo(title: string): IBootFilesIndexItem;
     /**
      * Retrieves the titles of tiddlers that need to be updated from the server.
 
@@ -31,10 +28,13 @@ declare module 'tiddlywiki' {
       deletions: [<array of title>],
       }
       ```
-     * @param syncer 
-     * @param callback 
+     * @param syncer
+     * @param callback
      */
-    getUpdatedTiddlers(syncer: Syncer,callback: (error: Error | null | undefined, changes: { modifications: string[]; deletions: string[] }) => void): void;
+    getUpdatedTiddlers(syncer: Syncer, callback: (error: Error | null | undefined, changes: { deletions: string[]; modifications: string[] }) => void): void;
+    isReady(): boolean;
+    name: string;
+    supportsLazyLoading: boolean;
     wiki: Wiki;
   }
 }

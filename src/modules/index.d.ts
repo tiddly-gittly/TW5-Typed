@@ -70,13 +70,13 @@ declare module 'tiddlywiki' {
     /** Return a class created from a modules. The module should export the properties to be added to those of the optional base class */
     createClassFromModule: (
       moduleExports: ITWModuleExports,
-      baseClass: new () => unknown,
+      baseClass: new() => unknown,
     ) => ITWModuleExports;
     /** Return an array of classes created from the modules of a specified type. Each module should export the properties to be added to those of the optional base class */
     createClassesFromModules: (
       moduleType: string,
       subType: string | null | undefined,
-      baseClass: new () => unknown,
+      baseClass: new() => unknown,
     ) => Record<string, ITWModuleExports>;
     /**
      * Define a JavaScript tiddler module for later execution

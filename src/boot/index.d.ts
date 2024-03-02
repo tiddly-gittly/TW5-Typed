@@ -20,11 +20,12 @@ declare module 'tiddlywiki' {
 
   export interface IBoot {
     argv: string[];
+    boot: (callback?: () => void) => void;
+    excludeRegExp: RegExp;
     /**
      * Parse any extra plugin references from `$tw.boot.argv[0]` that with `+` prefix.
      */
     extraPlugins: string[];
-    boot: (callback?: () => void) => void;
     files: IBootFilesIndex;
     log: (logString: string) => void;
     logMessages: string[];
@@ -34,7 +35,6 @@ declare module 'tiddlywiki' {
       readBrowserTiddlers: boolean;
       trapErrors: boolean;
     };
-    excludeRegExp: RegExp;
     /** Exist in nodejs wiki, Load the tiddlers from the wiki directory */
     wikiInfo?: ITiddlyWikiInfoJSON;
     /** Exist in nodejs wiki, absolute path of wiki root folder */

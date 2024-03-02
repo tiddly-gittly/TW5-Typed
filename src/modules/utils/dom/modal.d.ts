@@ -4,7 +4,6 @@ declare module '$:/core/modules/utils/dom/modal.js' {
   export class Modal {
     adjustPageClass: () => void;
     /**
-     *
      * @param title
      * @param options
      * variables: optional hashmap of variables to wrap around the widget
@@ -19,7 +18,7 @@ declare module '$:/core/modules/utils/dom/modal.js' {
       },
     ) => void;
 
-    constructor (wiki: Wiki);
-    new (wiki: Wiki): Modal;
+    constructor(wiki: Wiki);
+    new(wiki: Wiki): Modal;
   }
 }

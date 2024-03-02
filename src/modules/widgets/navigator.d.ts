@@ -47,6 +47,6 @@ declare module 'tiddlywiki' {
   }
 }
 declare module '$:/core/modules/widgets/navigator.js' {
-  import { NavigatorWidget } from 'tiddlywiki';
-  export { NavigatorWidget as navigator };
 }
+
+export { NavigatorWidget as navigator } from 'tiddlywiki';

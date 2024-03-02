@@ -3,7 +3,7 @@ declare module '$:/core/modules/utils/transliterate.js' {
    * An object containing pairs of characters to be transliterated.
    * @description 包含要转换的字符对的对象。
    */
-  export const transliterationPairs: { [key: string]: string };
+  export const transliterationPairs: Record<string, string>;
 
   /**
    * Transliterates a string to ASCII.
@@ -11,7 +11,7 @@ declare module '$:/core/modules/utils/transliterate.js' {
    * @returns The transliterated string.
    * @description 将字符串转换为 ASCII。
    */
-  export function transliterate(str: string): string;
+  export function transliterate(string_: string): string;
 
   /**
    * Transliterates a string to safe ASCII.
@@ -19,5 +19,5 @@ declare module '$:/core/modules/utils/transliterate.js' {
    * @returns The transliterated string.
    * @description 将字符串转换为安全的 ASCII。
    */
-  export function transliterateToSafeASCII(str: string): string;
+  export function transliterateToSafeASCII(string_: string): string;
 }

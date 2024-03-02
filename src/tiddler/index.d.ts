@@ -4,6 +4,7 @@ declare module 'tiddlywiki' {
   export interface ITiddlerFields {
     readonly [anyKey: string]: unknown;
     readonly color?: string;
+    readonly 'color-scheme': 'dark' | 'light';
     readonly created: Date;
     readonly list?: string[];
     readonly modified: Date;
@@ -11,7 +12,6 @@ declare module 'tiddlywiki' {
     readonly text: string;
     readonly title: string;
     readonly type: string;
-    readonly 'color-scheme': 'dark' | 'light';
   }
 
   export class Tiddler {
@@ -22,7 +22,6 @@ declare module 'tiddlywiki' {
     readonly fields: ITiddlerFields;
 
     /**
-     *
      * @param tiddlers multiple tiddler fields or instances, will merge them to create a new one
      */
     constructor(...tiddlers: Array<Record<string, unknown> | Tiddler>);

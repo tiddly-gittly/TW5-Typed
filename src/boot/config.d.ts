@@ -13,6 +13,7 @@ declare module 'tiddlywiki' {
   export type ITWConfig = IConfig;
 
   interface IConfig {
+    [configName: string]: any;
     /** Map type to file content type */
     contentTypeInfo: Record<string, IContentTypeInfo>;
     /** @default 'TIDDLYWIKI_EDITION_PATH' */
@@ -21,6 +22,7 @@ declare module 'tiddlywiki' {
     editionsPath: string;
     /** Map file extension */
     fileExtensionInfo: Record<string, IFileExtensionInfo>;
+    htmlUnsafeElements: string[];
     /**
      * @default '^\\/\\*\\\\(?:\\r?\\n)((?:^[^\\r\\n]*(?:\\r?\\n))+?)(^\\\\\\*\\/$(?:\\r?\\n)?)
      */
@@ -50,32 +52,29 @@ declare module 'tiddlywiki' {
     wikiThemesSubDir: string;
     /** @default './tiddlers' */
     wikiTiddlersSubDir: string;
-    htmlUnsafeElements: string[];
-    [configName: string]: any;
   }
 
   export interface ITiddlyWikiInfoJSON {
-    description: string
-    plugins: string[]
-    themes: string[]
-    languages: any[]
-    build: ITiddlyWikiInfoJSONBuild
-    config: ITiddlyWikiInfoJSONConfig
+    build: ITiddlyWikiInfoJSONBuild;
+    config: ITiddlyWikiInfoJSONConfig;
+    description: string;
+    languages: any[];
+    plugins: string[];
+    themes: string[];
   }
-  
+
   export interface ITiddlyWikiInfoJSONBuild {
-    index: string[]
-    empty: string[]
-    encrypted: string[]
-    favicon: string[]
-    readmes: string[]
-    tw2: string[]
-    static: string[]
-    "external-js": string[]
+    empty: string[];
+    encrypted: string[];
+    'external-js': string[];
+    favicon: string[];
+    index: string[];
+    readmes: string[];
+    static: string[];
+    tw2: string[];
   }
-  
+
   export interface ITiddlyWikiInfoJSONConfig {
-    "retain-original-tiddler-path": boolean
+    'retain-original-tiddler-path': boolean;
   }
-  
 }

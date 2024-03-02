@@ -14,7 +14,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns An error message if there is an error, otherwise null
    * @description 递归地（同步地）复制目录及其所有内容
    */
-  export function copyDirectory(srcPath: string, dstPath: string): string;
+  export function copyDirectory(sourcePath: string, dstPath: string): string;
 
   /**
    * Copy a file
@@ -23,7 +23,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns An error message if there is an error, otherwise null
    * @description 复制文件
    */
-  export function copyFile(srcPath: string, dstPath: string): string;
+  export function copyFile(sourcePath: string, dstPath: string): string;
 
   /**
    * Remove trailing path separator
@@ -79,9 +79,9 @@ declare module '$:/core/modules/utils/utils.js' {
    * @param callback - A callback function to call when the operation is complete
    * @description 递归地删除空目录树
    */
-  export function deleteEmptyDirs(
+  export function deleteEmptyDirectories(
     dirpath: string,
-    callback: (err: Error | null) => void,
+    callback: (error: Error | null) => void,
   ): void;
 
   /**
@@ -95,10 +95,10 @@ declare module '$:/core/modules/utils/utils.js' {
     tiddler: Tiddler,
     options: {
       directory: string;
-      pathFilters?: string[];
       extFilters?: string[];
-      wiki?: Wiki;
       fileInfo?: FileInfo;
+      pathFilters?: string[];
+      wiki?: Wiki;
     },
   ): FileInfo;
 

@@ -68,7 +68,7 @@ declare module '$:/core/modules/utils/linked-list.js' {
     /**
      * The map object.
      */
-    map: { [key: string]: any };
+    map: Record<string, any>;
     /**
      * The null value of the map.
      */
@@ -79,7 +79,7 @@ declare module '$:/core/modules/utils/linked-list.js' {
      * @param val - The value to set.
      * @description 在映射中设置值。
      */
-    set(key: string | null, val: any): void;
+    set(key: string | null, value: any): void;
     /**
      * Get a value from the map.
      * @param key - The key to get.

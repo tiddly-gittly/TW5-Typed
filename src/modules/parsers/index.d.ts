@@ -4,13 +4,13 @@ declare module 'tiddlywiki' {
      * Optional source uri, used in parseText
      */
     _canonical_uri?: string;
+    defaultType?: string;
+    document?: TWDocument;
+    parentWidget?: Widget;
     /**
      * While calling `getCacheForTiddler`, use inlineParseTree or blockParseTree
      */
     parseAsInline?: boolean;
-    defaultType?: string;
-    parentWidget?: Widget;
-    document?: TWDocument;
   }
 
   export class WikiParseRule {
@@ -35,11 +35,11 @@ declare module 'tiddlywiki' {
     };
   }
   export class WikiParser {
-    blockRules: { matchIndex?: number; rule: WikiParseRule }[];
+    blockRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
 
-    inlineRules: { matchIndex?: number; rule: WikiParseRule }[];
+    inlineRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
 
-    pragmaRules: { matchIndex?: number; rule: WikiParseRule }[];
+    pragmaRules: Array<{ matchIndex?: number; rule: WikiParseRule }>;
 
     configTrimWhiteSpace: boolean;
 

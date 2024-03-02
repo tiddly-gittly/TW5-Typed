@@ -148,7 +148,7 @@ declare module 'tiddlywiki' {
      * @param {IChangedTiddlers} changedTiddlers Object key is tiddler title, value is metadata about the change
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
-    refresh(changedTiddlers: IChangedTiddlers): boolean | unde fined;
+    refresh(changedTiddlers: IChangedTiddlers): boolean | undefined;
 
     /**
      * Compute the internal state of the widget.

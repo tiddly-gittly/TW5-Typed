@@ -1,6 +1,5 @@
 declare module 'tiddlywiki' {
   interface IHooks {
-    names: Record<string, Function[]>;
     /** Add hooks to the hashmap */
     addHook(
       hookName: 'th-server-command-post-start',
@@ -68,10 +67,10 @@ declare module 'tiddlywiki' {
     addHook(
       hookName: 'th-importing-file',
       callback: (props: {
-        file: { path?: string, name: string };
-        type: string;
-        isBinary: boolean;
         callback: Function;
+        file: { name: string; path?: string };
+        isBinary: boolean;
+        type: string;
       }) => boolean | void,
     );
     addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown);
@@ -79,5 +78,6 @@ declare module 'tiddlywiki' {
      * Invoke the hook by key
      */
     invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
+    names: Record<string, Function[]>;
   }
 }
