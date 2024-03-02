@@ -1,4 +1,6 @@
 {
+  "name": "tw5-typed",
+  "version": "0.5.0",
   "scripts": {
     "check": "tsc --noEmit && eslint src/**/*.ts",
     "docs": "docs-ts",
@@ -11,8 +13,6 @@
   },
   "description": "Types for tiddlywiki",
   "license": "MIT",
-  "name": "tw5-typed",
-  "version": "0.4.10",
   "url": "https://github.com/tiddly-gittly/tw5-typed",
   "homepage": "https://github.com/tiddly-gittly/tw5-typed",
   "bugs": {
