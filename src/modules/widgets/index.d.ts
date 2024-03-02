@@ -12,15 +12,15 @@ declare module 'tiddlywiki' {
     deleted?: boolean;
     modified?: boolean;
   }
-  export interface IWidgetVariableParam {
-    name: string;
+  export interface IWidgetVariableParameter {
     default: string;
+    name: string;
   }
 
   export interface IWidgetVariable {
-    value: string;
-    params?: IWidgetVariableParam[];
     isMacroDefinition: boolean;
+    params?: IWidgetVariableParameter[];
+    value: string;
   }
 
   export interface IWidgetInitialiseOptions {
@@ -45,9 +45,7 @@ declare module 'tiddlywiki' {
      *
      * For example, `<$action-sendmessage $message="tw-mobile-sync-set-active-server-and-sync" title={{!!title}} />` will produce `paramObject: { title: "xxxx" }`
      */
-    paramObject?: {
-      [othersParamKeys: string]: unknown;
-    };
+    paramObject?: Record<string, unknown>;
     tiddlerTitle?: string;
     /** the first parameter of addEventListener
      *
@@ -58,9 +56,9 @@ declare module 'tiddlywiki' {
   }
 
   export interface IGetWidgetVariableOptions {
-    params?: IWidgetVariableParam[];
-    defaultValue?: string;
     allowSelfAssigned?: boolean;
+    defaultValue?: string;
+    params?: IWidgetVariableParameter[];
     source?: (iter: SourceIterator) => void;
   }
 
@@ -150,7 +148,7 @@ declare module 'tiddlywiki' {
      * @param {IChangedTiddlers} changedTiddlers Object key is tiddler title, value is metadata about the change
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
-    refresh(changedTiddlers: IChangedTiddlers): boolean | void;
+    refresh(changedTiddlers: IChangedTiddlers): boolean | unde fined;
 
     /**
      * Compute the internal state of the widget.
@@ -174,7 +172,7 @@ declare module 'tiddlywiki' {
     setVariable(
       name: string,
       value: string,
-      parameters?: IWidgetVariableParam[],
+      parameters?: IWidgetVariableParameter[],
       isMacroDefinition?: boolean,
     ): void;
 
@@ -199,10 +197,10 @@ declare module 'tiddlywiki' {
       name: string,
       options?: IGetWidgetVariableOptions,
     ): {
-      text: string;
-      params?: IWidgetVariableParam[];
-      srcVariable?: IWidgetVariable;
       isCacheable?: boolean;
+      params?: IWidgetVariableParameter[];
+      srcVariable?: IWidgetVariable;
+      text: string;
     };
 
     /**
@@ -211,9 +209,9 @@ declare module 'tiddlywiki' {
     getVariable(name: string, options?: IGetWidgetVariableOptions): string;
 
     resolveVariableParameters(
-      formalParams?: IWidgetVariableParam[],
-      actualParams?: IWidgetVariableParam[],
-    ): IWidgetVariableParam[];
+      formalParameters?: IWidgetVariableParameter[],
+      actualParameters?: IWidgetVariableParameter[],
+    ): IWidgetVariableParameter[];
 
     substituteVariableReferences(
       text: string,
@@ -222,7 +220,7 @@ declare module 'tiddlywiki' {
 
     evaluateMacroModule(
       name: string,
-      actualParams: IWidgetVariableParam[],
+      actualParameters: IWidgetVariableParameter[],
       defaultValue: string,
     ): string;
 
@@ -382,10 +380,10 @@ declare module 'tiddlywiki' {
      * See also `addEventListener`.
      */
     addEventListeners(
-      listeners: {
-        handler: (event: IWidgetEvent) => void | Promise<void> | boolean;
+      listeners: Array<{
+        handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean;
         type: string;
-      }[],
+      }>,
     ): void;
 
     /**
@@ -396,7 +394,7 @@ declare module 'tiddlywiki' {
      */
     addEventListener(
       type: string,
-      handler: (event: IWidgetEvent) => void | Promise<void> | boolean,
+      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean,
     ): void;
 
     /**
@@ -408,7 +406,7 @@ declare module 'tiddlywiki' {
     /**
      * Rebuild a previously rendered widget
      */
-    refreshSelf(): boolean | void;
+    refreshSelf(): boolean | undefined;
 
     /**
      * Refresh all the children of a widget, will call `this.render`.
@@ -481,6 +479,6 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/widgets/widget.js' {
-  import { Widget } from 'tiddlywiki';
-  export { Widget as widget };
 }
+
+export { Widget as widget } from 'tiddlywiki';
