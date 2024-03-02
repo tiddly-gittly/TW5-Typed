@@ -1,6 +1,7 @@
 import { Modal } from '$:/core/modules/utils/dom/modal.js';
 import { Logger } from '$:/core/modules/utils/logger.js';
-import { IParseTreeNode, IUtils, Tiddler, Widget } from 'tiddlywiki';
+import { widget as Widget } from '$:/core/modules/widgets/widget.js';
+import { IParseTreeNode, Tiddler } from 'tiddlywiki';
 
 export class ReactWidget extends Widget {
   logger: Logger;

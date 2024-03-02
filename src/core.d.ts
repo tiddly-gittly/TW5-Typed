@@ -123,7 +123,7 @@ declare module 'tiddlywiki' {
 
     macros: Record<string, IMacro>;
 
-    modal: IModal;
+    modal: Modal;
 
     modules: IModules;
 

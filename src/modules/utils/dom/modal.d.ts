@@ -1,7 +1,7 @@
-/// <reference path="../../widgets/index.d.ts" />
+  /// <reference path="../../widgets/index.d.ts" />
 /// <reference path="../../../wiki/index.d.ts" />
 
-declare module '$:/core/modules/utils/dom/modal.js' {
+declare module 'tiddlywiki' {
   export class Modal {
     constructor(wiki: Wiki);
 
@@ -21,4 +21,8 @@ declare module '$:/core/modules/utils/dom/modal.js' {
       },
     ) => void;
   }
+}
+
+declare module '$:/core/modules/utils/dom/modal.js' {
+  export { Modal } from 'tiddlywiki';
 }

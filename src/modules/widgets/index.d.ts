@@ -480,6 +480,5 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/widgets/widget.js' {
+  export { Widget as widget } from 'tiddlywiki';
 }
-
-export { Widget as widget } from 'tiddlywiki';
