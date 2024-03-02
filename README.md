@@ -64,5 +64,5 @@ To rapid prototype the type, just right click a type to open `.d.ts` file in the
 
 Make sure doc build and test are passed.
 
-1. Doc: `pnpm run docs:generate && pnpm run docs:dev`, see [deploy-docs-to-github-pages.yml](.github\workflows\deploy-docs-to-github-pages.yml)
-1. Tests: `pnpm run check`, see [test.yml](.github\workflows\test.yml)
+1. Doc: `pnpm run docs:generate && pnpm run docs:dev`, see `.github\workflows\deploy-docs-to-github-pages.yml`
+1. Tests: `pnpm run check`, see `.github\workflows\test.yml`
