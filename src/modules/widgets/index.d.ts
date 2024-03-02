@@ -89,6 +89,7 @@ declare module 'tiddlywiki' {
 
     parentDomNode: Element;
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     eventListeners: Record<string, Function>;
 
     /**
@@ -232,7 +233,6 @@ declare module 'tiddlywiki' {
      *
      * @param {string} name
      * @param {string} value
-     * @return {*}  {boolean}
      * @memberof Widget
      */
     hasVariable(name: string, value: string): boolean;
@@ -244,7 +244,6 @@ declare module 'tiddlywiki' {
      * 在连接父链中给定变量值的哈希基础上构建一个限定字符串
      *
      * @param {string} name
-     * @return {*}  {string}
      * @memberof Widget
      */
     getStateQualifier(name: string): string;
@@ -269,7 +268,6 @@ declare module 'tiddlywiki' {
      * 检查微件上是否存在一个已评估的属性。请注意，设置为缺失变量的属性（即`attr=<<missing>>`）将被视为缺失。
      *
      * @param {string} attribute
-     * @return {*}  {boolean}
      * @memberof Widget
      */
     hasAttribute(attribute: string): boolean;
@@ -281,7 +279,6 @@ declare module 'tiddlywiki' {
      * 检查微件解析树节点上是否存在原始属性。注意，设置为缺失变量的属性（即`ttr=<<missing>>`）不会被视为缺失。
      *
      * @param {string} attribute
-     * @return {*}  {boolean}
      * @memberof Widget
      */
     hasParseTreeNodeAttribute(attribute: string): boolean;
@@ -294,7 +291,7 @@ declare module 'tiddlywiki' {
      *
      * @param {string} name attribute name, for example, `actions` in the button widget
      * @param {string} [fallbackText] default value if the attribute is not set
-     * @return {*}  {string}
+     * @return parameters
      * @memberof Widget
      */
     getAttribute(name: string): string | undefined;
@@ -327,7 +324,7 @@ declare module 'tiddlywiki' {
      * @zh
      * 获取这个微件的祖先微件的数量
      *
-     * @return {*}  {number}
+     * @return number of ancestor widgets for this widget
      * @memberof Widget
      */
     getAncestorCount(): number;
@@ -356,7 +353,6 @@ declare module 'tiddlywiki' {
      * @en
      * Get the next sibling of this widget
      *
-     * @return {*}  {(Widget | null)}
      * @memberof Widget
      */
     nextSibling(): Widget | null;
@@ -365,7 +361,6 @@ declare module 'tiddlywiki' {
      * @en
      * Get the previous sibling of this widget
      *
-     * @return {*}  {(Widget | null)}
      * @memberof Widget
      */
     previousSibling(): Widget | null;
@@ -471,7 +466,6 @@ declare module 'tiddlywiki' {
      * @param {Widget} triggeringWidget
      * @param {IWidgetEvent} event
      * @param {Record<string, IWidgetVariable>} variables
-     * @return {*}  {boolean}
      * @memberof Widget
      */
     invokeActionString(

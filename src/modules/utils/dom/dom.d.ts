@@ -190,6 +190,7 @@ declare module '$:/core/modules/utils/dom.js' {
    * @param srcDomNode The source DOM node.
    * @param dstDomNode The destination DOM node.
    */
+  // eslint-disable-next-line unicorn/prevent-abbreviations
   export function copyStyles(sourceDomNode: Element, dstDomNode: Element): void;
 
   /**

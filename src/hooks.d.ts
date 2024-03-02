@@ -11,23 +11,23 @@ declare module 'tiddlywiki' {
     );
     addHook(
       hookName: 'th-saving-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
       hookName: 'th-renaming-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
       hookName: 'th-relinking-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
       hookName: 'th-importing-tiddler',
-      callback: (tiddler: Tiddler) => Tiddler | void,
+      callback: (tiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
       hookName: 'th-before-importing',
-      callback: (tiddler: Tiddler) => Tiddler | void,
+      callback: (tiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
       hookName: 'th-opening-default-tiddlers-list',
@@ -67,17 +67,19 @@ declare module 'tiddlywiki' {
     addHook(
       hookName: 'th-importing-file',
       callback: (props: {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         callback: Function;
         file: { name: string; path?: string };
         isBinary: boolean;
         type: string;
-      }) => boolean | void,
+      }) => boolean | undefined,
     );
     addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown);
     /**
      * Invoke the hook by key
      */
     invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
+    // eslint-disable-next-line @typescript-eslint/ban-types
     names: Record<string, Function[]>;
   }
 }

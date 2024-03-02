@@ -35,5 +35,5 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm i
-      - name: Gen API Docs
+      - name: Check TS and ESLint
         run: pnpm run check

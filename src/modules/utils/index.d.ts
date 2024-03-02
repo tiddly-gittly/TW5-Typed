@@ -21,7 +21,6 @@ declare module 'tiddlywiki' {
   import * as LinkedList from '$:/core/modules/utils/linked-list.js';
   import * as performance from '$:/core/modules/utils/performance.js';
   // import the class directly, to fix: Property 'log' does not exist on type 'typeof Logger'.ts(2339)
-  import { Logger } from '$:/core/modules/utils/logger.js';
   import * as parsetree from '$:/core/modules/utils/parsetree.js';
   import * as pluginMaker from '$:/core/modules/utils/pluginmaker.js';
   import * as transliterate from '$:/core/modules/utils/transliterate.js';
