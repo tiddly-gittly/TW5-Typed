@@ -12,5 +12,6 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/no-invalid-void-type': 'off',
   },
 };

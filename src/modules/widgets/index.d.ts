@@ -149,7 +149,7 @@ declare module 'tiddlywiki' {
      * @param {IChangedTiddlers} changedTiddlers Object key is tiddler title, value is metadata about the change
      * @link https://tiddlywiki.com/dev/#Selective%20Update
      */
-    refresh(changedTiddlers: IChangedTiddlers): boolean | undefined;
+    refresh(changedTiddlers: IChangedTiddlers): boolean | void;
 
     /**
      * Compute the internal state of the widget.
@@ -294,7 +294,7 @@ declare module 'tiddlywiki' {
      * @return parameters
      * @memberof Widget
      */
-    getAttribute(name: string): string | undefined;
+    getAttribute(name: string): string | void;
     getAttribute(name: string, fallbackText: string): string;
 
     /**
@@ -376,7 +376,7 @@ declare module 'tiddlywiki' {
      */
     addEventListeners(
       listeners: Array<{
-        handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean;
+        handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean | void;
         type: string;
       }>,
     ): void;
@@ -389,7 +389,7 @@ declare module 'tiddlywiki' {
      */
     addEventListener(
       type: string,
-      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean,
+      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean | void,
     ): void;
 
     /**
@@ -401,7 +401,7 @@ declare module 'tiddlywiki' {
     /**
      * Rebuild a previously rendered widget
      */
-    refreshSelf(): boolean | undefined;
+    refreshSelf(): boolean | void;
 
     /**
      * Refresh all the children of a widget, will call `this.render`.
@@ -439,7 +439,7 @@ declare module 'tiddlywiki' {
     invokeAction?(
       triggeringWidget: Widget,
       event: IWidgetEvent | null,
-    ): boolean | undefined;
+    ): boolean | void;
 
     /**
      * @en

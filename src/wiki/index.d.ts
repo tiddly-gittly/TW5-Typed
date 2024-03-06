@@ -33,7 +33,7 @@ declare module 'tiddlywiki' {
      */
     constructor(options: { enableIndexers: unknown[] });
     addIndexer(indexer: unknown, name: string): void;
-    getTiddler<T extends Tiddler>(title: string): T | undefined;
+    getTiddler<T extends Tiddler>(title: string): T | void;
     /**
      * Get full list of tiddler titles in the wiki
      */

@@ -193,7 +193,7 @@ declare module 'tiddlywiki' {
      */
     each: <T, K = T extends unknown[] ? number : keyof T>(
       object: T,
-      callback: (element: T[K], index: K, object: T) => undefined | false,
+      callback: (element: T[K], index: K, object: T) => undefined | false | void,
     ) => void;
 
     /**

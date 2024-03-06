@@ -11,23 +11,23 @@ declare module 'tiddlywiki' {
     );
     addHook(
       hookName: 'th-saving-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
     );
     addHook(
       hookName: 'th-renaming-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
     );
     addHook(
       hookName: 'th-relinking-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | void,
     );
     addHook(
       hookName: 'th-importing-tiddler',
-      callback: (tiddler: Tiddler) => Tiddler | undefined,
+      callback: (tiddler: Tiddler) => Tiddler | void,
     );
     addHook(
       hookName: 'th-before-importing',
-      callback: (tiddler: Tiddler) => Tiddler | undefined,
+      callback: (tiddler: Tiddler) => Tiddler | void,
     );
     addHook(
       hookName: 'th-opening-default-tiddlers-list',
@@ -72,13 +72,13 @@ declare module 'tiddlywiki' {
         file: { name: string; path?: string };
         isBinary: boolean;
         type: string;
-      }) => boolean | undefined,
+      }) => boolean | void,
     );
     addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown);
     /**
      * Invoke the hook by key
      */
-    invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
+    invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent | void;
     // eslint-disable-next-line @typescript-eslint/ban-types
     names: Record<string, Function[]>;
   }
