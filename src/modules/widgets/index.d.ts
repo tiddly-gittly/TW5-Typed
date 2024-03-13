@@ -294,7 +294,7 @@ declare module 'tiddlywiki' {
      * @return parameters
      * @memberof Widget
      */
-    getAttribute(name: string): string | void;
+    getAttribute(name: string): string | undefined;
     getAttribute(name: string, fallbackText: string): string;
 
     /**

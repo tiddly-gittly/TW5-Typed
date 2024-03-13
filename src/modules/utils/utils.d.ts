@@ -257,7 +257,10 @@ declare module '$:/core/modules/utils/utils.js' {
 
   /**
    * Format a date string based on a template.
-   * Derived from http://stackoverflow.com/a/15710692
+   * Use `"[UTC]YYYY0MM0DD0hh0mm0ss0XXX"` to format a standard tiddlywiki date string.
+   * See document for more formats.
+   *
+   * @url https://tiddlywiki.com/#DateFormat
    * @param date - The date object to format.
    * @param template - The template string to use for formatting.
    * @returns The formatted date string.
