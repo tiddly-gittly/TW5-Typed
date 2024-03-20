@@ -4,11 +4,11 @@ declare module 'tiddlywiki' {
   export interface ITiddlerFields {
     readonly [anyKey: string]: unknown;
     readonly color?: string;
-    readonly 'color-scheme': 'dark' | 'light';
-    readonly created: Date;
+    readonly 'color-scheme'?: 'dark' | 'light';
+    readonly created?: Date;
     readonly list?: string[];
-    readonly modified: Date;
-    readonly tags: string[];
+    readonly modified?: Date;
+    readonly tags?: string[];
     readonly text: string;
     readonly title: string;
     readonly type: string;
