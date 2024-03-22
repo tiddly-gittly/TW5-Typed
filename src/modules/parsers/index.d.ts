@@ -154,4 +154,25 @@ declare module 'tiddlywiki' {
     | ICustomParseTreeNode
     | IMacroParseTreeNode
     | IParseTreeAttribute;
+
+  export interface FilterParseTreeNode {
+    operators: FilterOperatorParseTreeNode[];
+    prefix: string;
+  }
+  export interface FilterOperatorParseTreeNode {
+    operands: FilterOperandParseTreeNode[];
+    operator: string;
+    suffix: string;
+    suffixes: string[][];
+  }
+  export interface FilterOperandParseTreeNode {
+    text: string;
+  }
+
+  export interface Wiki {
+    /**
+     * Parse a filter string
+     */
+    parseFilter(filter: string): FilterParseTreeNode[];
+  }
 }

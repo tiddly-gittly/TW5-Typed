@@ -21,6 +21,8 @@ export class ReactWidget extends Widget {
     if ($tw.browser?.is?.mobile === true) {
       $tw.wiki.addTiddler({ title: 'aaa', text: 'bbb' });
     }
+    $tw.utils.parseFilterVariable('now DDMM UTC');
+    $tw.wiki.parseFilter('[search: one, two ,three :[operand]]');
   }
 
   render(parent: Element, _nextSibling: Element): void {
