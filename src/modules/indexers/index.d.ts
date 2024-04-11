@@ -5,8 +5,6 @@ declare module 'tiddlywiki' {
    */
   abstract class Indexer {
     protected wiki: Wiki;
-    protected index: Record<string, Record<string, string[]>> | null;
-    protected maxIndexedValueLength: number;
 
     /**
      * Constructs an Indexer instance.
