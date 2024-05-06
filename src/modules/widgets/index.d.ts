@@ -401,7 +401,7 @@ declare module 'tiddlywiki' {
     /**
      * Rebuild a previously rendered widget
      */
-    refreshSelf(): boolean | undefined;
+    refreshSelf(): void;
 
     /**
      * Refresh all the children of a widget, will call `this.render`.
