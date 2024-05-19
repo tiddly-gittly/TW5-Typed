@@ -450,29 +450,33 @@ declare module 'tiddlywiki' {
 
     /**
      * @en
-     * Invoke the action widgets that are descendents of the current widget.
+     * Invoke the action widgets that are descendents of the current widget. The invocation will propagate through the child, unless some widget on the middle have `allowActionPropagation` to return `false`.
      *
      * @param {Widget} triggeringWidget
      * @param {IWidgetEvent} event
      * @memberof Widget
+     * @returns `handled`, means some action is invoked.
      */
     invokeActions(triggeringWidget: Widget, event: IWidgetEvent | null): boolean;
 
     /**
      * @en
      * Invoke the action widgets defined in a string
+     * 
+     * This calls `invokeActions` under the hood
      *
      * @param {string} actions
-     * @param {Widget} triggeringWidget
+     * @param {Widget} triggeringWidget (this is unused, passing `undefined` is OK)
      * @param {IWidgetEvent} event
      * @param {Record<string, IWidgetVariable>} variables
      * @memberof Widget
+     * @returns `handled`, the return of `invokeActions`, means some action is invoked.
      */
     invokeActionString(
       actions: string,
-      triggeringWidget: Widget,
-      event: IWidgetEvent | null,
-      variables: Record<string, IWidgetVariable>,
+      triggeringWidget?: Widget,
+      event?: IWidgetEvent | null,
+      variables?: Record<string, string>,
     ): boolean;
 
     removeLocalDomNodes(): void;
