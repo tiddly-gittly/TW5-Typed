@@ -87,7 +87,7 @@ declare module 'tiddlywiki' {
 
     domNodes: Element[];
 
-    parentDomNode: Element;
+    parentDomNode?: Element;
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     eventListeners: Record<string, Function>;
