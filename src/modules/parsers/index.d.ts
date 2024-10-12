@@ -78,16 +78,20 @@ declare module 'tiddlywiki' {
     isMacroDefinition?: boolean;
     isSelfClosing?: boolean;
     orderedAttributes?: IParseTreeAttribute[];
+    /** If rule produce a multi-level tree, only top level node from a parse rule will have this. */
+    rule?: string;
     start?: number;
+    type: string;
+  }
+  export interface IWikiASTTextNode {
+    end?: number;
+    start?: number;
+    text: string;
     type: string;
   }
   export interface ITextParseTreeNode extends IWikiASTNode {
     text: string;
     type: 'text';
-  }
-  export interface ILinkParseTreeNode extends IWikiASTNode {
-    text?: string;
-    type: 'link';
   }
   export interface IImageParseTreeNode extends IWikiASTNode {
     type: 'image';
@@ -98,11 +102,17 @@ declare module 'tiddlywiki' {
   export interface ITiddlerParseTreeNode extends IWikiASTNode {
     type: 'tiddler';
   }
-  export type HTMLTags = keyof HTMLElementTagNameMap | 'strike';
+  /** HTML tags and widget tags, like `$link` */
+  export type HTMLTags = keyof HTMLElementTagNameMap | 'strike' | `$${string}`;
 
   export interface IDomParseTreeNode extends IWikiASTNode {
+    closeTagEnd?: number;
+    closeTagStart?: number;
+    openTagEnd?: number;
+    openTagStart?: number;
     tag: HTMLTags;
-    type: 'element';
+    // TODO: only see `link` using this, probably all widgets is using this?
+    type: 'element' | 'link';
   }
   export interface ICodeBlockParseTreeNode extends IWikiASTNode {
     attributes: {
@@ -142,6 +152,7 @@ declare module 'tiddlywiki' {
   }
   export type IParseTreeNode =
     | IWikiASTNode
+    | IWikiASTTextNode
     | IDomParseTreeNode
     | IMacroParameterCallParseTreeNode
     | IMacroCallParseTreeNode
@@ -150,7 +161,6 @@ declare module 'tiddlywiki' {
     | ITranscludeParseTreeNode
     | ITiddlerParseTreeNode
     | ICodeBlockParseTreeNode
-    | ILinkParseTreeNode
     | ICustomParseTreeNode
     | IMacroParseTreeNode
     | IParseTreeAttribute;
