@@ -1,3 +1,5 @@
+import { IParseTreeNode } from 'tiddlywiki';
+
 /**
  * A utility module for working with parse trees.
  * @description 用于处理解析树的实用程序模块。
@@ -78,4 +80,11 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @description 获取解析树节点或节点数组的文本。
    */
   export function getParseTreeText(tree: any): string;
+  /**
+   * Serialize parse tree.
+   * @param tree - The parse tree node or array of nodes.
+   * @returns The serialized parse tree.
+   * @description 序列化解析树。
+   */
+  export function serializeParseTree(tree: IParseTreeNode | IParseTreeNode[]): string;
 }
