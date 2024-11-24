@@ -69,7 +69,7 @@ declare module 'tiddlywiki' {
       callback: (props: {
         // eslint-disable-next-line @typescript-eslint/ban-types
         callback: Function;
-        file: { name: string; path?: string };
+        file: { lastModified?: number; lastModifiedDate?: Date; name: string; path?: string; size: number; type: string; webkitRelativePath?: string };
         isBinary: boolean;
         type: string;
       }) => boolean | undefined,
@@ -78,7 +78,7 @@ declare module 'tiddlywiki' {
     /**
      * Invoke the hook by key
      */
-    invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent | undefined;
+    invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
     // eslint-disable-next-line @typescript-eslint/ban-types
     names: Record<string, Function[]>;
   }
