@@ -23,6 +23,13 @@
     "url": "git+https://github.com/tiddly-gittly/tw5-typed.git"
   },
   "types": "src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.d.ts",
+      "require": "./src/index.d.ts",
+      "types": "./src/index.d.ts"
+    }
+  },
   "files": [
     "src/"
   ],
