@@ -41,7 +41,7 @@ declare module '$:/core/modules/utils/parseutils.js' {
   export function parseStringLiteral(source: string, pos: number): { end: number; start: number; type: 'string'; value: string } | null;
 
   /**
-   * Returns an array of {name:} with an optional "default" property. Options include `requireParenthesis`.
+   * Returns an array of `{name:}` with an optional "default" property. Options include `requireParenthesis`.
    */
   export function parseParameterDefinition(parameterString: string, options?: { requireParenthesis?: boolean }): Array<{ default?: string; name: string }>;
 
