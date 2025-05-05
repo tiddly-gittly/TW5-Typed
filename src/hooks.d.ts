@@ -66,7 +66,7 @@ declare module 'tiddlywiki' {
       callback: (event: unknown) => unknown,
     );
     addHook(hookName: 'th-new-tiddler', callback: (event: unknown) => unknown);
-    addHook(hookName: 'th-deleting-tiddler', callback: (title: string) => void);
+    addHook(hookName: 'th-deleting-tiddler', callback: (title: Tiddler) => void);
     addHook(hookName: 'th-page-refreshed', callback: () => void);
     addHook(hookName: 'th-boot-tiddlers-loaded', callback: () => void);
     addHook(hookName: 'th-page-refreshed', callback: () => void);
