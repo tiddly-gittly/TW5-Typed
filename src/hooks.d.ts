@@ -1,4 +1,12 @@
 declare module 'tiddlywiki' {
+  interface ImportFileInfo {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    callback: Function;
+    file: { lastModified?: number; lastModifiedDate?: Date; name: string; path?: string; size: number; type: string; webkitRelativePath?: string };
+    isBinary: boolean;
+    type: string;
+  }
+
   interface IHooks {
     /** Add hooks to the hashmap */
     addHook(
@@ -66,13 +74,7 @@ declare module 'tiddlywiki' {
     addHook(hookName: 'th-page-refreshed', callback: () => void);
     addHook(
       hookName: 'th-importing-file',
-      callback: (props: {
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        callback: Function;
-        file: { lastModified?: number; lastModifiedDate?: Date; name: string; path?: string; size: number; type: string; webkitRelativePath?: string };
-        isBinary: boolean;
-        type: string;
-      }) => boolean | undefined,
+      callback: (props: ImportFileInfo) => boolean | undefined,
     );
     addHook(hookName: string, callback: (...arguments_: unknown[]) => unknown);
     /**
