@@ -376,7 +376,7 @@ declare module 'tiddlywiki' {
      */
     addEventListeners(
       listeners: Array<{
-        handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean | undefined;
+        handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean;
         type: string;
       }>,
     ): void;
@@ -389,7 +389,7 @@ declare module 'tiddlywiki' {
      */
     addEventListener(
       type: string,
-      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean | undefined,
+      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean,
     ): void;
 
     /**
@@ -462,7 +462,7 @@ declare module 'tiddlywiki' {
     /**
      * @en
      * Invoke the action widgets defined in a string
-     * 
+     *
      * This calls `invokeActions` under the hood
      *
      * @param {string} actions
@@ -480,6 +480,11 @@ declare module 'tiddlywiki' {
     ): boolean;
 
     removeLocalDomNodes(): void;
+
+    /**
+     * Make a fake widget with specified variables, suitable for variable lookup in filters
+     */
+    makeFakeWidgetWithVariables(variables: Record<string, string>): Widget;
   }
 }
 
