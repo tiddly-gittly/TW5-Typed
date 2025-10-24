@@ -1,8 +1,22 @@
 /// <reference path="../../wiki/index.d.ts" />
 /// <reference path="../../tiddler/index.d.ts" />
 
-
 declare module '$:/core/modules/utils/utils.js' {
+  import type { Tiddler, Wiki } from 'tiddlywiki';
+
+  /**
+   * File information for saving a tiddler
+   */
+  export interface FileInfo {
+    filepath: string;
+    type: string;
+    hasMetaFile: boolean;
+    isEditableFile?: boolean;
+    originalpath?: string;
+    overwrite?: boolean;
+    writeError?: boolean;
+    encoding?: string;
+  }
   /**
    * Return the subdirectories of a path
    * @param directoryPath - The path to the directory
@@ -131,12 +145,65 @@ declare module '$:/core/modules/utils/utils.js' {
    * * pathFilters: optional array of filters to be used to generate the base path
    * * wiki: optional wiki for evaluating the pathFilters
    * * fileInfo: an existing fileInfo object to check against
+   * * fileInfo.overwrite: if true, turns off filename clash numbers (defaults to false)
    */
   export function generateTiddlerFilepath(
     title: string,
     options: {
+      directory?: string;
+      extension?: string;
       extFilters?: string[];
+      fileInfo?: FileInfo;
+      pathFilters?: string[];
       wiki?: Wiki;
     },
   ): string;
+
+  /**
+   * Save a tiddler to a file described by the fileInfo
+   * @param tiddler - The tiddler to save
+   * @param fileInfo - File information including filepath, type, and hasMetaFile flag
+   * @param callback - Callback function called when save is complete
+   * @description 将 tiddler 保存到由 fileInfo 描述的文件
+   */
+  export function saveTiddlerToFile(
+    tiddler: Tiddler,
+    fileInfo: FileInfo,
+    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+  ): void;
+
+  /**
+   * Save a tiddler to a file described by the fileInfo (synchronous)
+   * @param tiddler - The tiddler to save
+   * @param fileInfo - File information including filepath, type, and hasMetaFile flag
+   * @returns The fileInfo object
+   * @description 同步地将 tiddler 保存到由 fileInfo 描述的文件
+   */
+  export function saveTiddlerToFileSync(tiddler: Tiddler, fileInfo: FileInfo): FileInfo;
+
+  /**
+   * Delete a file described by the fileInfo if it exists
+   * @param fileInfo - File information including filepath and hasMetaFile flag
+   * @param callback - Callback function called when delete is complete
+   * @description 删除由 fileInfo 描述的文件（如果存在）
+   */
+  export function deleteTiddlerFile(
+    fileInfo: FileInfo,
+    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+  ): void;
+
+  /**
+   * Cleanup old files on disk by comparing adaptor info and boot info
+   * @param options - Options object containing adaptorInfo, bootInfo, and title
+   * @param callback - Callback function called when cleanup is complete
+   * @description 通过比较 adaptor 信息和启动信息来清理磁盘上的旧文件
+   */
+  export function cleanupTiddlerFiles(
+    options: {
+      adaptorInfo?: FileInfo;
+      bootInfo?: FileInfo;
+      title?: string;
+    },
+    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+  ): void;
 }
