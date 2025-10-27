@@ -33,7 +33,7 @@ declare module 'tiddlywiki' {
   type IUtilsModules =
     & Pick<typeof dom, keyof typeof dom>
     & Pick<typeof logger, keyof typeof logger>
-    & Partial<Pick<typeof filesystem, keyof typeof filesystem>>
+    & Pick<typeof filesystem, keyof typeof filesystem>
     & Pick<typeof utils, keyof typeof utils>
     & Pick<typeof LinkedList, keyof typeof LinkedList>
     & Pick<typeof performance, keyof typeof performance>

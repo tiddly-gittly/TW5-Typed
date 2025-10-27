@@ -1,9 +1,7 @@
 /// <reference path="../../wiki/index.d.ts" />
 /// <reference path="../../tiddler/index.d.ts" />
 
-declare module '$:/core/modules/utils/utils.js' {
-  import type { Tiddler, Wiki } from 'tiddlywiki';
-
+declare module 'tiddlywiki' {
   /**
    * File information for saving a tiddler
    */
@@ -17,6 +15,11 @@ declare module '$:/core/modules/utils/utils.js' {
     writeError?: boolean;
     encoding?: string;
   }
+}
+
+declare module '$:/core/modules/utils/filesystem.js' {
+  import type { Tiddler, Wiki, FileInfo } from 'tiddlywiki';
+
   /**
    * Return the subdirectories of a path
    * @param directoryPath - The path to the directory

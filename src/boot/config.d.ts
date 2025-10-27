@@ -12,7 +12,7 @@ declare module 'tiddlywiki' {
 
   export type ITWConfig = IConfig;
 
-  interface IConfig {
+  export interface IConfig {
     [configName: string]: any;
     /** Map type to file content type */
     contentTypeInfo: Record<string, IContentTypeInfo>;
