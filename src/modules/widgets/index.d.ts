@@ -168,13 +168,24 @@ declare module 'tiddlywiki' {
      * @param {string } name name of the variable
      * @param {string} value value of the variable
      * @param {IWidgetVariableParam[]} [params=[]] array of `{name: string, default: string}` for each parameter
-     * @param {boolean} [isMacroDefinition=true] true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
+     * @param {boolean} [isMacroDefinition=false] true if the variable is set via a \define macro pragma (and hence should have variable substitution performed)
+     * @param {object} [options] Additional options
+     * @param {boolean} [options.isProcedureDefinition] true if the variable is set via a \procedure pragma
+     * @param {boolean} [options.isFunctionDefinition] true if the variable is set via a \function pragma
+     * @param {boolean} [options.isWidgetDefinition] true if the variable is set via a \widget pragma
+     * @param {boolean} [options.configTrimWhiteSpace] whether to trim whitespace
      */
     setVariable(
       name: string,
       value: string,
       parameters?: IWidgetVariableParameter[],
       isMacroDefinition?: boolean,
+      options?: {
+        configTrimWhiteSpace?: boolean;
+        isFunctionDefinition?: boolean;
+        isProcedureDefinition?: boolean;
+        isWidgetDefinition?: boolean;
+      },
     ): void;
 
     /**
@@ -254,10 +265,14 @@ declare module 'tiddlywiki' {
      * @zh
      * 计算微件的属性的当前值。返回一个已经改变的属性名称的哈希图
      *
+     * @param {object} [options] Options
+     * @param {Function} [options.filterFn] only include attributes where filterFn(name) returns true
      * @return Object with keys of the names of the attributes that have changed
      * @memberof Widget
      */
-    computeAttributes(): Record<string, true>;
+    computeAttributes(options?: {
+      filterFn?: (name: string) => boolean;
+    }): Record<string, true>;
 
     computeAttribute(attribute: string): string;
 
@@ -302,9 +317,15 @@ declare module 'tiddlywiki' {
      * Assign the computed attributes of the widget to a domNode
      * options include:
      * * `excludeEventAttributes`: ignores attributes whose name begins with "on"
+     * * `sourcePrefix`: prefix of attributes that are to be directly assigned (defaults to the empty string)
+     * * `destPrefix`: prefix to be applied to attribute names that are to be directly assigned (defaults to the empty string)
+     * * `changedAttributes`: hashmap by attribute name of attributes to process (if missing, process all attributes)
      * @zh
      * 将微件的计算属性分配给一个 domNode, 选项包括:
      * * `excludeEventAttributes`: 忽略名称以 "on "开头的属性
+     * * `sourcePrefix`: 要直接分配的属性的前缀（默认为空字符串）
+     * * `destPrefix`: 要应用到直接分配的属性名称的前缀（默认为空字符串）
+     * * `changedAttributes`: 按属性名称的哈希图，要处理的属性（如果缺失，处理所有属性）
      * 一些特殊的属性：
      * * `xlink:<xlink-name>`
      * * `style.<css-style-name>`
@@ -315,7 +336,12 @@ declare module 'tiddlywiki' {
      */
     assignAttributes(
       domNode: Element,
-      options?: { excludeEventAttributes?: boolean },
+      options?: {
+        changedAttributes?: Record<string, string>;
+        destPrefix?: string;
+        excludeEventAttributes?: boolean;
+        sourcePrefix?: string;
+      },
     );
 
     /**
@@ -388,6 +414,14 @@ declare module 'tiddlywiki' {
      * @returns should propagate to parent widget
      */
     addEventListener(
+      type: string,
+      handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean,
+    ): void;
+
+    /**
+     * Remove an event listener
+     */
+    removeEventListener(
       type: string,
       handler: (event: IWidgetEvent) => undefined | Promise<void> | boolean,
     ): void;
@@ -479,12 +513,65 @@ declare module 'tiddlywiki' {
       variables?: Record<string, string>,
     ): boolean;
 
+    /**
+     * @en
+     * Execute action tiddlers by tag
+     * @zh
+     * 按标签执行 action tiddlers
+     *
+     * @param {string} tag The tag to filter action tiddlers
+     * @param {IWidgetEvent} event The widget event
+     * @param {Record<string, string>} variables Optional variables to pass to the action string
+     * @memberof Widget
+     */
+    invokeActionsByTag(
+      tag: string,
+      event?: IWidgetEvent | null,
+      variables?: Record<string, string>,
+    ): void;
+
+    /**
+     * @en
+     * Find child `<$data>` widgets recursively. The tag name allows aliased versions of the widget to be found too
+     * @zh
+     * 递归查找子 `<$data>` widgets。标签名称允许查找该 widget 的别名版本
+     *
+     * @param {Widget[]} children The children widgets to search
+     * @param {string} tag The tag name to search for (e.g., "$data")
+     * @param {Function} callback Callback function called for each found widget
+     * @memberof Widget
+     */
+    findChildrenDataWidgets(
+      children: Widget[],
+      tag: string,
+      callback: (widget: Widget) => void,
+    ): void;
+
     removeLocalDomNodes(): void;
 
     /**
      * Make a fake widget with specified variables, suitable for variable lookup in filters
      */
     makeFakeWidgetWithVariables(variables: Record<string, string>): Widget;
+
+    /**
+     * @en
+     * Evaluate a variable with parameters. This is a static convenience method that attempts to evaluate a variable as a function, returning an array of strings
+     * @zh
+     * 使用参数评估变量。这是一个静态便捷方法，尝试将变量作为函数评估，返回字符串数组
+     *
+     * @param {Widget} widget The widget context for variable lookup
+     * @param {string} name The variable name to evaluate
+     * @param {IGetWidgetVariableOptions} options Options for variable evaluation
+     * @returns {string[]} Array of result strings
+     * @static
+     * @memberof Widget
+     */
+    static evaluateVariable(
+      widget: Widget,
+      name: string,
+      options?: IGetWidgetVariableOptions,
+    ): string[];
   }
 }
 
