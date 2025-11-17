@@ -23,6 +23,34 @@ export class ReactWidget extends Widget {
     }
     $tw.utils.parseFilterVariable('now DDMM UTC');
     $tw.wiki.parseFilter('[search: one, two ,three :[operand]]');
+    
+    // Test newly added methods
+    const list = $tw.wiki.getTiddlerList('MyTiddler', 'list');
+    const textRef = $tw.wiki.getTextReference('MyTiddler!!field', 'default');
+    $tw.wiki.setTextReference('MyTiddler!!field', 'value');
+    const count = $tw.wiki.countTiddlers('$:/tags/Exclude');
+    
+    $tw.wiki.forEachTiddler({ includeSystem: false }, (title, tiddler) => {
+      console.log(title, tiddler);
+    });
+    
+    const searchResults = $tw.wiki.search('search term', {
+      caseSensitive: false,
+      field: 'text',
+    });
+    
+    const links = $tw.wiki.extractLinks([]);
+    const transcludes = $tw.wiki.getTiddlerTranscludes('MyTiddler');
+    const backlinks = $tw.wiki.getTiddlerBacklinks('MyTiddler');
+    
+    const subTiddler = $tw.wiki.getSubTiddler('$:/plugins/MyPlugin', 'readme');
+    const orphans = $tw.wiki.getOrphanTitles();
+    const missing = $tw.wiki.getMissingTitles();
+    const tagMap = $tw.wiki.getTagMap();
+    const draft = $tw.wiki.findDraft('MyTiddler');
+    const slug = $tw.wiki.slugify('My Title');
+    
+    $tw.wiki.sortTiddlers(['a', 'b', 'c'], 'title', false, false);
   }
 
   render(parent: Element, _nextSibling: Element): void {
@@ -34,3 +62,4 @@ export class ReactWidget extends Widget {
     parent.append(containerElement);
   }
 }
+

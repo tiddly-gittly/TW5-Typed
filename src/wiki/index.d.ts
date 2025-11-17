@@ -54,6 +54,98 @@ declare module 'tiddlywiki' {
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
+     * For every tiddler invoke a callback(title,tiddler) with `this` set to the wiki object. 
+     * @param options Options include sortField, excludeTag, includeSystem
+     * @param callback Function to be called for each tiddler
+     */
+    forEachTiddler(options: { sortField?: string; excludeTag?: string; includeSystem?: boolean }, callback: (title: string, tiddler: Tiddler) => void): void;
+    forEachTiddler(callback: (title: string, tiddler: Tiddler) => void): void;
+    /**
+     * Sort an array of tiddler titles by a specified field
+     * @param titles Array of titles (sorted in place)
+     * @param sortField Name of field to sort by
+     * @param isDescending True if the sort should be descending
+     * @param isCaseSensitive True if the sort should consider upper and lower case letters to be different
+     * @param isNumeric True if the sort should be numeric
+     * @param isAlphaNumeric True if the sort should be alphanumeric
+     */
+    sortTiddlers(titles: string[], sortField: string, isDescending?: boolean, isCaseSensitive?: boolean, isNumeric?: boolean, isAlphaNumeric?: boolean): void;
+    /**
+     * Return an array of tiddler titles that match a search string
+     * @param text The text string to search for
+     * @param options Search options
+     */
+    search(text: string, options?: {
+      /** An iterator function for the source tiddlers */
+      source?: (callback: (tiddler: Tiddler, title: string) => void) => void;
+      /** An array of tiddler titles to exclude from the search */
+      exclude?: string[];
+      /** If true returns tiddlers that do not contain the specified string */
+      invert?: boolean;
+      /** If true forces a case sensitive search */
+      caseSensitive?: boolean;
+      /** If specified, restricts the search to the specified field, or an array of field names */
+      field?: string | string[];
+      /** If true, forces all but regexp searches to be anchored to the start of text */
+      anchored?: boolean;
+      /** If true, the field options are inverted to specify the fields that are not to be searched */
+      excludeField?: boolean;
+      /** Searches for literal string */
+      literal?: boolean;
+      /** Same as literal except runs of whitespace are treated as a single space */
+      whitespace?: boolean;
+      /** Treats the search term as a regular expression */
+      regexp?: boolean;
+      /** Treats search string as a list of tokens, and matches if all tokens are found */
+      words?: boolean;
+      /** Treats search string as a list of tokens, and matches if at least ONE token is found */
+      some?: boolean;
+    }): string[];
+    /**
+     * Check whether the text of a tiddler matches a given value
+     * @param title Tiddler title
+     * @param targetText Text to compare with
+     * @param options Comparison options
+     */
+    checkTiddlerText(title: string, targetText: string, options?: { noTrim?: boolean; caseSensitive?: boolean }): boolean;
+    /**
+     * Return the content of a tiddler as an array containing each line
+     * @param title Title of the tiddler
+     * @param field Field name (defaults to "list")
+     * @param index Data index (key) to get, if you are getting a JSON data tiddler
+     * @returns Array of strings parsed from the field/index value
+     */
+    getTiddlerList(title: string, field?: string, index?: string): string[];
+    /**
+     * Get the value of a text reference. Text references can have any of these forms:
+     * - <tiddlertitle>
+     * - <tiddlertitle>!!<fieldname>
+     * - !!<fieldname> - specifies a field of the current tiddlers
+     * - <tiddlertitle>##<index>
+     * @param textRef The text reference string
+     * @param defaultText Default text to return if the reference is not found
+     * @param currTiddlerTitle Current tiddler title for relative references
+     */
+    getTextReference(textRef: string, defaultText?: string, currTiddlerTitle?: string): string | undefined;
+    /**
+     * Set the value of a text reference
+     * @param textRef The text reference string
+     * @param value The value to set
+     * @param currTiddlerTitle Current tiddler title for relative references
+     */
+    setTextReference(textRef: string, value: string, currTiddlerTitle?: string): void;
+    /**
+     * Delete a text reference
+     * @param textRef The text reference string
+     * @param currTiddlerTitle Current tiddler title for relative references
+     */
+    deleteTextReference(textRef: string, currTiddlerTitle?: string): void;
+    /**
+     * Count the number of tiddlers in the wiki
+     * @param excludeTag Optional tag to exclude from the count
+     */
+    countTiddlers(excludeTag?: string): number;
+    /**
      * Return a named global cache object. Global cache objects are cleared whenever a tiddler change.
      * You can put anything into the cache.
      * @param cacheName key of the cache
@@ -74,6 +166,11 @@ declare module 'tiddlywiki' {
      * clear all cache, will be called when a tiddler is changed
      */
     clearGlobalCache(): void;
+    /**
+     * Clear all caches associated with a particular tiddler, or if the title is null, clear all caches for all tiddlers
+     * @param title Tiddler title or null to clear all caches
+     */
+    clearCache(title?: string | null): void;
     /**
      * Compile filter string to be a function that execute the filter in the wiki.
      * You can pass an optional iterator that provide the input to the returned function. If no iterator is provided, filter will use first operator to get input.
@@ -318,6 +415,33 @@ declare module 'tiddlywiki' {
     getShadowSource(title: string): string | null;
     getTiddlerBacklinks(targetTitle: string): string[];
     getTiddlerLinks(title: string): string[];
+    /**
+     * Return an array of tiddler titles that are directly linked within the given parse tree
+     * @param parseTreeRoot The parse tree root node
+     */
+    extractLinks(parseTreeRoot: IParseTreeNode[]): string[];
+    /**
+     * Return an array of tiddler titles that are directly transcluded within the given parse tree
+     * @param parseTreeRoot The parse tree root node
+     * @param title The tiddler being parsed (to ignore self-referential transclusions)
+     */
+    extractTranscludes(parseTreeRoot: IParseTreeNode[], title?: string): string[];
+    /**
+     * Return an array of tiddler titles that are transcluded from the specified tiddler
+     * @param title Tiddler title
+     */
+    getTiddlerTranscludes(title: string): string[];
+    /**
+     * Return an array of tiddler titles that transclude to the specified tiddler
+     * @param targetTitle Target tiddler title
+     */
+    getTiddlerBacktranscludes(targetTitle: string): string[];
+    /**
+     * Lookup a given tiddler and return a list of all the tiddlers that include it in the specified list field
+     * @param targetTitle Target tiddler title
+     * @param fieldName Field name (defaults to "list")
+     */
+    findListingsOfTiddler(targetTitle: string, fieldName?: string): string[];
     getPluginInfo(title: string): { tiddlers: Record<string, ITiddlerFields> };
     getChangeCount(title: string): number;
     /**
@@ -325,6 +449,160 @@ declare module 'tiddlywiki' {
       options.prefix must be a string
     */
     generateNewTitle(baseTitle: string, options: { prefix?: string }): string;
+    /**
+     * Get a subtiddler from a plugin or data tiddler
+     * @param title Title of the plugin or data tiddler
+     * @param subTiddlerTitle Title of the subtiddler within the bundle
+     */
+    getSubTiddler(title: string, subTiddlerTitle: string): Tiddler | null;
+    /**
+     * Return a hashmap of tiddler titles that are referenced but not defined
+     */
+    getMissingTitles(): string[];
+    /**
+     * Return an array of tiddler titles that are not linked from any other tiddler
+     */
+    getOrphanTitles(): string[];
+    /**
+     * Sorts an array of tiddler titles according to an ordered list
+     * @param array Array of tiddler titles to sort
+     * @param listTitle Title of tiddler containing the ordered list
+     */
+    sortByList(array: string[], listTitle: string): string[];
+    /**
+     * Get a hashmap by tag of arrays of tiddler titles
+     */
+    getTagMap(): Record<string, string[]>;
+    /**
+     * Find any existing draft of a specified tiddler
+     * @param targetTitle Title of the target tiddler
+     */
+    findDraft(targetTitle: string): string | undefined;
+    /**
+     * Check whether the specified draft tiddler has been modified
+     * @param title Title of the draft tiddler
+     */
+    isDraftModified(title: string): boolean;
+    /**
+     * Add a new tiddler to the story river
+     * @param title A title string or an array of title strings
+     * @param fromTitle The title of the tiddler from which the navigation originated
+     * @param storyTitle Title of story tiddler (defaults to $:/StoryList)
+     * @param options Additional options
+     * @deprecated Use story.addToStory() from the story object instead
+     */
+    addToStory(title: string | string[], fromTitle?: string, storyTitle?: string, options?: any): void;
+    /**
+     * Add a new record to the top of the history stack
+     * @param title A title string or an array of title strings
+     * @param fromPageRect Page coordinates of the origin of the navigation
+     * @param historyTitle Title of history tiddler (defaults to $:/HistoryList)
+     * @deprecated Use story.addToHistory() from the story object instead
+     */
+    addToHistory(title: string | string[], fromPageRect?: any, historyTitle?: string): void;
+    /**
+     * Generate a draft title for a given tiddler
+     * @param title Title of the tiddler to create a draft for
+     */
+    generateDraftTitle(title: string): string;
+    /**
+     * Convert a title to a URL-friendly slug
+     * @param title Title to slugify
+     * @param options Options (currently unused)
+     */
+    slugify(title: string, options?: any): string;
+    /**
+     * Invoke the available upgrader modules
+     * @param titles Array of tiddler titles to be processed
+     * @param tiddlers Hashmap by title of tiddler fields of pending import tiddlers
+     */
+    invokeUpgraders(titles: string[], tiddlers: Record<string, ITiddlerFields>): Record<string, string>;
+    /**
+     * Determine whether a plugin by title is dynamically loadable
+     * @param title Plugin title
+     */
+    doesPluginRequireReload(title: string): boolean;
+    /**
+     * Determine whether a plugin info structure is dynamically loadable
+     * @param pluginInfo Plugin info object
+     */
+    doesPluginInfoRequireReload(pluginInfo: any): boolean | null;
+    /**
+     * Execute an action string without an associated context widget
+     * @param actions Action string to execute
+     * @param event Event object
+     * @param variables Variables hashmap
+     * @param options Options including parentWidget
+     */
+    invokeActionString(actions: string, event?: any, variables?: Record<string, string>, options?: { parentWidget?: Widget }): void;
+    /**
+     * Read an array of browser File objects
+     * @param files Array of File objects
+     * @param options Options or callback function
+     */
+    readFiles(files: File[], options?: { callback?: (tiddlerFieldsArray: ITiddlerFields[]) => void } | ((tiddlerFieldsArray: ITiddlerFields[]) => void)): number;
+    /**
+     * Read a browser File object
+     * @param file File object
+     * @param options Options or callback function
+     */
+    readFile(file: File, options?: { callback?: (tiddlerFieldsArray: ITiddlerFields[]) => void; deserializer?: string } | ((tiddlerFieldsArray: ITiddlerFields[]) => void)): void;
+    /**
+     * Lower level utility to read the content of a browser File object
+     * @param file File object
+     * @param type MIME type
+     * @param isBinary Whether the file is binary
+     * @param deserializer Deserializer name
+     * @param callback Callback function
+     */
+    readFileContent(file: File, type: string, isBinary: boolean, deserializer: string | undefined, callback: (tiddlerFieldsArray: ITiddlerFields[]) => void): void;
+    /**
+     * Get substituted text with variable and filter replacements
+     * @param text Text to perform substitutions on
+     * @param widget Widget for context
+     * @param options Options including substitutions array
+     */
+    getSubstitutedText(text: string, widget: Widget, options?: { substitutions?: Array<{ name: string; value: string }> }): string;
+    /**
+     * Parse a text reference and get parser info
+     * @param title Title of tiddler
+     * @param field Field name
+     * @param index Index name
+     * @param options Options including subTiddler and defaultType
+     */
+    getTextReferenceParserInfo(title: string, field?: string, index?: string, options?: { subTiddler?: string; defaultType?: string }): { parserType: string | null; sourceText: string | null };
+    /**
+     * Parse a text reference
+     * @param title Title of tiddler
+     * @param field Field name
+     * @param index Index name
+     * @param options Parse options
+     */
+    parseTextReference(title: string, field?: string, index?: string, options?: IParseOptions): WikiParser | null;
+    /**
+     * Get the size of tiddler event queue
+     */
+    getSizeOfTiddlerEventQueue(): number;
+    /**
+     * Clear the tiddler event queue
+     */
+    clearTiddlerEventQueue(): void;
+    /**
+     * Enqueue a tiddler event (internal method)
+     * @param title Tiddler title
+     * @param isDeleted Whether the tiddler was deleted
+     * @param isShadow Whether this is a shadow tiddler change
+     */
+    enqueueTiddlerEvent(title: string, isDeleted?: boolean, isShadow?: boolean): void;
+    /**
+     * Initialize parsers (internal method)
+     * @param moduleType Module type
+     */
+    initParsers(moduleType?: string): void;
+    /**
+     * Add indexers to this wiki (internal method)
+     */
+    addIndexersToWiki(): void;
 
     removeEventListener(
       type: string,
