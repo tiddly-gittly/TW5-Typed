@@ -2,3 +2,4 @@ onlyBuiltDependencies:
   - core-js
   - core-js-pure
   - dprint
+  - unrs-resolver
