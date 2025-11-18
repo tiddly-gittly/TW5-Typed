@@ -18,7 +18,7 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/utils/filesystem.js' {
-  import type { Tiddler, Wiki, FileInfo } from 'tiddlywiki';
+  import type { FileInfo, Tiddler, Wiki } from 'tiddlywiki';
 
   /**
    * Return the subdirectories of a path

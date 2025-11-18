@@ -106,7 +106,7 @@ declare module 'tiddlywiki' {
     text?: string;
   }
 
-  interface IUtilsBoot {
+  interface IUtilitiesBoot {
     Crypto: typeof Crypto;
     PasswordPrompt: typeof PasswordPrompt;
 
@@ -458,5 +458,5 @@ declare module 'tiddlywiki' {
     transliterationPairs: Record<string, string>;
   }
 
-  export type IUtils = IUtilsBoot & IUtilsModules;
+  export type IUtils = IUtilitiesBoot & IUtilsModules;
 }

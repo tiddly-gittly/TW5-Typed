@@ -16,14 +16,18 @@ declare module 'tiddlywiki' {
     | 'text/html'
     | 'text/vnd.tiddlywiki'
     | 'text/plain';
-  export type ITiddlerFieldsParam = Omit<
-    Partial<ITiddlerFields>,
-    'created' | 'modified'
-  > & { created?: string; modified?: string };
-  export type ITiddlerJSONResult = Omit<
-    Partial<ITiddlerFieldsParam>,
-    'list' | 'tags'
-  > & { list?: string; tags?: string };
+  export type ITiddlerFieldsParam =
+    & Omit<
+      Partial<ITiddlerFields>,
+      'created' | 'modified'
+    >
+    & { created?: string; modified?: string };
+  export type ITiddlerJSONResult =
+    & Omit<
+      Partial<ITiddlerFieldsParam>,
+      'list' | 'tags'
+    >
+    & { list?: string; tags?: string };
   export class Wiki {
     /**
      * Wiki constructor. State is stored in private members that only a small number of privileged accessor methods have direct access. Methods added via the prototype have to use these accessors and cannot access the state data directly.
@@ -47,14 +51,14 @@ declare module 'tiddlywiki' {
     getTiddlersAsJson(filter: string, spaces?: string): string;
     /**
      * Get JSON string of tiddler. Note that this will make lists like tags/list to be string, instead of array. And result is a string, not an object.
-     * @param title 
+     * @param title
      * @returns a stringified JSON with type ITiddlerJSONResult. You will need to use `JSON.parse` on it.
      */
     getTiddlerAsJson(title: string): string;
     deleteTiddler(title: string): void;
     each(callback: (tiddler: Tiddler, title: string) => void): void;
     /**
-     * For every tiddler invoke a callback(title,tiddler) with `this` set to the wiki object. 
+     * For every tiddler invoke a callback(title,tiddler) with `this` set to the wiki object.
      * @param options Options include sortField, excludeTag, includeSystem
      * @param callback Function to be called for each tiddler
      */
@@ -126,20 +130,20 @@ declare module 'tiddlywiki' {
      * @param defaultText Default text to return if the reference is not found
      * @param currTiddlerTitle Current tiddler title for relative references
      */
-    getTextReference(textRef: string, defaultText?: string, currTiddlerTitle?: string): string | undefined;
+    getTextReference(textReference: string, defaultText?: string, currentTiddlerTitle?: string): string | undefined;
     /**
      * Set the value of a text reference
      * @param textRef The text reference string
      * @param value The value to set
      * @param currTiddlerTitle Current tiddler title for relative references
      */
-    setTextReference(textRef: string, value: string, currTiddlerTitle?: string): void;
+    setTextReference(textReference: string, value: string, currentTiddlerTitle?: string): void;
     /**
      * Delete a text reference
      * @param textRef The text reference string
      * @param currTiddlerTitle Current tiddler title for relative references
      */
-    deleteTextReference(textRef: string, currTiddlerTitle?: string): void;
+    deleteTextReference(textReference: string, currentTiddlerTitle?: string): void;
     /**
      * Count the number of tiddlers in the wiki
      * @param excludeTag Optional tag to exclude from the count
@@ -186,7 +190,6 @@ declare module 'tiddlywiki' {
       widget?: Widget,
     ) => string[];
     /**
-     *
      * @param filterString
      * @param widget an optional widget node for retrieving the current tiddler etc.
      * @param source an iterator function for the source tiddlers, called source(iterator), where iterator is called as iterator(tiddler,title)
@@ -324,7 +327,7 @@ declare module 'tiddlywiki' {
     deserializeTiddlers(
       type: string,
       text: string,
-      srcFields?: ITiddlerFieldsParam,
+      sourceFields?: ITiddlerFieldsParam,
       options?: IParseOptions,
     ): ITiddlerFieldsParam[];
     /**
@@ -570,7 +573,12 @@ declare module 'tiddlywiki' {
      * @param index Index name
      * @param options Options including subTiddler and defaultType
      */
-    getTextReferenceParserInfo(title: string, field?: string, index?: string, options?: { subTiddler?: string; defaultType?: string }): { parserType: string | null; sourceText: string | null };
+    getTextReferenceParserInfo(
+      title: string,
+      field?: string,
+      index?: string,
+      options?: { subTiddler?: string; defaultType?: string },
+    ): { parserType: string | null; sourceText: string | null };
     /**
      * Parse a text reference
      * @param title Title of tiddler
@@ -614,11 +622,11 @@ declare module 'tiddlywiki' {
       handler: (event: unknown) => void | Promise<void>,
     ): void;
     addEventListener(
-      type: "change",
+      type: 'change',
       handler: (change: IChangedTiddlers) => void | Promise<void>,
     ): void;
     addEventListener(
-      type: "lazyLoad",
+      type: 'lazyLoad',
       handler: (title: string) => void | Promise<void>,
     ): void;
 
@@ -627,11 +635,11 @@ declare module 'tiddlywiki' {
       dataOrEvent: unknown,
     ): void;
     dispatchEvent(
-      type: "change",
+      type: 'change',
       change: IChangedTiddlers,
     ): void;
     dispatchEvent(
-      type: "lazyLoad",
+      type: 'lazyLoad',
       title: string,
     ): void;
   }

@@ -1,7 +1,7 @@
 declare module 'tiddlywiki' {
   /**
    * # Usage
-   * 
+   *
    * ```ts
    * const yourFilter: IFilterOperator = (source,operator) => {
    * 	var results = [];
@@ -12,7 +12,7 @@ declare module 'tiddlywiki' {
    * 	return results;
    * }
    * ```
-   * 
+   *
    * # Overview
 
 Filter operators are modules (tiddlers of type `application/javascript`) with their `module-type` field set to `filteroperator`, exporting one or more functions implementing a filter.

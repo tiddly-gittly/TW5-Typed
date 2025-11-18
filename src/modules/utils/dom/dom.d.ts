@@ -201,10 +201,10 @@ declare module '$:/core/modules/utils/dom.js' {
    */
   export function copyToClipboard(
     text: string,
-    options?: { 
-      doNotNotify?: boolean,
-      successNotification?: string, // default is $:/language/Notifications/CopiedToClipboard/Succeeded
-      failureNotification?: string
+    options?: {
+      doNotNotify?: boolean;
+      successNotification?: string; // default is $:/language/Notifications/CopiedToClipboard/Succeeded
+      failureNotification?: string;
     },
   ): boolean;
 

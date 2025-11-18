@@ -96,7 +96,7 @@ declare module 'tiddlywiki' {
     */
     isAuthorized(
       authorizationType: 'readers' | 'writers',
-      username?: string | undefined,
+      username?: string,
     ): boolean;
     close(): void;
   }

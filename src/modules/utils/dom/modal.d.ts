@@ -1,4 +1,4 @@
-  /// <reference path="../../widgets/index.d.ts" />
+/// <reference path="../../widgets/index.d.ts" />
 /// <reference path="../../../wiki/index.d.ts" />
 
 declare module 'tiddlywiki' {
