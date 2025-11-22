@@ -2,7 +2,7 @@ declare module 'tiddlywiki' {
   /**
    * File information for saving a tiddler
    */
-  export interface FileInfo {
+  export interface IFileInfo {
     filepath: string;
     type: string;
     hasMetaFile: boolean;
@@ -15,7 +15,7 @@ declare module 'tiddlywiki' {
 }
 
 declare module '$:/core/modules/utils/filesystem.js' {
-  import type { FileInfo, Tiddler, Wiki } from 'tiddlywiki';
+  import type { IFileInfo, Tiddler, Wiki } from 'tiddlywiki';
 
   /**
    * Return the subdirectories of a path
@@ -114,11 +114,11 @@ declare module '$:/core/modules/utils/filesystem.js' {
     options: {
       directory: string;
       extFilters?: string[];
-      fileInfo?: FileInfo;
+      fileInfo?: IFileInfo;
       pathFilters?: string[];
       wiki?: Wiki;
     },
-  ): FileInfo;
+  ): IFileInfo;
 
   /**
    * Generate the file extension for saving a tiddler
@@ -153,7 +153,7 @@ declare module '$:/core/modules/utils/filesystem.js' {
       directory?: string;
       extension?: string;
       extFilters?: string[];
-      fileInfo?: FileInfo;
+      fileInfo?: IFileInfo;
       pathFilters?: string[];
       wiki?: Wiki;
     },
@@ -168,8 +168,8 @@ declare module '$:/core/modules/utils/filesystem.js' {
    */
   export function saveTiddlerToFile(
     tiddler: Tiddler,
-    fileInfo: FileInfo,
-    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+    fileInfo: IFileInfo,
+    callback: (error: Error | null, fileInfo?: IFileInfo) => void,
   ): void;
 
   /**
@@ -179,7 +179,7 @@ declare module '$:/core/modules/utils/filesystem.js' {
    * @returns The fileInfo object
    * @description 同步地将 tiddler 保存到由 fileInfo 描述的文件
    */
-  export function saveTiddlerToFileSync(tiddler: Tiddler, fileInfo: FileInfo): FileInfo;
+  export function saveTiddlerToFileSync(tiddler: Tiddler, fileInfo: IFileInfo): IFileInfo;
 
   /**
    * Delete a file described by the fileInfo if it exists
@@ -188,8 +188,8 @@ declare module '$:/core/modules/utils/filesystem.js' {
    * @description 删除由 fileInfo 描述的文件（如果存在）
    */
   export function deleteTiddlerFile(
-    fileInfo: FileInfo,
-    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+    fileInfo: IFileInfo,
+    callback: (error: Error | null, fileInfo?: IFileInfo) => void,
   ): void;
 
   /**
@@ -200,10 +200,10 @@ declare module '$:/core/modules/utils/filesystem.js' {
    */
   export function cleanupTiddlerFiles(
     options: {
-      adaptorInfo?: FileInfo;
-      bootInfo?: FileInfo;
+      adaptorInfo?: IFileInfo;
+      bootInfo?: IFileInfo;
       title?: string;
     },
-    callback: (error: Error | null, fileInfo?: FileInfo) => void,
+    callback: (error: Error | null, fileInfo?: IFileInfo) => void,
   ): void;
 }

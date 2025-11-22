@@ -5,10 +5,33 @@ declare module 'tiddlywiki' {
    */
   export interface SyncAdaptor {
     getTiddlerFileInfo(
-      title: string,
-      callback: (error: null, fileInfo: IFileInfo) => void,
+      tiddler: Tiddler,
+      callback: (error: Error | null | string, fileInfo: IFileInfo) => void,
     ): void;
-    getTiddlerInfo(title: string): IBootFilesIndexItem;
+    getTiddlerInfo(tiddler: Tiddler): IFileInfo | undefined;
+    /**
+     * Save a tiddler and invoke the callback with (err, adaptorInfo, revision)
+     */
+    saveTiddler(
+      tiddler: Tiddler,
+      callback: (error: Error | null | string, adaptorInfo?: IFileInfo | null, revision?: string) => void,
+      options?: { tiddlerInfo?: Record<string, unknown> },
+    ): void;
+    /**
+     * Load a tiddler and invoke the callback with (err, tiddlerFields)
+     */
+    loadTiddler(
+      title: string,
+      callback: (error: Error | null | string, tiddlerFields?: Record<string, unknown> | null) => void,
+    ): void;
+    /**
+     * Delete a tiddler and invoke the callback with (err)
+     */
+    deleteTiddler(
+      title: string,
+      callback: (error: Error | null | string, adaptorInfo?: IFileInfo | null) => void,
+      options?: unknown,
+    ): void;
     /**
      * Retrieves the titles of tiddlers that need to be updated from the server.
 

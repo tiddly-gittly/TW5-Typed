@@ -476,24 +476,24 @@ declare module 'tiddlywiki' {
         pathFilters?: string[];
         extFilters?: string[];
         wiki: Wiki;
-        fileInfo?: Partial<FileInfo>;
+        fileInfo?: Partial<IFileInfo>;
       },
-    ) => FileInfo;
+    ) => IFileInfo;
     /**
      * Save tiddler to file
      */
-    saveTiddlerToFile: (tiddler: Tiddler, fileInfo: FileInfo, callback?: (error: Error | null) => void) => void;
+    saveTiddlerToFile: (tiddler: Tiddler, fileInfo: IFileInfo, callback?: (error: Error | null) => void) => void;
     /**
      * Cleanup tiddler files (delete old files when tiddler is moved)
      */
     cleanupTiddlerFiles: (
-      fileInfo: FileInfo | Record<string, unknown>,
-      callback?: (error: Error | null, cleanedFileInfo?: FileInfo) => void,
+      fileInfo: IFileInfo | Record<string, unknown>,
+      callback?: (error: Error | null, cleanedFileInfo?: IFileInfo) => void,
     ) => void;
     /**
      * Delete tiddler file
      */
-    deleteTiddlerFile: (fileInfo: FileInfo, callback?: (error: Error | null, deletedFileInfo?: FileInfo) => void) => void;
+    deleteTiddlerFile: (fileInfo: IFileInfo, callback?: (error: Error | null, deletedFileInfo?: IFileInfo) => void) => void;
     /**
      * Format date string
      */
