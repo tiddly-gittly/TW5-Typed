@@ -1,5 +1,3 @@
-import { ITiddlyWiki } from 'tiddlywiki';
-
 export * from 'tiddlywiki';
 
 declare module 'tiddlywiki' {
@@ -8,5 +6,5 @@ declare module 'tiddlywiki' {
 }
 
 declare global {
-  export const $tw: ITiddlyWiki;
+  export const $tw: import('tiddlywiki').ITiddlyWiki;
 }

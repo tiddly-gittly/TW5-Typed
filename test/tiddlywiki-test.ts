@@ -1,3 +1,4 @@
+/// <reference types="../src" />
 import { Modal } from '$:/core/modules/utils/dom/modal.js';
 import { Logger } from '$:/core/modules/utils/logger.js';
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
