@@ -17,4 +17,10 @@ export default [
       },
     },
   },
+  {
+    files: ['src/index.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
 ];

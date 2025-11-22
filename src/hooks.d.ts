@@ -1,4 +1,6 @@
 declare module 'tiddlywiki' {
+  import type { Server as HttpServer } from 'node:http';
+
   interface ImportFileInfo {
     callback: (tiddlerFieldsArray: unknown[]) => void;
     file: { lastModified?: number; lastModifiedDate?: Date; name: string; path?: string; size: number; type: string; webkitRelativePath?: string };
@@ -12,10 +14,10 @@ declare module 'tiddlywiki' {
       hookName: 'th-server-command-post-start',
       callback: (
         server: unknown,
-        nodeServer: Server,
+        nodeServer: HttpServer,
         who: 'tiddlywiki',
       ) => void,
-    );
+    ): void;
     addHook(
       hookName: 'th-saving-tiddler' | 'th-renaming-tiddler' | 'th-relinking-tiddler',
       callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,

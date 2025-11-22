@@ -462,6 +462,42 @@ declare module 'tiddlywiki' {
      * Parse a filter variable
      */
     parseFilterVariable: (source: string) => unknown;
+    /**
+     * Create directory recursively
+     */
+    createDirectory: (directoryPath: string) => void;
+    /**
+     * Generate tiddler file info for saving
+     */
+    generateTiddlerFileInfo: (
+      tiddler: Tiddler,
+      options: {
+        directory: string;
+        pathFilters?: string[];
+        extFilters?: string[];
+        wiki: Wiki;
+        fileInfo?: Partial<FileInfo>;
+      },
+    ) => FileInfo;
+    /**
+     * Save tiddler to file
+     */
+    saveTiddlerToFile: (tiddler: Tiddler, fileInfo: FileInfo, callback?: (error: Error | null) => void) => void;
+    /**
+     * Cleanup tiddler files (delete old files when tiddler is moved)
+     */
+    cleanupTiddlerFiles: (
+      fileInfo: FileInfo | Record<string, unknown>,
+      callback?: (error: Error | null, cleanedFileInfo?: FileInfo) => void,
+    ) => void;
+    /**
+     * Delete tiddler file
+     */
+    deleteTiddlerFile: (fileInfo: FileInfo, callback?: (error: Error | null, deletedFileInfo?: FileInfo) => void) => void;
+    /**
+     * Format date string
+     */
+    formatDateString: (date: Date, template: string) => string;
   }
 
   export type IUtilities = IUtilitiesBoot;
