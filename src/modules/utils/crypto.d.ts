@@ -15,7 +15,7 @@ declare module '$:/core/modules/utils/crypto.js' {
   export function decryptStoreArea(
     encryptedStoreArea: string,
     password?: string,
-  ): any[] | null;
+  ): unknown[] | null;
 
   /**
    * Prompts the user for a password and attempts to decrypt an encrypted store area using the provided password.
@@ -26,7 +26,7 @@ declare module '$:/core/modules/utils/crypto.js' {
    */
   export function decryptStoreAreaInteractive(
     encryptedStoreArea: string,
-    callback: (tiddlers: any[]) => void,
+    callback: (tiddlers: unknown[]) => void,
     options?: { usePasswordVault?: boolean },
   ): void;
 }

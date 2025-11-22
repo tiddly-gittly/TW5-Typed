@@ -1,12 +1,3 @@
-/// <reference path="hooks.d.ts" />
-/// <reference path="boot/index.d.ts" />
-/// <reference path="wiki/index.d.ts" />
-/// <reference path="utils/index.d.ts" />
-/// <reference path="tiddler/index.d.ts" />
-/// <reference path="modules/index.d.ts" />
-/// <reference path="plugins/index.d.ts" />
-/// <reference path="modules/utils/dom/index.d.ts" />
-
 declare module 'tiddlywiki' {
   export interface IPluginInfo {
     [pluginProperty: string]: string;
@@ -23,9 +14,8 @@ declare module 'tiddlywiki' {
 
   export interface IMacro {
     name: string;
-    params: any[][];
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    run: Function;
+    params: unknown[][];
+    run: (...arguments_: unknown[]) => unknown;
   }
 
   export type IWikiInfo = Record<string, unknown>;
@@ -46,7 +36,7 @@ declare module 'tiddlywiki' {
      * Add another unload task
      * @param task - Function to be called on unload
      */
-    addUnloadTask(task: any): void;
+    addUnloadTask(task: () => void): void;
     boot: IBoot;
 
     browser: null | {
@@ -207,9 +197,9 @@ declare module 'tiddlywiki' {
     modules: IModules;
 
     /** NodeJS features, if tw isn't running on a NodeJS environment, the value will be `null` */
-    node: null | Record<string, any>;
+    node: null | Record<string, unknown>;
     /** Broswer features, if tw isn't running on a browser environment, the value will be `null` */
-    nodeWebKit: null | Record<string, any>;
+    nodeWebKit: null | Record<string, unknown>;
     notifier: Notifier;
     packageInfo: Record<string, unknown>;
     passwordPrompt: PasswordPrompt;
@@ -240,7 +230,7 @@ declare module 'tiddlywiki' {
      * Presents when we have $tw.syncadaptor
      */
     syncer?: Syncer;
-    utils: IUtils;
+    utils: IUtilities;
     version: string;
     wiki: Wiki;
   }

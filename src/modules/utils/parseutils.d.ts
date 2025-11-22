@@ -48,7 +48,7 @@ declare module '$:/core/modules/utils/parseutils.js' {
   /**
    * Process parameters for macro invocation.
    */
-  export function parseMacroParameters(node: any, source: string, pos: number): any;
+  export function parseMacroParameters(node: IParseTreeNode, source: string, pos: number): unknown[];
 
   /**
    * Look for a macro invocation parameter. Returns null if not found.
@@ -58,12 +58,12 @@ declare module '$:/core/modules/utils/parseutils.js' {
   /**
    * Look for a macro invocation. Returns null if not found.
    */
-  export function parseMacroInvocation(source: string, pos: number): { end: number; name: string; params: any[]; start: number; type: 'macrocall' } | null;
+  export function parseMacroInvocation(source: string, pos: number): { end: number; name: string; params: unknown[]; start: number; type: 'macrocall' } | null;
 
   /**
    * Look for a macro invocation as transclusion. Returns null if not found.
    */
-  export function parseMacroInvocationAsTransclusion(source: string, pos: number): { attributes: any; end: number; start: number; type: 'transclude' } | null;
+  export function parseMacroInvocationAsTransclusion(source: string, pos: number): { attributes: Record<string, unknown>; end: number; start: number; type: 'transclude' } | null;
 
   export interface FilterVariableParseTreeNode {
     name: string;

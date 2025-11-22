@@ -18,7 +18,7 @@ declare module 'tiddlywiki' {
     createElementNS: (namespace: string, tag: string) => TW_Element;
     createTextNode: (text: string) => TW_TextNode;
     isTiddlyWikiFakeDom: boolean;
-    setSequenceNumber: (value: any) => void;
+    setSequenceNumber: (value: number) => void;
   }
 }
 

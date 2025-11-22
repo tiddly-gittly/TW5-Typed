@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 declare module '$:/core/modules/utils/utils.js' {
   type TerminalColourName =
     | 'black'
@@ -170,7 +171,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns True if the array item is an object property, false otherwise.
    * @description 确定数组项是否为对象属性。
    */
-  export function hopArray(object: object, array: any[]): boolean;
+  export function hopArray(object: object, array: unknown[]): boolean;
 
   /**
    * Removes entries from an array.
@@ -209,7 +210,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The extended object.
    * @description 从一个或多个源中复制属性来扩展对象。
    */
-  export function extend(object: any, ...source: any[]): any;
+  export function extend<T = unknown>(object: T, ...source: unknown[]): T;
 
   /**
    * Deep copy an object.
@@ -217,7 +218,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The copied object.
    * @description 深拷贝对象。
    */
-  export function deepCopy(object: any): any;
+  export function deepCopy<T = unknown>(object: T): T;
 
   /**
    * Extend an object with properties from one or more sources, and deep copy the extended properties.
@@ -226,14 +227,14 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The extended object.
    * @description 从一个或多个源中复制属性来扩展对象，并深拷贝扩展的属性。
    */
-  export function extendDeepCopy(object: any, extendedProperties: any): any;
+  export function extendDeepCopy<T = unknown>(object: T, extendedProperties: unknown): T;
 
   /**
    * Recursively freeze an object and its properties.
    * @param object - The object to freeze.
    * @description 递归地冻结对象及其属性。
    */
-  export function deepFreeze(object: any): void;
+  export function deepFreeze(object: unknown): void;
 
   /**
    * A slow-in, slow-out easing function.
@@ -502,7 +503,7 @@ declare module '$:/core/modules/utils/utils.js' {
    * @returns The tiddler dictionary format sequence of name:value pairs.
    * @description 将 hashmap 转换为 tiddler 字典格式的 name:value 对序列。
    */
-  export function makeTiddlerDictionary(data: Record<string, any>): string;
+  export function makeTiddlerDictionary(data: Record<string, unknown>): string;
 
   /**
    * High resolution microsecond timer for profiling.
@@ -601,5 +602,5 @@ declare module '$:/core/modules/utils/utils.js' {
       invert?: boolean;
       isCaseSensitive?: boolean;
     },
-  ): (a: any, b: any) => number;
+  ): (a: string, b: string) => number;
 }

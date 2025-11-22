@@ -1,5 +1,3 @@
-/// <reference path="config.d.ts" />
-
 declare module 'tiddlywiki' {
   export interface IBootFilesIndexItem {
     filepath: string;

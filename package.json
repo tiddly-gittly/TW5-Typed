@@ -1,8 +1,8 @@
 {
   "name": "tw5-typed",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "scripts": {
-    "check": "tsc --noEmit && eslint src/**/*.ts",
+    "check": "tsc --noEmit && eslint src/**/*.ts test/**/*.ts",
     "docs": "docs-ts",
     "docs:build": "docusaurus build",
     "docs:dev": "docusaurus start",
@@ -10,7 +10,7 @@
     "docs:generate:api": "rimraf docs/api && typedoc --options typedoc.json",
     "docs:generate:copy": "zx scripts/copy-readme.mjs",
     "update": "npm-check-updates -u && dprint config update",
-    "prepublishOnly": "tsc --noEmit"
+    "prepublishOnly": "npm run check"
   },
   "description": "Types for tiddlywiki",
   "license": "MIT",

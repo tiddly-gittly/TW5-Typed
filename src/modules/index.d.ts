@@ -1,15 +1,3 @@
-/// <reference path="wiki.d.ts" />
-/// <reference path="story.d.ts" />
-/// <reference path="utils/index.d.ts" />
-/// <reference path="server/index.d.ts" />
-/// <reference path="parsers/index.d.ts" />
-/// <reference path="widgets/index.d.ts" />
-/// <reference path="indexers/index.d.ts" />
-/// <reference path="parsers/index.d.ts" />
-/// <reference path="syncer/syncAdaptor.d.ts" />
-/// <reference path="syncer/syncer.d.ts" />
-/// <reference path="keyboard.d.ts" />
-
 declare module 'tiddlywiki' {
   export interface ITWModuleExports {
     [exportName: string]: unknown;

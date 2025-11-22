@@ -69,13 +69,13 @@ declare module 'tiddlywiki' {
 
     requestHandler: ServerEndpointHandler;
 
-    variables: Record<string, any>;
+    variables: Record<string, unknown>;
 
     routes: IRoute[];
 
     constructor(options: IServerOptions);
     addRoute(route: IRoute): void;
-    get(variableName: string): any;
+    get(variableName: string): unknown;
     /**
       Listen for requests
       port: optional port number (falls back to value of "port" variable)

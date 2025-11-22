@@ -1,7 +1,6 @@
 declare module 'tiddlywiki' {
   interface ImportFileInfo {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    callback: Function;
+    callback: (tiddlerFieldsArray: unknown[]) => void;
     file: { lastModified?: number; lastModifiedDate?: Date; name: string; path?: string; size: number; type: string; webkitRelativePath?: string };
     isBinary: boolean;
     type: string;
@@ -18,23 +17,11 @@ declare module 'tiddlywiki' {
       ) => void,
     );
     addHook(
-      hookName: 'th-saving-tiddler',
+      hookName: 'th-saving-tiddler' | 'th-renaming-tiddler' | 'th-relinking-tiddler',
       callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
-      hookName: 'th-renaming-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
-    );
-    addHook(
-      hookName: 'th-relinking-tiddler',
-      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
-    );
-    addHook(
-      hookName: 'th-importing-tiddler',
-      callback: (tiddler: Tiddler) => Tiddler | undefined,
-    );
-    addHook(
-      hookName: 'th-before-importing',
+      hookName: 'th-importing-tiddler' | 'th-before-importing',
       callback: (tiddler: Tiddler) => Tiddler | undefined,
     );
     addHook(
@@ -52,26 +39,9 @@ declare module 'tiddlywiki' {
         widget: Widget,
       ) => parseTreeNodes,
     );
-    addHook(hookName: 'th-navigating', callback: (event: unknown) => unknown);
-    addHook(
-      hookName: 'th-closing-tiddler',
-      callback: (event: unknown) => unknown,
-    );
-    addHook(
-      hookName: 'th-editing-tiddler',
-      callback: (event: unknown) => unknown,
-    );
-    addHook(
-      hookName: 'th-cancelling-tiddler',
-      callback: (event: unknown) => unknown,
-    );
-    addHook(hookName: 'th-new-tiddler', callback: (event: unknown) => unknown);
+    addHook(hookName: 'th-navigating' | 'th-closing-tiddler' | 'th-editing-tiddler' | 'th-cancelling-tiddler' | 'th-new-tiddler', callback: (event: unknown) => unknown);
     addHook(hookName: 'th-deleting-tiddler', callback: (title: Tiddler) => void);
-    addHook(hookName: 'th-page-refreshed', callback: () => void);
-    addHook(hookName: 'th-boot-tiddlers-loaded', callback: () => void);
-    addHook(hookName: 'th-page-refreshed', callback: () => void);
-    addHook(hookName: 'th-page-refreshing', callback: () => void);
-    addHook(hookName: 'th-page-refreshed', callback: () => void);
+    addHook(hookName: 'th-page-refreshed' | 'th-boot-tiddlers-loaded' | 'th-page-refreshing', callback: () => void);
     addHook(
       hookName: 'th-importing-file',
       callback: (props: ImportFileInfo) => boolean | undefined,
@@ -81,7 +51,6 @@ declare module 'tiddlywiki' {
      * Invoke the hook by key
      */
     invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    names: Record<string, Function[]>;
+    names: Record<string, Array<(...arguments_: unknown[]) => unknown>>;
   }
 }

@@ -60,32 +60,32 @@ declare module '$:/core/modules/utils/linked-list.js' {
      * @description 创建链表的迭代器。
      */
     makeTiddlerIterator(
-      wiki: any,
-    ): (callback: (tiddler: any, title: string) => void) => void;
+      wiki: Wiki,
+    ): (callback: (tiddler: Tiddler, title: string) => void) => void;
   }
 
   class LLMap {
     /**
      * The map object.
      */
-    map: Record<string, any>;
+    map: Record<string, unknown>;
     /**
      * The null value of the map.
      */
-    null: any;
+    null: unknown;
     /**
      * Set a value in the map.
      * @param key - The key to set.
      * @param val - The value to set.
      * @description 在映射中设置值。
      */
-    set(key: string | null, value: any): void;
+    set(key: string | null, value: unknown): void;
     /**
      * Get a value from the map.
      * @param key - The key to get.
      * @returns The value of the key.
      * @description 从映射中获取值。
      */
-    get(key: string | null): any;
+    get(key: string | null): unknown;
   }
 }

@@ -68,7 +68,7 @@ declare module '$:/core/modules/utils/logger.js' {
      * @param args - The arguments to log.
      * @description 记录消息。
      */
-    log(...arguments_: any[]): void;
+    log(...arguments_: unknown[]): void;
     /**
      * Get the message buffer.
      * @returns The message buffer.
@@ -80,13 +80,13 @@ declare module '$:/core/modules/utils/logger.js' {
      * @param value - The value to log.
      * @description 将结构记录为表格。
      */
-    table(value: any): void;
+    table(value: unknown): void;
     /**
      * Alert a message.
      * @param args - The arguments to alert.
      * @description 警报消息。
      */
-    alert(...arguments_: any[]): void;
+    alert(...arguments_: unknown[]): void;
     /**
      * Clear outstanding alerts.
      * @description 清除未处理的警报。

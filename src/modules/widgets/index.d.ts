@@ -1,6 +1,3 @@
-/// <reference path="./navigator.d.ts" />
-/// <reference path="./edit.d.ts" />
-
 declare module 'tiddlywiki' {
   /**
    * Parameter of Widget.refresh
@@ -89,8 +86,10 @@ declare module 'tiddlywiki' {
 
     parentDomNode?: Element;
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    eventListeners: Record<string, Function>;
+    eventListeners: Record<
+      string,
+      Array<(event: IWidgetEvent) => undefined | Promise<void> | boolean>
+    >;
 
     /**
      * we can use $tw.rootWidget.widgetClasses.xxx to new a widget

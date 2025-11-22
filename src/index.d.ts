@@ -1,5 +1,3 @@
-/// <reference path="core.d.ts" />
-
 import { ITiddlyWiki } from 'tiddlywiki';
 
 export * from 'tiddlywiki';

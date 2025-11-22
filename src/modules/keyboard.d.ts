@@ -10,24 +10,24 @@ declare module 'tiddlywiki' {
 
   // 定义键盘管理器类的接口
   export interface KeyboardManager {
-    checkKeyDescriptor: (event: any, keyInfo: KeyInfo) => boolean;
-    checkKeyDescriptors: (event: any, keyInfoArray: KeyInfo[]) => boolean;
+    checkKeyDescriptor: (event: KeyboardEvent, keyInfo: KeyInfo) => boolean;
+    checkKeyDescriptors: (event: KeyboardEvent, keyInfoArray: KeyInfo[]) => boolean;
     detectNewShortcuts: (
-      changedTiddlers: Record<string, any>,
+      changedTiddlers: Record<string, unknown>,
     ) => boolean | string[];
-    getEventModifierKeyDescriptor: (event: any) => string;
+    getEventModifierKeyDescriptor: (event: KeyboardEvent) => string;
     getMatchingKeyDescriptor: (
-      event: any,
+      event: KeyboardEvent,
       keyInfoArray: KeyInfo[],
     ) => KeyInfo | null;
     getModifierKeys: () => number[];
     getPrintableShortcuts: (keyInfoArray: KeyInfo[]) => string[];
     getShortcutTiddlerList: () => string[];
     handleKeydownEvent: (
-      event: any,
+      event: KeyboardEvent,
       options?: { onlyPriority?: boolean },
     ) => boolean;
-    handleShortcutChanges: (changedTiddlers: Record<string, any>) => void;
+    handleShortcutChanges: (changedTiddlers: Record<string, unknown>) => void;
     keyNames: string[];
     lookupNames: string[];
     metaKeyName: string;
@@ -38,7 +38,7 @@ declare module 'tiddlywiki' {
     ) => KeyInfo | null;
     parseKeyDescriptors: (
       keyDescriptors: string[] | string,
-      options?: { stack?: string[]; wiki?: any },
+      options?: { stack?: string[]; wiki?: Wiki },
     ) => KeyInfo[];
     shortcutActionList: string[];
     shortcutKeysList: string[];

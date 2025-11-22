@@ -1,6 +1,3 @@
-/// <reference path="../../wiki/index.d.ts" />
-/// <reference path="../../tiddler/index.d.ts" />
-
 declare module 'tiddlywiki' {
   /**
    * File information for saving a tiddler

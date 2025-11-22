@@ -1,5 +1,3 @@
-/// <reference path="../modules/filters/index.d.ts" />>
-
 declare module 'tiddlywiki' {
   export interface IMakeWidgetOptions {
     document?: TWDocument;
@@ -16,7 +14,7 @@ declare module 'tiddlywiki' {
     | 'text/html'
     | 'text/vnd.tiddlywiki'
     | 'text/plain';
-  export type ITiddlerFieldsParam =
+  export type ITiddlerFieldsParameter =
     & Omit<
       Partial<ITiddlerFields>,
       'created' | 'modified'
@@ -24,7 +22,7 @@ declare module 'tiddlywiki' {
     & { created?: string; modified?: string };
   export type ITiddlerJSONResult =
     & Omit<
-      Partial<ITiddlerFieldsParam>,
+      Partial<ITiddlerFieldsParameter>,
       'list' | 'tags'
     >
     & { list?: string; tags?: string };
@@ -37,7 +35,7 @@ declare module 'tiddlywiki' {
      */
     constructor(options: { enableIndexers: unknown[] });
     addIndexer(indexer: unknown, name: string): void;
-    getTiddler<T extends Tiddler>(title: string): T | undefined;
+    getTiddler(title: string): Tiddler | undefined;
     /**
      * Get full list of tiddler titles in the wiki
      */
@@ -186,7 +184,7 @@ declare module 'tiddlywiki' {
     compileFilter(
       filterString: string,
     ): (
-      source?: (iterator: SourceIterator) => void | string[] | Record<string, unknown>,
+      source?: ((iterator: SourceIterator) => void) | string[] | Record<string, unknown>,
       widget?: Widget,
     ) => string[];
     /**
@@ -222,21 +220,21 @@ declare module 'tiddlywiki' {
     setTiddlerData(
       title: string,
       data?: object,
-      fields?: ITiddlerFieldsParam,
-      options?: any,
+      fields?: ITiddlerFieldsParameter,
+      options?: { suppressTimestamp?: boolean },
     ): void;
     /**
      * Create or update tiddler.
      * Update existed tiddler based on the title field.
      */
     addTiddler(
-      tiddler: Tiddler | Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>,
+      tiddler: Tiddler | Partial<ITiddlerFieldsParameter> | Partial<ITiddlerFields>,
     ): void;
     /**
      * Call `addTiddler` for each iton of the list, but should passing `tiddler.fields`, directly passing tiddler object may failed to add in some cases.
      */
     addTiddlers(
-      tiddler: Array<Partial<ITiddlerFieldsParam> | Partial<ITiddlerFields>>,
+      tiddler: Array<Partial<ITiddlerFieldsParameter> | Partial<ITiddlerFields>>,
     ): void;
     /**
      * Get tiddler's text field, with an optional default text.
@@ -260,7 +258,7 @@ declare module 'tiddlywiki' {
 
       Alternative, uncached version of getTiddlerDataCached(). The return value can be mutated freely and reused
     */
-    getTiddlerData<D extends Record<any, unknown> | any[] | undefined>(
+    getTiddlerData<D extends Record<string, unknown> | unknown[] | undefined>(
       titleOrTiddler: string | Tiddler,
       fallbackData?: D,
     ): D;
@@ -327,9 +325,9 @@ declare module 'tiddlywiki' {
     deserializeTiddlers(
       type: string,
       text: string,
-      sourceFields?: ITiddlerFieldsParam,
+      sourceFields?: ITiddlerFieldsParameter,
       options?: IParseOptions,
-    ): ITiddlerFieldsParam[];
+    ): ITiddlerFieldsParameter[];
     /**
       Parse text from a tiddler and render it into another format
         outputType: content type for the output
@@ -355,7 +353,7 @@ declare module 'tiddlywiki' {
     */
     renderText(
       outputType: OutputMimeTypes,
-      textType: TextMimeTypes | string,
+      textType: string,
       text: string,
       options?: Partial<IMakeWidgetOptions> & IParseOptions,
     ): string;
@@ -494,7 +492,7 @@ declare module 'tiddlywiki' {
      * @param options Additional options
      * @deprecated Use story.addToStory() from the story object instead
      */
-    addToStory(title: string | string[], fromTitle?: string, storyTitle?: string, options?: any): void;
+    addToStory(title: string | string[], fromTitle?: string, storyTitle?: string, options?: { openLinkFromInsideRiver?: boolean; openLinkFromOutsideRiver?: boolean }): void;
     /**
      * Add a new record to the top of the history stack
      * @param title A title string or an array of title strings
@@ -502,7 +500,7 @@ declare module 'tiddlywiki' {
      * @param historyTitle Title of history tiddler (defaults to $:/HistoryList)
      * @deprecated Use story.addToHistory() from the story object instead
      */
-    addToHistory(title: string | string[], fromPageRect?: any, historyTitle?: string): void;
+    addToHistory(title: string | string[], fromPageRect?: unknown, historyTitle?: string): void;
     /**
      * Generate a draft title for a given tiddler
      * @param title Title of the tiddler to create a draft for
@@ -513,7 +511,7 @@ declare module 'tiddlywiki' {
      * @param title Title to slugify
      * @param options Options (currently unused)
      */
-    slugify(title: string, options?: any): string;
+    slugify(title: string, options?: { separator?: string }): string;
     /**
      * Invoke the available upgrader modules
      * @param titles Array of tiddler titles to be processed
@@ -529,7 +527,7 @@ declare module 'tiddlywiki' {
      * Determine whether a plugin info structure is dynamically loadable
      * @param pluginInfo Plugin info object
      */
-    doesPluginInfoRequireReload(pluginInfo: any): boolean | null;
+    doesPluginInfoRequireReload(pluginInfo: IPluginInfo): boolean | null;
     /**
      * Execute an action string without an associated context widget
      * @param actions Action string to execute
@@ -537,7 +535,7 @@ declare module 'tiddlywiki' {
      * @param variables Variables hashmap
      * @param options Options including parentWidget
      */
-    invokeActionString(actions: string, event?: any, variables?: Record<string, string>, options?: { parentWidget?: Widget }): void;
+    invokeActionString(actions: string, event?: IWidgetEvent | null, variables?: Record<string, string>, options?: { parentWidget?: Widget }): void;
     /**
      * Read an array of browser File objects
      * @param files Array of File objects
@@ -614,7 +612,7 @@ declare module 'tiddlywiki' {
 
     removeEventListener(
       type: string,
-      handler: (event: any) => void | Promise<void>,
+      handler: (event: unknown) => void | Promise<void>,
     ): void;
 
     addEventListener(

@@ -22,7 +22,7 @@ declare module '$:/core/modules/utils/csv.js' {
   export function parseCsvString(
     text: string,
     options?: { separator?: string },
-  ): any[][];
+  ): unknown[][];
 
   /**
    * Parse a CSV string with a header row and return an array of objects.

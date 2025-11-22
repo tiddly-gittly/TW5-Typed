@@ -1,17 +1,3 @@
-/// <reference path="utils.d.ts" />
-/// <reference path="fakedom.d.ts" />
-/// <reference path="filesystem.d.ts" />
-/// <reference path="linked-list.d.ts" />
-/// <reference path="performance.d.ts" />
-/// <reference path="logger.d.ts" />
-/// <reference path="parsetree.d.ts" />
-/// <reference path="pluginmaker.d.ts" />
-/// <reference path="transliterate.d.ts" />
-/// <reference path="crypto.d.ts" />
-/// <reference path="csv.d.ts" />
-/// <reference path="edition-info.d.ts" />
-/// <reference path="escapecss.d.ts" />
-
 declare module 'tiddlywiki' {
   // Thanks for GitHub Copilot, you has helped me a lot!
   import * as dom from '$:/core/modules/utils/dom.js';

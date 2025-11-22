@@ -1,13 +1,11 @@
-/// <reference path="Crypto.d.ts" />
-/// <reference path="PasswordPrompt.d.ts" />
-
+import type { Logger } from '$:/core/modules/utils/logger.js';
 import { Spread } from 'type-fest';
 
 declare module 'tiddlywiki' {
   export type TWDocument = Document | IFakeDocument;
   export type TWElement = Element;
   export type TWDOMElement = TWElement;
-  export type ITWUtils = IUtils;
+  export type ITWUtilities = IUtilities;
 
   export interface IDomMakerOptions {
     /**
@@ -193,7 +191,7 @@ declare module 'tiddlywiki' {
      */
     each: <T, K = T extends unknown[] ? number : keyof T>(
       object: T,
-      callback: (element: T[K], index: K, object: T) => undefined | false | void,
+      callback: (element: T[K], index: K, object: T) => false | undefined,
     ) => void;
 
     /**
@@ -456,7 +454,15 @@ declare module 'tiddlywiki' {
      * (Some pairs taken from http://semplicewebsites.com/ removing-accents-javascript)
      */
     transliterationPairs: Record<string, string>;
+    /**
+     * Logger class constructor
+     */
+    Logger: typeof Logger;
+    /**
+     * Parse a filter variable
+     */
+    parseFilterVariable: (source: string) => unknown;
   }
 
-  export type IUtils = IUtilitiesBoot & IUtilsModules;
+  export type IUtilities = IUtilitiesBoot;
 }

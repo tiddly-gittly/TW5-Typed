@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/// <reference path="./logger.d.ts" />
 import { Logger } from '$:/core/modules/utils/logger.js';
 
 declare module '$:/core/modules/utils/performance.js' {
@@ -28,13 +26,13 @@ declare module '$:/core/modules/utils/performance.js' {
      */
     showGreeting(): void;
     /**
-     * Wraps performance reporting around a top level function.
+     * Wraps performance reporting around top level functions.
      * @param name - The name of the function being wrapped.
      * @param fn - The function to wrap.
      * @returns The wrapped function.
      * @description 在顶层函数周围包装性能报告。
      */
-    report(name: string, function_: Function): Function;
+    report<T extends (...arguments_: unknown[]) => unknown>(name: string, function_: T): T;
     /**
      * Logs performance measurements.
      * @description 记录性能测量。
@@ -47,6 +45,6 @@ declare module '$:/core/modules/utils/performance.js' {
      * @returns The wrapped function.
      * @description 在子函数周围包装性能测量。
      */
-    measure(name: string, function_: Function): Function;
+    measure<T extends (...arguments_: unknown[]) => unknown>(name: string, function_: T): T;
   }
 }

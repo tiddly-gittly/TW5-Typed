@@ -13,7 +13,7 @@ declare module 'tiddlywiki' {
   export type ITWConfig = IConfig;
 
   export interface IConfig {
-    [configName: string]: any;
+    [configName: string]: unknown;
     /** Map type to file content type */
     contentTypeInfo: Record<string, IContentTypeInfo>;
     /** @default 'TIDDLYWIKI_EDITION_PATH' */
@@ -58,7 +58,7 @@ declare module 'tiddlywiki' {
     build: ITiddlyWikiInfoJSONBuild;
     config: ITiddlyWikiInfoJSONConfig;
     description: string;
-    languages: any[];
+    languages: unknown[];
     plugins: string[];
     themes: string[];
   }

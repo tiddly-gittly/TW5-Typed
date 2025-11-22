@@ -13,9 +13,9 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @description 向解析树节点添加属性。
    */
   export function addAttributeToParseTreeNode(
-    node: any,
+    node: IParseTreeNode,
     name: string | object,
-    value?: any,
+    value?: unknown,
   ): void;
 
   /**
@@ -24,7 +24,7 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @returns The ordered attributes.
    * @description 从解析树节点获取有序属性。
    */
-  export function getOrderedAttributesFromParseTreeNode(node: any): any[];
+  export function getOrderedAttributesFromParseTreeNode(node: IParseTreeNode): unknown[];
 
   /**
    * Get attribute value from parse tree node.
@@ -35,10 +35,10 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @description 从解析树节点获取属性值。
    */
   export function getAttributeValueFromParseTreeNode(
-    node: any,
+    node: IParseTreeNode,
     name: string,
-    defaultValue?: any,
-  ): any;
+    defaultValue?: unknown,
+  ): unknown;
 
   /**
    * Add class to parse tree node.
@@ -46,7 +46,7 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @param classString - The class string to add.
    * @description 向解析树节点添加类。
    */
-  export function addClassToParseTreeNode(node: any, classString: string): void;
+  export function addClassToParseTreeNode(node: IParseTreeNode, classString: string): void;
 
   /**
    * Add style to parse tree node.
@@ -56,7 +56,7 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @description 向解析树节点添加样式。
    */
   export function addStyleToParseTreeNode(
-    node: any,
+    node: IParseTreeNode,
     name: string,
     value: string,
   ): void;
@@ -69,9 +69,9 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @description 查找解析树节点。
    */
   export function findParseTreeNode(
-    nodeArray: any[],
+    nodeArray: IParseTreeNode[],
     search: { tag: string; type: string },
-  ): any;
+  ): IParseTreeNode | undefined;
 
   /**
    * Get the text of a parse tree node or array of nodes.
@@ -79,7 +79,7 @@ declare module '$:/core/modules/utils/parsetree.js' {
    * @returns The text of the parse tree node or array of nodes.
    * @description 获取解析树节点或节点数组的文本。
    */
-  export function getParseTreeText(tree: any): string;
+  export function getParseTreeText(tree: IParseTreeNode | IParseTreeNode[]): string;
   /**
    * Serialize parse tree.
    * @param tree - The parse tree node or array of nodes.
