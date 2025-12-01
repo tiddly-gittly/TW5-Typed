@@ -459,6 +459,20 @@ declare module 'tiddlywiki' {
     /**
      * Return a hashmap of tiddler titles that are referenced but not defined
      */
+    /**
+     * Return a hashmap of the fields that should be set when a tiddler is created
+     */
+    getCreationFields(): { created?: Date; creator?: string };
+    /**
+     * Return a hashmap of the fields that should be set when a tiddler is modified.
+     * This is used for generating `modified` field when modify tiddler using actions like `action-setmultiplefields`
+     */
+    getModificationFields(): { modified?: Date; modifier?: string };
+    /**
+     * Retrieves a list of the tiddler titles that are tagged with a given tag
+     */
+    getTiddlersWithTag(tag: string): string[];
+
     getMissingTitles(): string[];
     /**
      * Return an array of tiddler titles that are not linked from any other tiddler
