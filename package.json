@@ -1,6 +1,6 @@
 {
   "name": "tw5-typed",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "scripts": {
     "check": "tsc --noEmit && eslint src/**/*.ts test/**/*.ts",
     "docs": "docs-ts",

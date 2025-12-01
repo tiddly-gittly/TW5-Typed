@@ -30,7 +30,7 @@ export class ReactWidget extends Widget {
     const _textReference = $tw.wiki.getTextReference('MyTiddler!!field', 'default');
     $tw.wiki.setTextReference('MyTiddler!!field', 'value');
     const _count = $tw.wiki.countTiddlers('$:/tags/Exclude');
-    const _tagged = $tw.wiki.getTiddlersWithTag("$:/tags/KeyboardShortcut");
+    const _tagged = $tw.wiki.getTiddlersWithTag('$:/tags/KeyboardShortcut');
 
     const _parsed = $tw.utils.parseStringArray('value value2 value3');
 
