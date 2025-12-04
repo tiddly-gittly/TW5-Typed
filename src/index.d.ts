@@ -1,6 +1,5 @@
 /// <reference path="./boot/config.d.ts" />
 /// <reference path="./boot/index.d.ts" />
-/// <reference path="./core.d.ts" />
 /// <reference path="./hooks.d.ts" />
 /// <reference path="./tiddler/index.d.ts" />
 /// <reference path="./utils/Crypto.d.ts" />
