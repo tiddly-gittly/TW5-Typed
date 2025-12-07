@@ -500,5 +500,5 @@ declare module 'tiddlywiki' {
     formatDateString: (date: Date, template: string) => string;
   }
 
-  export type IUtilities = IUtilitiesBoot;
+  export type IUtilities = IUtilitiesBoot & IUtilitiesModules;
 }
