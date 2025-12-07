@@ -1,6 +1,5 @@
-import { Logger } from '$:/core/modules/utils/logger.js';
-
 declare module '$:/core/modules/utils/performance.js' {
+  import { Logger } from '$:/core/modules/utils/logger.js';
   /**
    * A performance measurement utility.
    * @param enabled - Whether performance measurements are enabled.

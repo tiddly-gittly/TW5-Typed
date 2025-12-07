@@ -1,7 +1,6 @@
-import type { Logger } from '$:/core/modules/utils/logger.js';
-import { Spread } from 'type-fest';
-
 declare module 'tiddlywiki' {
+  import type { Logger } from '$:/core/modules/utils/logger.js';
+  import { Spread } from 'type-fest';
   export type TWDocument = Document | IFakeDocument;
   export type TWElement = Element;
   export type TWDOMElement = TWElement;
@@ -500,5 +499,6 @@ declare module 'tiddlywiki' {
     formatDateString: (date: Date, template: string) => string;
   }
 
+  import type { IUtilitiesModules } from 'tiddlywiki';
   export type IUtilities = IUtilitiesBoot & IUtilitiesModules;
 }

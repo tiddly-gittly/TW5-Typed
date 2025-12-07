@@ -16,7 +16,7 @@ declare module 'tiddlywiki' {
   import * as editionInfo from '$:/core/modules/utils/edition-info.js';
   import * as escapecss from '$:/core/modules/utils/escapecss.js';
 
-  type IUtilitiesModules =
+  export type IUtilitiesModules =
     & Pick<typeof dom, keyof typeof dom>
     & Pick<typeof logger, keyof typeof logger>
     & Pick<typeof filesystem, keyof typeof filesystem>

@@ -1,6 +1,5 @@
-import type Http from 'http';
-
 declare module 'tiddlywiki' {
+  import type Http from 'http';
   export interface IServerStatus {
     anonymous: boolean;
     read_only: boolean;
