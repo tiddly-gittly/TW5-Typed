@@ -58,6 +58,15 @@ You can add new `*.d.ts` file to contain your types:
 - add type import like `/// <reference path="parser.d.ts" />`
 - using normal import, like `import { parse } from './parser';` will not work
 
+Could import from `"tiddlywiki"` inside `declare module` like
+
+```ts
+declare module '$:/core/modules/utils/parsetree.js' {
+  import { IParseTreeNode } from 'tiddlywiki';
+```
+
+Import outside of `declare module` will cause error.
+
 ### Test in your node_modules
 
 To rapid prototype the type, just right click a type to open `.d.ts` file in the `node_modules`, and try create new file there, and copy to this repo after a success.

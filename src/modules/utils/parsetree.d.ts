@@ -1,10 +1,9 @@
-import { IParseTreeNode } from 'tiddlywiki';
-
 /**
  * A utility module for working with parse trees.
  * @description 用于处理解析树的实用程序模块。
  */
 declare module '$:/core/modules/utils/parsetree.js' {
+  import { IParseTreeNode } from 'tiddlywiki';
   /**
    * Add attribute to parse tree node.
    * @param node - The parse tree node.
