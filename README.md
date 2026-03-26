@@ -9,7 +9,7 @@ TypeScript type definitions for TiddlyWiki5.
 First, install it as dev-dependency:
 
 ```sh
-npm i -D tw5-typed
+pnpm add -D tw5-typed
 ```
 
 Add `tw5-typed` to your `tsconfig.json`'s `compilerOptions`
@@ -27,6 +27,40 @@ Then you will have global types like `$tw` automatically. You can import the res
 ```typescript
 import type { ISearchOptions, SourceIterator, IFilterOperatorParamOperator } from 'tiddlywiki';
 ```
+
+If your project already has an ambient declaration file such as `src/global.d.ts` or `src/ambient.d.ts`, add this line there as well:
+
+```typescript
+/// <reference types="tw5-typed" />
+```
+
+That extra reference helps VS Code pick the package up reliably in template-based projects.
+
+## Troubleshooting
+
+If VS Code shows `Could not find a declaration file for module 'tiddlywiki'`, the usual cause is configuration, not missing types.
+
+Use this:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["node", "tw5-typed"]
+  }
+}
+```
+
+Do not use this:
+
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "node_modules/tw5-typed"]
+  }
+}
+```
+
+`tw5-typed` is a normal package with its own `types` entrypoint. Pointing `typeRoots` at the package directory can prevent TypeScript or VS Code from loading the `declare module 'tiddlywiki'` entry correctly.
 
 ### Alias
 
