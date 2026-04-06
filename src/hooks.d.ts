@@ -8,6 +8,26 @@ declare module 'tiddlywiki' {
     type: string;
   }
 
+  interface NavigatingInfo {
+    navigateTo: string;
+    navigateFromTitle: string;
+    navigateFromClientRect: {
+      bottom: number;
+      height: number;
+      left: number;
+      right: number;
+      top: number;
+      width: number;
+    };
+    navigateFromClientTop: number;
+    navigateFromClientLeft: number;
+    navigateFromClientWidth: number;
+    navigateFromClientRight: number;
+    navigateFromClientBottom: number;
+    navigateFromClientHeight: number;
+    navigateSuppressNavigation: boolean;
+  }
+
   interface IHooks {
     /** Add hooks to the hashmap */
     addHook(
@@ -41,7 +61,13 @@ declare module 'tiddlywiki' {
         widget: Widget,
       ) => parseTreeNodes,
     );
-    addHook(hookName: 'th-navigating' | 'th-closing-tiddler' | 'th-editing-tiddler' | 'th-cancelling-tiddler' | 'th-new-tiddler', callback: (event: unknown) => unknown);
+    addHook(
+      hookName: 'th-navigating',
+      callback: (
+        event: NavigatingInfo & IWidgetEvent,
+      ) => NavigatingInfo & IWidgetEvent,
+    ): void;
+    addHook(hookName: 'th-closing-tiddler' | 'th-editing-tiddler' | 'th-cancelling-tiddler' | 'th-new-tiddler', callback: (event: unknown) => unknown);
     addHook(hookName: 'th-deleting-tiddler', callback: (title: Tiddler) => void);
     addHook(hookName: 'th-page-refreshed' | 'th-boot-tiddlers-loaded' | 'th-page-refreshing', callback: () => void);
     addHook(
