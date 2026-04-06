@@ -79,6 +79,54 @@ declare module 'tiddlywiki' {
      * Invoke the hook by key
      */
     invokeHook(hookName: string, event: IWidgetEvent): undefined | IWidgetEvent;
+    /**
+     * Remove hooks
+     */
+    removeHook(
+      hookName: 'th-server-command-post-start',
+      callback: (
+        server: unknown,
+        nodeServer: HttpServer,
+        who: 'tiddlywiki',
+      ) => void,
+    ): void;
+    removeHook(
+      hookName: 'th-saving-tiddler' | 'th-renaming-tiddler' | 'th-relinking-tiddler',
+      callback: (toTiddler: Tiddler, fromTiddler: Tiddler) => Tiddler | undefined,
+    );
+    removeHook(
+      hookName: 'th-importing-tiddler' | 'th-before-importing',
+      callback: (tiddler: Tiddler) => Tiddler | undefined,
+    );
+    removeHook(
+      hookName: 'th-opening-default-tiddlers-list',
+      callback: (storyList: string[]) => string[],
+    );
+    removeHook(
+      hookName: 'th-make-tiddler-path',
+      callback: (fullPath: string, fullPath: string) => string,
+    );
+    removeHook(
+      hookName: 'th-rendering-element',
+      callback: (
+        parseTreeNodes: IParseTreeNode | null,
+        widget: Widget,
+      ) => parseTreeNodes,
+    );
+    removeHook(
+      hookName: 'th-navigating',
+      callback: (
+        event: NavigatingInfo & IWidgetEvent,
+      ) => NavigatingInfo & IWidgetEvent,
+    ): void;
+    removeHook(hookName: 'th-closing-tiddler' | 'th-editing-tiddler' | 'th-cancelling-tiddler' | 'th-new-tiddler', callback: (event: unknown) => unknown);
+    removeHook(hookName: 'th-deleting-tiddler', callback: (title: Tiddler) => void);
+    removeHook(hookName: 'th-page-refreshed' | 'th-boot-tiddlers-loaded' | 'th-page-refreshing', callback: () => void);
+    removeHook(
+      hookName: 'th-importing-file',
+      callback: (props: ImportFileInfo) => boolean | undefined,
+    );
+    removeHook(hookName: string, callback: (...arguments_: unknown[]) => unknown);
     names: Record<string, Array<(...arguments_: unknown[]) => unknown>>;
   }
 }
