@@ -10,6 +10,6 @@
     "rootDir": ".",
   },
   "readme": "none",
-  "entryDocument": "API.md",
+  "entryFileName": "API.md",
   "plugin": ["typedoc-plugin-markdown"]
 }
