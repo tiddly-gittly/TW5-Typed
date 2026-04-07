@@ -120,10 +120,10 @@ declare module 'tiddlywiki' {
     getTiddlerList(title: string, field?: string, index?: string): string[];
     /**
      * Get the value of a text reference. Text references can have any of these forms:
-      * - `tiddlertitle`
-      * - `tiddlertitle!!fieldname`
-      * - `!!fieldname` - specifies a field of the current tiddlers
-      * - `tiddlertitle##index`
+     * - `tiddlertitle`
+     * - `tiddlertitle!!fieldname`
+     * - `!!fieldname` - specifies a field of the current tiddlers
+     * - `tiddlertitle##index`
      * @param textRef The text reference string
      * @param defaultText Default text to return if the reference is not found
      * @param currTiddlerTitle Current tiddler title for relative references
